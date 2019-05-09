@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace tunit_gui {
@@ -11,8 +12,18 @@ namespace tunit_gui {
       this.openToolStripMenuItem.Click += this.OnOpenClick;
       this.newToolStripMenuItem.Click += this.OnNewToolStripMenuItemClick;
       this.closeToolStripMenuItem.Click += this.OnCloseToolStripMenuItemClick;
-      this.saveToolStripMenuItem.Click += this.OnSaveToolStripMenuItemClick;
+      this.saveToolStripMenuItem.Click += this.OnSaveClick;
       this.exitToolStripMenuItem.Click += this.OnCloseClick;
+      this.addTUnitFileToolStripMenuItem.Click += this.OnAddTUnitFileClick;
+    }
+
+    private void OnAddTUnitFileClick(object sender, EventArgs e) {
+      OpenFileDialog openFileDialog = new OpenFileDialog();
+      openFileDialog.Filter = "TUnit Application Files (*.exe)|*.exe|All Files (*.*)|*.*";
+      DialogResult result = openFileDialog.ShowDialog();
+      if (result == DialogResult.OK) {
+        this.currentProject.Files = this.currentProject.Files.Append(openFileDialog.FileName).ToArray(); ;
+      }
     }
 
     private void OnCloseClick(object sender, EventArgs e) {
@@ -36,28 +47,33 @@ namespace tunit_gui {
 
     private void OnCloseToolStripMenuItemClick(object sender, EventArgs e) {
       if (this.currentProject != null) {
-        if (this.currentProject.Saved)
+        if (this.currentProject.Saved) {
           this.currentProject = null;
+          this.currentFileBName = null;
+        }
         else {
           DialogResult result = MessageBox.Show("Save current project before closing ?", "Save project", MessageBoxButtons.YesNoCancel);
           if (result == DialogResult.Yes) {
-            OnSaveToolStripMenuItemClick(sender, e);
-            if (this.currentProject.Saved) this.currentProject = null;
+            OnSaveClick(sender, e);
+            if (this.currentProject.Saved) {
+              this.currentProject = null;
+              this.currentFileBName = null;
+            }
           }
           if (result == DialogResult.No) this.currentProject = null;
         }
       }
     }
 
-    private void OnSaveToolStripMenuItemClick(object sender, EventArgs e) {
-      if (this.currentFileBName == null) {
+    private void OnSaveClick(object sender, EventArgs e) {
+      if (string.IsNullOrEmpty(this.currentFileBName)) {
         SaveFileDialog saveFileDialog = new SaveFileDialog();
         saveFileDialog.FileName = $"{this.currentProject.Name}.tunit";
         DialogResult result = saveFileDialog.ShowDialog();
         if (result == DialogResult.OK) this.currentFileBName = saveFileDialog.FileName;
       }
 
-      if (this.currentFileBName != null)
+      if (!string.IsNullOrEmpty(this.currentFileBName))
         TUnitProject.Write(this.currentFileBName, this.currentProject);
     }
 

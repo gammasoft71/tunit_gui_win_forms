@@ -49,11 +49,11 @@ namespace tunit_gui {
       System.IO.StreamReader sr = new System.IO.StreamReader(stream);
       TUnitProject tunitProject = new TUnitProject();
       while (!sr.EndOfStream) {
-        string[] keyValue = sr.ReadLine().Split('=');
+        string[] keyValue = sr.ReadLine().Split(new char[] { '=' });
         switch (keyValue[0]) {
           case "Description": tunitProject.Description = keyValue[1]; break;
           case "Name": tunitProject.Name = keyValue[1]; break;
-          case "Files": tunitProject.Files = keyValue[1].Split(System.IO.Path.PathSeparator); break;
+          case "Files": tunitProject.Files = keyValue[1].Split(new char[] { System.IO.Path.PathSeparator }, StringSplitOptions.RemoveEmptyEntries); break;
           default: throw new System.ArgumentException();
         }
       }
