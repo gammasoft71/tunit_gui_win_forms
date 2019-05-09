@@ -65,17 +65,6 @@
       this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripSeparator();
       this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.testsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.tUnitHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
-      this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.runAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.runSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.runFailedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
-      this.stopRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.fullGUIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.miniGUIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
@@ -86,6 +75,26 @@
       this.testOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
       this.statusBarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.testsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.runAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.runSelectedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.runFailedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
+      this.stopRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.tUnitHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+      this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.addTUnitFileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.tUnitPrpertyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
+      this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
+      this.toolStripStatusLabel3 = new System.Windows.Forms.ToolStripStatusLabel();
+      this.toolStripStatusLabel4 = new System.Windows.Forms.ToolStripStatusLabel();
+      this.toolStripStatusLabel5 = new System.Windows.Forms.ToolStripStatusLabel();
+      this.toolStripStatusLabel6 = new System.Windows.Forms.ToolStripStatusLabel();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
       this.splitContainerMain.Panel1.SuspendLayout();
       this.splitContainerMain.Panel2.SuspendLayout();
@@ -97,6 +106,7 @@
       this.tabPageErrorsAndFailures.SuspendLayout();
       this.tabPageTestsNotRun.SuspendLayout();
       this.tabPageTextOutput.SuspendLayout();
+      this.statusStrip1.SuspendLayout();
       this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
@@ -333,9 +343,16 @@
       // 
       // statusStrip1
       // 
-      this.statusStrip1.Location = new System.Drawing.Point(0, 428);
+      this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripStatusLabel1,
+            this.toolStripStatusLabel2,
+            this.toolStripStatusLabel3,
+            this.toolStripStatusLabel4,
+            this.toolStripStatusLabel5,
+            this.toolStripStatusLabel6});
+      this.statusStrip1.Location = new System.Drawing.Point(0, 426);
       this.statusStrip1.Name = "statusStrip1";
-      this.statusStrip1.Size = new System.Drawing.Size(800, 22);
+      this.statusStrip1.Size = new System.Drawing.Size(800, 24);
       this.statusStrip1.TabIndex = 1;
       this.statusStrip1.Text = "statusStrip1";
       // 
@@ -344,6 +361,7 @@
       this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.viewToolStripMenuItem,
+            this.projectToolStripMenuItem,
             this.testsToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.helpToolStripMenuItem});
@@ -391,6 +409,7 @@
       // 
       this.closeToolStripMenuItem.Enabled = false;
       this.closeToolStripMenuItem.Name = "closeToolStripMenuItem";
+      this.closeToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.W)));
       this.closeToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
       this.closeToolStripMenuItem.Text = "&Close";
       // 
@@ -471,11 +490,78 @@
       this.viewToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
       this.viewToolStripMenuItem.Text = "View";
       // 
-      // toolsToolStripMenuItem
+      // fullGUIToolStripMenuItem
       // 
-      this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-      this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
-      this.toolsToolStripMenuItem.Text = "&Tools";
+      this.fullGUIToolStripMenuItem.Checked = true;
+      this.fullGUIToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.fullGUIToolStripMenuItem.Name = "fullGUIToolStripMenuItem";
+      this.fullGUIToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+      this.fullGUIToolStripMenuItem.Text = "&Full GUI";
+      // 
+      // miniGUIToolStripMenuItem
+      // 
+      this.miniGUIToolStripMenuItem.Name = "miniGUIToolStripMenuItem";
+      this.miniGUIToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+      this.miniGUIToolStripMenuItem.Text = "&Mini GUI";
+      // 
+      // toolStripMenuItem7
+      // 
+      this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+      this.toolStripMenuItem7.Size = new System.Drawing.Size(128, 6);
+      // 
+      // resultTabsToolStripMenuItem
+      // 
+      this.resultTabsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.errorsFailuresToolStripMenuItem,
+            this.testsNotRunToolStripMenuItem,
+            this.toolStripMenuItem8,
+            this.testOutputToolStripMenuItem});
+      this.resultTabsToolStripMenuItem.Name = "resultTabsToolStripMenuItem";
+      this.resultTabsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+      this.resultTabsToolStripMenuItem.Text = "&Result tabs";
+      // 
+      // errorsFailuresToolStripMenuItem
+      // 
+      this.errorsFailuresToolStripMenuItem.Checked = true;
+      this.errorsFailuresToolStripMenuItem.CheckOnClick = true;
+      this.errorsFailuresToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.errorsFailuresToolStripMenuItem.Name = "errorsFailuresToolStripMenuItem";
+      this.errorsFailuresToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+      this.errorsFailuresToolStripMenuItem.Text = "&Errors && Failures";
+      // 
+      // testsNotRunToolStripMenuItem
+      // 
+      this.testsNotRunToolStripMenuItem.Checked = true;
+      this.testsNotRunToolStripMenuItem.CheckOnClick = true;
+      this.testsNotRunToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.testsNotRunToolStripMenuItem.Name = "testsNotRunToolStripMenuItem";
+      this.testsNotRunToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+      this.testsNotRunToolStripMenuItem.Text = "&Tests Not Run";
+      // 
+      // toolStripMenuItem8
+      // 
+      this.toolStripMenuItem8.Name = "toolStripMenuItem8";
+      this.toolStripMenuItem8.Size = new System.Drawing.Size(157, 6);
+      // 
+      // testOutputToolStripMenuItem
+      // 
+      this.testOutputToolStripMenuItem.Name = "testOutputToolStripMenuItem";
+      this.testOutputToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+      this.testOutputToolStripMenuItem.Text = "Test &Output...";
+      // 
+      // toolStripMenuItem9
+      // 
+      this.toolStripMenuItem9.Name = "toolStripMenuItem9";
+      this.toolStripMenuItem9.Size = new System.Drawing.Size(128, 6);
+      // 
+      // statusBarToolStripMenuItem
+      // 
+      this.statusBarToolStripMenuItem.Checked = true;
+      this.statusBarToolStripMenuItem.CheckOnClick = true;
+      this.statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
+      this.statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
+      this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+      this.statusBarToolStripMenuItem.Text = "&Status &Bar";
       // 
       // testsToolStripMenuItem
       // 
@@ -489,33 +575,6 @@
       this.testsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
       this.testsToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
       this.testsToolStripMenuItem.Text = "T&ests";
-      // 
-      // helpToolStripMenuItem
-      // 
-      this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.tUnitHelpToolStripMenuItem,
-            this.toolStripMenuItem5,
-            this.aboutToolStripMenuItem});
-      this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-      this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
-      this.helpToolStripMenuItem.Text = "&Help";
-      // 
-      // tUnitHelpToolStripMenuItem
-      // 
-      this.tUnitHelpToolStripMenuItem.Name = "tUnitHelpToolStripMenuItem";
-      this.tUnitHelpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.tUnitHelpToolStripMenuItem.Text = "TUnit &Help...";
-      // 
-      // toolStripMenuItem5
-      // 
-      this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-      this.toolStripMenuItem5.Size = new System.Drawing.Size(177, 6);
-      // 
-      // aboutToolStripMenuItem
-      // 
-      this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-      this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.aboutToolStripMenuItem.Text = "&About...";
       // 
       // runAllToolStripMenuItem
       // 
@@ -553,78 +612,117 @@
       this.stopRunToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.stopRunToolStripMenuItem.Text = "S&top Run";
       // 
-      // fullGUIToolStripMenuItem
+      // toolsToolStripMenuItem
       // 
-      this.fullGUIToolStripMenuItem.Checked = true;
-      this.fullGUIToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.fullGUIToolStripMenuItem.Name = "fullGUIToolStripMenuItem";
-      this.fullGUIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.fullGUIToolStripMenuItem.Text = "&Full GUI";
+      this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
+      this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+      this.toolsToolStripMenuItem.Text = "&Tools";
       // 
-      // miniGUIToolStripMenuItem
+      // helpToolStripMenuItem
       // 
-      this.miniGUIToolStripMenuItem.Name = "miniGUIToolStripMenuItem";
-      this.miniGUIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.miniGUIToolStripMenuItem.Text = "&Mini GUI";
+      this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.tUnitHelpToolStripMenuItem,
+            this.toolStripMenuItem5,
+            this.aboutToolStripMenuItem});
+      this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+      this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
+      this.helpToolStripMenuItem.Text = "&Help";
       // 
-      // toolStripMenuItem7
+      // tUnitHelpToolStripMenuItem
       // 
-      this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-      this.toolStripMenuItem7.Size = new System.Drawing.Size(177, 6);
+      this.tUnitHelpToolStripMenuItem.Name = "tUnitHelpToolStripMenuItem";
+      this.tUnitHelpToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+      this.tUnitHelpToolStripMenuItem.Text = "TUnit &Help...";
       // 
-      // resultTabsToolStripMenuItem
+      // toolStripMenuItem5
       // 
-      this.resultTabsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.errorsFailuresToolStripMenuItem,
-            this.testsNotRunToolStripMenuItem,
-            this.toolStripMenuItem8,
-            this.testOutputToolStripMenuItem});
-      this.resultTabsToolStripMenuItem.Name = "resultTabsToolStripMenuItem";
-      this.resultTabsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.resultTabsToolStripMenuItem.Text = "&Result tabs";
+      this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+      this.toolStripMenuItem5.Size = new System.Drawing.Size(137, 6);
       // 
-      // errorsFailuresToolStripMenuItem
+      // aboutToolStripMenuItem
       // 
-      this.errorsFailuresToolStripMenuItem.Checked = true;
-      this.errorsFailuresToolStripMenuItem.CheckOnClick = true;
-      this.errorsFailuresToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.errorsFailuresToolStripMenuItem.Name = "errorsFailuresToolStripMenuItem";
-      this.errorsFailuresToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.errorsFailuresToolStripMenuItem.Text = "&Errors && Failures";
+      this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
+      this.aboutToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+      this.aboutToolStripMenuItem.Text = "&About...";
       // 
-      // testsNotRunToolStripMenuItem
+      // projectToolStripMenuItem
       // 
-      this.testsNotRunToolStripMenuItem.Checked = true;
-      this.testsNotRunToolStripMenuItem.CheckOnClick = true;
-      this.testsNotRunToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.testsNotRunToolStripMenuItem.Name = "testsNotRunToolStripMenuItem";
-      this.testsNotRunToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.testsNotRunToolStripMenuItem.Text = "&Tests Not Run";
+      this.projectToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.addTUnitFileToolStripMenuItem,
+            this.tUnitPrpertyToolStripMenuItem});
+      this.projectToolStripMenuItem.Name = "projectToolStripMenuItem";
+      this.projectToolStripMenuItem.Size = new System.Drawing.Size(56, 20);
+      this.projectToolStripMenuItem.Text = "&Project";
       // 
-      // toolStripMenuItem8
+      // addTUnitFileToolStripMenuItem
       // 
-      this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-      this.toolStripMenuItem8.Size = new System.Drawing.Size(177, 6);
+      this.addTUnitFileToolStripMenuItem.Name = "addTUnitFileToolStripMenuItem";
+      this.addTUnitFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.addTUnitFileToolStripMenuItem.Text = "Add TUnit file...";
       // 
-      // testOutputToolStripMenuItem
+      // tUnitPrpertyToolStripMenuItem
       // 
-      this.testOutputToolStripMenuItem.Name = "testOutputToolStripMenuItem";
-      this.testOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.testOutputToolStripMenuItem.Text = "Test &Output...";
+      this.tUnitPrpertyToolStripMenuItem.Enabled = false;
+      this.tUnitPrpertyToolStripMenuItem.Name = "tUnitPrpertyToolStripMenuItem";
+      this.tUnitPrpertyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.tUnitPrpertyToolStripMenuItem.Text = "TUnit property...";
       // 
-      // toolStripMenuItem9
+      // toolStripStatusLabel1
       // 
-      this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-      this.toolStripMenuItem9.Size = new System.Drawing.Size(177, 6);
+      this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
+      this.toolStripStatusLabel1.Size = new System.Drawing.Size(448, 19);
+      this.toolStripStatusLabel1.Spring = true;
+      this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
-      // statusBarToolStripMenuItem
+      // toolStripStatusLabel2
       // 
-      this.statusBarToolStripMenuItem.Checked = true;
-      this.statusBarToolStripMenuItem.CheckOnClick = true;
-      this.statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
-      this.statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
-      this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.statusBarToolStripMenuItem.Text = "&Status &Bar";
+      this.toolStripStatusLabel2.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+      this.toolStripStatusLabel2.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken;
+      this.toolStripStatusLabel2.Name = "toolStripStatusLabel2";
+      this.toolStripStatusLabel2.Size = new System.Drawing.Size(77, 19);
+      this.toolStripStatusLabel2.Text = "Test Cases: 0";
+      // 
+      // toolStripStatusLabel3
+      // 
+      this.toolStripStatusLabel3.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+      this.toolStripStatusLabel3.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken;
+      this.toolStripStatusLabel3.Name = "toolStripStatusLabel3";
+      this.toolStripStatusLabel3.Size = new System.Drawing.Size(76, 19);
+      this.toolStripStatusLabel3.Text = "Tests Run : 0";
+      // 
+      // toolStripStatusLabel4
+      // 
+      this.toolStripStatusLabel4.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+      this.toolStripStatusLabel4.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken;
+      this.toolStripStatusLabel4.Name = "toolStripStatusLabel4";
+      this.toolStripStatusLabel4.Size = new System.Drawing.Size(56, 19);
+      this.toolStripStatusLabel4.Text = "Errors : 0";
+      // 
+      // toolStripStatusLabel5
+      // 
+      this.toolStripStatusLabel5.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+      this.toolStripStatusLabel5.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken;
+      this.toolStripStatusLabel5.Name = "toolStripStatusLabel5";
+      this.toolStripStatusLabel5.Size = new System.Drawing.Size(66, 19);
+      this.toolStripStatusLabel5.Text = "Failures : 0";
+      // 
+      // toolStripStatusLabel6
+      // 
+      this.toolStripStatusLabel6.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+      this.toolStripStatusLabel6.BorderStyle = System.Windows.Forms.Border3DStyle.Sunken;
+      this.toolStripStatusLabel6.Name = "toolStripStatusLabel6";
+      this.toolStripStatusLabel6.Size = new System.Drawing.Size(53, 19);
+      this.toolStripStatusLabel6.Text = "Time : 0";
       // 
       // FormMain
       // 
@@ -648,6 +746,8 @@
       this.tabPageErrorsAndFailures.ResumeLayout(false);
       this.tabPageTestsNotRun.ResumeLayout(false);
       this.tabPageTextOutput.ResumeLayout(false);
+      this.statusStrip1.ResumeLayout(false);
+      this.statusStrip1.PerformLayout();
       this.menuStrip1.ResumeLayout(false);
       this.menuStrip1.PerformLayout();
       this.ResumeLayout(false);
@@ -715,6 +815,15 @@
     private System.Windows.Forms.ToolStripMenuItem tUnitHelpToolStripMenuItem;
     private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
     private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem addTUnitFileToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem tUnitPrpertyToolStripMenuItem;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
   }
 }
 
