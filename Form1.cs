@@ -20,9 +20,25 @@ namespace tunit_gui {
       this.saveAsToolStripMenuItem.Click += this.OnFileSaveAsClick;
       this.exitToolStripMenuItem.Click += this.OnFileExitClick;
       this.addTUnitFileToolStripMenuItem.Click += this.OnProjectAddTUnitFileClick;
+      this.fullGUIToolStripMenuItem.Click += this.OnProjectFullGUIClick;
+      this.miniGUIToolStripMenuItem.Click += this.OnViewMiniGUIClick;
       this.errorsFailuresToolStripMenuItem.Click += this.OnViewErrorsAndFailuresClick;
       this.testsNotRunToolStripMenuItem.Click += this.OnTestsNotRunClick;
       this.statusBarToolStripMenuItem.Click += this.OnViewStatusBarClick;
+    }
+
+    private void OnProjectFullGUIClick(object sender, EventArgs e) {
+      this.fullGUIToolStripMenuItem.Checked = true;
+      this.miniGUIToolStripMenuItem.Checked = false;
+      this.splitContainerMain.Panel2Collapsed = false;
+      this.Width = 800;
+    }
+
+    private void OnViewMiniGUIClick(object sender, EventArgs e) {
+      this.fullGUIToolStripMenuItem.Checked = false;
+      this.miniGUIToolStripMenuItem.Checked = true;
+      this.splitContainerMain.Panel2Collapsed = true;
+      this.Width = 400;
     }
 
     private void OnTestsNotRunClick(object sender, EventArgs e) {
@@ -198,6 +214,7 @@ namespace tunit_gui {
       this.saveAsToolStripMenuItem.Enabled = this.currentProject != null;
       this.reloadProjectToolStripMenuItem.Enabled = this.currentProject != null;
       this.reloadTestToolStripMenuItem.Enabled = this.currentProject != null;
+      this.addTUnitFileToolStripMenuItem.Enabled = this.currentProject != null;
 
       if (currentProject != null && this.Text != string.Format("{0} {1} - TUnit", string.IsNullOrEmpty(this.currentFileName) ? this.currentProject.Name : System.IO.Path.GetFileNameWithoutExtension(this.currentFileName),  this.currentProject.Saved ? "" : "* ")) this.Text = string.Format("{0}{1} - TUnit", string.IsNullOrEmpty(this.currentFileName) ? this.currentProject.Name : System.IO.Path.GetFileNameWithoutExtension(this.currentFileName), this.currentProject.Saved ? "" : "*");
       if (currentProject == null && this.Text != "TUnit") this.Text = "TUnit";

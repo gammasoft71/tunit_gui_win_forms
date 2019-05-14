@@ -46,6 +46,7 @@
       this.treeViewTestsNotRun = new System.Windows.Forms.TreeView();
       this.tabPageTextOutput = new System.Windows.Forms.TabPage();
       this.richTextBoxTextOutput = new System.Windows.Forms.RichTextBox();
+      this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
       this.statusStrip1 = new System.Windows.Forms.StatusStrip();
       this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
       this.toolStripStatusLabel2 = new System.Windows.Forms.ToolStripStatusLabel();
@@ -102,16 +103,18 @@
       this.tabPageErrorsAndFailures.SuspendLayout();
       this.tabPageTestsNotRun.SuspendLayout();
       this.tabPageTextOutput.SuspendLayout();
+      this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
+      this.toolStripContainer1.ContentPanel.SuspendLayout();
+      this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
+      this.toolStripContainer1.SuspendLayout();
       this.statusStrip1.SuspendLayout();
       this.menuStrip1.SuspendLayout();
       this.SuspendLayout();
       // 
       // splitContainerMain
       // 
-      this.splitContainerMain.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.splitContainerMain.Location = new System.Drawing.Point(0, 27);
+      this.splitContainerMain.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.splitContainerMain.Location = new System.Drawing.Point(0, 0);
       this.splitContainerMain.Name = "splitContainerMain";
       // 
       // splitContainerMain.Panel1
@@ -125,7 +128,7 @@
       this.splitContainerMain.Panel2.Controls.Add(this.tabControlResults);
       this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
       this.splitContainerMain.RightToLeft = System.Windows.Forms.RightToLeft.No;
-      this.splitContainerMain.Size = new System.Drawing.Size(800, 398);
+      this.splitContainerMain.Size = new System.Drawing.Size(800, 402);
       this.splitContainerMain.SplitterDistance = 237;
       this.splitContainerMain.TabIndex = 0;
       // 
@@ -135,7 +138,7 @@
       this.treeViewTests.Dock = System.Windows.Forms.DockStyle.Fill;
       this.treeViewTests.Location = new System.Drawing.Point(0, 0);
       this.treeViewTests.Name = "treeViewTests";
-      this.treeViewTests.Size = new System.Drawing.Size(237, 398);
+      this.treeViewTests.Size = new System.Drawing.Size(237, 402);
       this.treeViewTests.TabIndex = 1;
       // 
       // panelRun
@@ -211,7 +214,7 @@
       this.tabControlResults.Location = new System.Drawing.Point(0, 0);
       this.tabControlResults.Name = "tabControlResults";
       this.tabControlResults.SelectedIndex = 0;
-      this.tabControlResults.Size = new System.Drawing.Size(559, 398);
+      this.tabControlResults.Size = new System.Drawing.Size(559, 402);
       this.tabControlResults.TabIndex = 0;
       // 
       // tabPageErrorsAndFailures
@@ -222,7 +225,7 @@
       this.tabPageErrorsAndFailures.Location = new System.Drawing.Point(4, 4);
       this.tabPageErrorsAndFailures.Name = "tabPageErrorsAndFailures";
       this.tabPageErrorsAndFailures.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPageErrorsAndFailures.Size = new System.Drawing.Size(551, 372);
+      this.tabPageErrorsAndFailures.Size = new System.Drawing.Size(551, 376);
       this.tabPageErrorsAndFailures.TabIndex = 0;
       this.tabPageErrorsAndFailures.Text = "Errors and Failures";
       this.tabPageErrorsAndFailures.UseVisualStyleBackColor = true;
@@ -231,7 +234,7 @@
       // 
       this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.panel1.Location = new System.Drawing.Point(3, 271);
+      this.panel1.Location = new System.Drawing.Point(3, 275);
       this.panel1.Name = "panel1";
       this.panel1.Size = new System.Drawing.Size(545, 2);
       this.panel1.TabIndex = 2;
@@ -241,7 +244,7 @@
       this.richTextBoxStackTrace.BackColor = System.Drawing.Color.White;
       this.richTextBoxStackTrace.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.richTextBoxStackTrace.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.richTextBoxStackTrace.Location = new System.Drawing.Point(3, 273);
+      this.richTextBoxStackTrace.Location = new System.Drawing.Point(3, 277);
       this.richTextBoxStackTrace.Name = "richTextBoxStackTrace";
       this.richTextBoxStackTrace.ReadOnly = true;
       this.richTextBoxStackTrace.Size = new System.Drawing.Size(545, 96);
@@ -258,7 +261,7 @@
       this.richTextBoxErrorsAndFailures.Location = new System.Drawing.Point(9, 122);
       this.richTextBoxErrorsAndFailures.Name = "richTextBoxErrorsAndFailures";
       this.richTextBoxErrorsAndFailures.ReadOnly = true;
-      this.richTextBoxErrorsAndFailures.Size = new System.Drawing.Size(539, 151);
+      this.richTextBoxErrorsAndFailures.Size = new System.Drawing.Size(539, 131);
       this.richTextBoxErrorsAndFailures.TabIndex = 0;
       this.richTextBoxErrorsAndFailures.Text = "";
       // 
@@ -304,8 +307,31 @@
       this.richTextBoxTextOutput.TabIndex = 0;
       this.richTextBoxTextOutput.Text = "";
       // 
+      // toolStripContainer1
+      // 
+      // 
+      // toolStripContainer1.BottomToolStripPanel
+      // 
+      this.toolStripContainer1.BottomToolStripPanel.Controls.Add(this.statusStrip1);
+      // 
+      // toolStripContainer1.ContentPanel
+      // 
+      this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainerMain);
+      this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(800, 402);
+      this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
+      this.toolStripContainer1.Name = "toolStripContainer1";
+      this.toolStripContainer1.Size = new System.Drawing.Size(800, 450);
+      this.toolStripContainer1.TabIndex = 3;
+      this.toolStripContainer1.Text = "toolStripContainer1";
+      // 
+      // toolStripContainer1.TopToolStripPanel
+      // 
+      this.toolStripContainer1.TopToolStripPanel.Controls.Add(this.menuStrip1);
+      // 
       // statusStrip1
       // 
+      this.statusStrip1.Dock = System.Windows.Forms.DockStyle.None;
       this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabel1,
             this.toolStripStatusLabel2,
@@ -313,10 +339,10 @@
             this.toolStripStatusLabel4,
             this.toolStripStatusLabel5,
             this.toolStripStatusLabel6});
-      this.statusStrip1.Location = new System.Drawing.Point(0, 426);
+      this.statusStrip1.Location = new System.Drawing.Point(0, 0);
       this.statusStrip1.Name = "statusStrip1";
       this.statusStrip1.Size = new System.Drawing.Size(800, 24);
-      this.statusStrip1.TabIndex = 1;
+      this.statusStrip1.TabIndex = 2;
       this.statusStrip1.Text = "statusStrip1";
       // 
       // toolStripStatusLabel1
@@ -378,6 +404,7 @@
       // 
       // menuStrip1
       // 
+      this.menuStrip1.Dock = System.Windows.Forms.DockStyle.None;
       this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.viewToolStripMenuItem,
@@ -388,7 +415,7 @@
       this.menuStrip1.Location = new System.Drawing.Point(0, 0);
       this.menuStrip1.Name = "menuStrip1";
       this.menuStrip1.Size = new System.Drawing.Size(800, 24);
-      this.menuStrip1.TabIndex = 2;
+      this.menuStrip1.TabIndex = 3;
       this.menuStrip1.Text = "menuStrip1";
       // 
       // fileToolStripMenuItem
@@ -692,11 +719,8 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(800, 450);
-      this.Controls.Add(this.statusStrip1);
-      this.Controls.Add(this.menuStrip1);
-      this.Controls.Add(this.splitContainerMain);
+      this.Controls.Add(this.toolStripContainer1);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-      this.MainMenuStrip = this.menuStrip1;
       this.Name = "FormMain";
       this.Text = "TUnit";
       this.splitContainerMain.Panel1.ResumeLayout(false);
@@ -708,20 +732,24 @@
       this.tabPageErrorsAndFailures.ResumeLayout(false);
       this.tabPageTestsNotRun.ResumeLayout(false);
       this.tabPageTextOutput.ResumeLayout(false);
+      this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
+      this.toolStripContainer1.BottomToolStripPanel.PerformLayout();
+      this.toolStripContainer1.ContentPanel.ResumeLayout(false);
+      this.toolStripContainer1.TopToolStripPanel.ResumeLayout(false);
+      this.toolStripContainer1.TopToolStripPanel.PerformLayout();
+      this.toolStripContainer1.ResumeLayout(false);
+      this.toolStripContainer1.PerformLayout();
       this.statusStrip1.ResumeLayout(false);
       this.statusStrip1.PerformLayout();
       this.menuStrip1.ResumeLayout(false);
       this.menuStrip1.PerformLayout();
       this.ResumeLayout(false);
-      this.PerformLayout();
 
     }
 
     #endregion
 
     private System.Windows.Forms.SplitContainer splitContainerMain;
-    private System.Windows.Forms.StatusStrip statusStrip1;
-    private System.Windows.Forms.MenuStrip menuStrip1;
     private System.Windows.Forms.TabControl tabControlResults;
     private System.Windows.Forms.TabPage tabPageErrorsAndFailures;
     private System.Windows.Forms.TabPage tabPageTestsNotRun;
@@ -736,10 +764,20 @@
     private System.Windows.Forms.RichTextBox richTextBoxErrorsAndFailures;
     private System.Windows.Forms.TreeView treeViewTestsNotRun;
     private System.Windows.Forms.RichTextBox richTextBoxTextOutput;
-    private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
     private System.Windows.Forms.Panel panel1;
+    private System.Windows.Forms.TreeView treeViewTests;
+    private System.Windows.Forms.ToolStripContainer toolStripContainer1;
+    private System.Windows.Forms.StatusStrip statusStrip1;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
+    private System.Windows.Forms.MenuStrip menuStrip1;
+    private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem newToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem closeToolStripMenuItem;
     private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
     private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
@@ -762,6 +800,9 @@
     private System.Windows.Forms.ToolStripMenuItem testOutputToolStripMenuItem;
     private System.Windows.Forms.ToolStripSeparator toolStripMenuItem9;
     private System.Windows.Forms.ToolStripMenuItem statusBarToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem addTUnitFileToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem tUnitPrpertyToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem testsToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem runAllToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem runSelectedToolStripMenuItem;
@@ -773,16 +814,6 @@
     private System.Windows.Forms.ToolStripMenuItem tUnitHelpToolStripMenuItem;
     private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
     private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem addTUnitFileToolStripMenuItem;
-    private System.Windows.Forms.ToolStripMenuItem tUnitPrpertyToolStripMenuItem;
-    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel2;
-    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel3;
-    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel4;
-    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel5;
-    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel6;
-    private System.Windows.Forms.TreeView treeViewTests;
   }
 }
 
