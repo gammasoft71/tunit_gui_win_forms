@@ -9,15 +9,40 @@ namespace tunit_gui {
 
       Application.Idle += this.OnApplicationIdle;
       this.FormClosing += this.OnFormClosing;
-      this.openToolStripMenuItem.Click += this.OnOpenClick;
-      this.newToolStripMenuItem.Click += this.OnNewToolStripMenuItemClick;
-      this.closeToolStripMenuItem.Click += this.OnCloseToolStripMenuItemClick;
-      this.saveToolStripMenuItem.Click += this.OnSaveClick;
-      this.exitToolStripMenuItem.Click += this.OnCloseClick;
-      this.addTUnitFileToolStripMenuItem.Click += this.OnAddTUnitFileClick;
+
+      this.errorsAndFailuresTabPage = this.tabControlResults.TabPages[0];
+      this.testsNotRunTabPage = this.tabControlResults.TabPages[1];
+
+      this.newToolStripMenuItem.Click += this.OnFileNewClick;
+      this.openToolStripMenuItem.Click += this.OnFileOpenClick;
+      this.closeToolStripMenuItem.Click += this.OnFileCloseClick;
+      this.saveToolStripMenuItem.Click += this.OnFileSaveClick;
+      this.exitToolStripMenuItem.Click += this.OnFileExitClick;
+      this.addTUnitFileToolStripMenuItem.Click += this.OnProjectAddTUnitFileClick;
+      this.errorsFailuresToolStripMenuItem.Click += this.OnViewErrorsAndFailuresClick;
+      this.testsNotRunToolStripMenuItem.Click += this.OnTestsNotRunClick;
+      this.statusBarToolStripMenuItem.Click += this.OnViewStatusBarClick;
     }
 
-    private void OnAddTUnitFileClick(object sender, EventArgs e) {
+    private void OnTestsNotRunClick(object sender, EventArgs e) {
+      if (this.testsNotRunToolStripMenuItem.Checked)
+        this.tabControlResults.TabPages.Insert(this.tabControlResults.TabPages.Count - 1, testsNotRunTabPage);
+      else
+        this.tabControlResults.TabPages.Remove(testsNotRunTabPage);
+    }
+
+    private void OnViewErrorsAndFailuresClick(object sender, EventArgs e) {
+      if (this.errorsFailuresToolStripMenuItem.Checked)
+        this.tabControlResults.TabPages.Insert(0, errorsAndFailuresTabPage);
+      else
+        this.tabControlResults.TabPages.Remove(errorsAndFailuresTabPage);
+    }
+
+    private void OnViewStatusBarClick(object sender, EventArgs e) {
+      this.statusStrip1.Visible = !this.statusStrip1.Visible;
+    }
+
+    private void OnProjectAddTUnitFileClick(object sender, EventArgs e) {
       OpenFileDialog openFileDialog = new OpenFileDialog();
       openFileDialog.Filter = "TUnit Application Files (*.exe)|*.exe|All Files (*.*)|*.*";
       DialogResult result = openFileDialog.ShowDialog();
@@ -26,11 +51,11 @@ namespace tunit_gui {
       }
     }
 
-    private void OnCloseClick(object sender, EventArgs e) {
+    private void OnFileExitClick(object sender, EventArgs e) {
       this.Close();
     }
 
-    private void OnOpenClick(object sender, EventArgs e) {
+    private void OnFileOpenClick(object sender, EventArgs e) {
       OpenFileDialog openFileDialog = new OpenFileDialog();
       openFileDialog.Filter = "TUnit Files (*.tunit)|*.tunit|All Files (*.*)|*.*";
       DialogResult result = openFileDialog.ShowDialog();
@@ -41,11 +66,11 @@ namespace tunit_gui {
     }
 
     private void OnFormClosing(object sender, FormClosingEventArgs e) {
-      this.OnCloseToolStripMenuItemClick(sender, EventArgs.Empty);
+      this.OnFileCloseClick(sender, EventArgs.Empty);
       e.Cancel = this.currentProject != null;
     }
 
-    private void OnCloseToolStripMenuItemClick(object sender, EventArgs e) {
+    private void OnFileCloseClick(object sender, EventArgs e) {
       if (this.currentProject != null) {
         if (this.currentProject.Saved) {
           this.currentProject = null;
@@ -54,7 +79,7 @@ namespace tunit_gui {
         else {
           DialogResult result = MessageBox.Show("Save current project before closing ?", "Save project", MessageBoxButtons.YesNoCancel);
           if (result == DialogResult.Yes) {
-            OnSaveClick(sender, e);
+            OnFileSaveClick(sender, e);
             if (this.currentProject.Saved) {
               this.currentProject = null;
               this.currentFileBName = null;
@@ -65,7 +90,7 @@ namespace tunit_gui {
       }
     }
 
-    private void OnSaveClick(object sender, EventArgs e) {
+    private void OnFileSaveClick(object sender, EventArgs e) {
       if (string.IsNullOrEmpty(this.currentFileBName)) {
         SaveFileDialog saveFileDialog = new SaveFileDialog();
         saveFileDialog.FileName = $"{this.currentProject.Name}.tunit";
@@ -77,8 +102,8 @@ namespace tunit_gui {
         TUnitProject.Write(this.currentFileBName, this.currentProject);
     }
 
-    private void OnNewToolStripMenuItemClick(object sender, EventArgs e) {
-      OnCloseToolStripMenuItemClick(sender, e);
+    private void OnFileNewClick(object sender, EventArgs e) {
+      OnFileCloseClick(sender, e);
       if (this.currentProject == null)
         this.currentProject = new TUnitProject();
     }
@@ -90,13 +115,13 @@ namespace tunit_gui {
       this.reloadProjectToolStripMenuItem.Enabled = this.currentProject != null;
       this.reloadTestToolStripMenuItem.Enabled = this.currentProject != null;
 
-      this.statusBarToolStripMenuItem.Checked = this.statusStrip1.Visible;
-
       if (currentProject != null && this.Text != string.Format("{0} {1} - TUnit", this.currentProject.Name,  this.currentProject.Saved ? "" : "* ")) this.Text = string.Format("{0}{1} - TUnit", this.currentProject.Name, this.currentProject.Saved ? "" : "*");
       if (currentProject == null && this.Text != "TUnit") this.Text = "TUnit";
     }
 
     private TUnitProject currentProject = null;
     private string currentFileBName = null;
+    private TabPage errorsAndFailuresTabPage;
+    private TabPage testsNotRunTabPage;
   }
 }
