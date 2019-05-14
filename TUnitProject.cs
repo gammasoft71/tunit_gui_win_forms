@@ -57,6 +57,7 @@ namespace tunit_gui {
           default: throw new System.ArgumentException();
         }
       }
+      sr.Close();
 
       tunitProject.Saved = true;
       return tunitProject;
