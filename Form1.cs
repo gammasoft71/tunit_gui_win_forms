@@ -56,7 +56,7 @@ namespace tunit_gui {
     }
 
     private void OnViewStatusBarClick(object sender, EventArgs e) {
-      this.statusStrip1.Visible = !this.statusStrip1.Visible;
+      this.statusStripMain.Visible = !this.statusStripMain.Visible;
     }
 
     private bool IsTUnitApplication(string fileName) {
