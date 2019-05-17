@@ -57,6 +57,13 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ProjectFile.cs" />
+    <Compile Include="TUnitProjectEventArgs.cs" />
+    <Compile Include="TestEventArg.cs" />
+    <Compile Include="TestStatus.cs" />
+    <Compile Include="Test.cs" />
+    <Compile Include="TestFixture.cs" />
+    <Compile Include="UnitTest.cs" />
     <Compile Include="TUnitProject.cs" />
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>

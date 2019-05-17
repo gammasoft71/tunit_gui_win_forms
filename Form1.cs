@@ -25,20 +25,27 @@ namespace tunit_gui {
       this.errorsFailuresToolStripMenuItem.Click += this.OnViewErrorsAndFailuresClick;
       this.testsNotRunToolStripMenuItem.Click += this.OnTestsNotRunClick;
       this.statusBarToolStripMenuItem.Click += this.OnViewStatusBarClick;
+      this.treeViewTests.AfterSelect += this.OnTreeViewTestsAfterSelect;
+    }
+
+    private void OnTreeViewTestsAfterSelect(object sender, TreeViewEventArgs e) {
+      this.labelSelectedTest.Text = this.treeViewTests.SelectedNode.Text;
     }
 
     private void OnProjectFullGUIClick(object sender, EventArgs e) {
       this.fullGUIToolStripMenuItem.Checked = true;
       this.miniGUIToolStripMenuItem.Checked = false;
       this.splitContainerMain.Panel2Collapsed = false;
-      this.Width = 800;
+      this.statusStripMain.Visible = true;
+      this.ClientSize = new System.Drawing.Size(800, 450);
     }
 
     private void OnViewMiniGUIClick(object sender, EventArgs e) {
       this.fullGUIToolStripMenuItem.Checked = false;
       this.miniGUIToolStripMenuItem.Checked = true;
       this.splitContainerMain.Panel2Collapsed = true;
-      this.Width = 400;
+      this.statusStripMain.Visible = false;
+      this.ClientSize = new System.Drawing.Size(400, 450);
     }
 
     private void OnTestsNotRunClick(object sender, EventArgs e) {
@@ -57,18 +64,6 @@ namespace tunit_gui {
 
     private void OnViewStatusBarClick(object sender, EventArgs e) {
       this.statusStripMain.Visible = !this.statusStripMain.Visible;
-    }
-
-    private bool IsTUnitApplication(string fileName) {
-      System.Diagnostics.Process process = new System.Diagnostics.Process();
-      process.StartInfo = new System.Diagnostics.ProcessStartInfo(fileName, "--help");
-      process.StartInfo.CreateNoWindow = true;
-      process.StartInfo.UseShellExecute = false;
-      process.StartInfo.RedirectStandardOutput = true;
-      process.Start();
-      if (process.WaitForExit(1000) == false) return false;
-      if (!process.StandardOutput.ReadToEnd().StartsWith("This program contains tests written using xtd::tunit.")) return false;
-      return true;
     }
 
     private string[] GetTUnitFixtures(string fileName) {
@@ -105,7 +100,7 @@ namespace tunit_gui {
     private void ReloadProject() {
       this.treeViewTests.Nodes.Clear();
       this.treeViewTests.Nodes.Add(string.IsNullOrEmpty(this.currentFileName) ? this.currentProject.Name : this.currentFileName);
-      foreach (var fileName in this.currentProject.Files) {
+      foreach (var fileName in this.currentProject.UnitTests) {
         ReloadTests(fileName);
       }
     }
@@ -126,10 +121,10 @@ namespace tunit_gui {
       openFileDialog.Filter = "TUnit Application Files (*.exe)|*.exe|All Files (*.*)|*.*";
       DialogResult result = openFileDialog.ShowDialog();
       if (result == DialogResult.OK) {
-        if (!IsTUnitApplication(openFileDialog.FileName)) {
+        if (!UnitTest.IsTUnitApplication(openFileDialog.FileName)) {
           MessageBox.Show($"{openFileDialog.FileName} is not a TUnit application", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         } else {
-          this.currentProject.Files = this.currentProject.Files.Append(openFileDialog.FileName).ToArray();
+          this.currentProject.UnitTests = this.currentProject.UnitTests.Append(openFileDialog.FileName).ToArray();
           this.ReloadTests(openFileDialog.FileName);
         }
       }
@@ -145,7 +140,7 @@ namespace tunit_gui {
       DialogResult result = openFileDialog.ShowDialog();
       if (result == DialogResult.OK) {
         this.currentFileName = openFileDialog.FileName;
-        this.currentProject = TUnitProject.Read(this.currentFileName);
+        this.currentProject = ProjectFile.Read(this.currentFileName);
         this.ReloadProject();
       }
     }
@@ -179,7 +174,7 @@ namespace tunit_gui {
       if (string.IsNullOrEmpty(this.currentFileName))
         OnFileSaveAsClick(sender, e);
       else if (!string.IsNullOrEmpty(this.currentFileName))
-        TUnitProject.Write(this.currentFileName, this.currentProject);
+        ProjectFile.Write(this.currentFileName, this.currentProject);
     }
 
     private void OnFileSaveAsClick(object sender, EventArgs e) {
@@ -189,20 +184,20 @@ namespace tunit_gui {
       if (result == DialogResult.OK) this.currentFileName = saveFileDialog.FileName;
 
       if (!string.IsNullOrEmpty(this.currentFileName))
-        TUnitProject.Write(this.currentFileName, this.currentProject);
+        ProjectFile.Write(this.currentFileName, this.currentProject);
     }
 
     private void OnFileNewClick(object sender, EventArgs e) {
       OnFileCloseClick(sender, e);
       if (this.currentProject == null) {
-        this.currentProject = new TUnitProject();
+        this.currentProject = new ProjectFile();
         this.ReloadProject();
       }
     }
 
     private int GetTestsCount() {
       int result = 0;
-      foreach (var file in this.currentProject.Files)
+      foreach (var file in this.currentProject.UnitTests)
         foreach (var fixture in this.GetTUnitFixtures(file))
           result += GetTUnitTests(file, fixture).Length;
       return result;
@@ -213,14 +208,35 @@ namespace tunit_gui {
       this.saveToolStripMenuItem.Enabled = this.currentProject != null;
       this.saveAsToolStripMenuItem.Enabled = this.currentProject != null;
       this.reloadProjectToolStripMenuItem.Enabled = this.currentProject != null;
+      this.statusBarToolStripMenuItem.Checked = this.statusStripMain.Visible;
       this.reloadTestToolStripMenuItem.Enabled = this.currentProject != null;
       this.addTUnitFileToolStripMenuItem.Enabled = this.currentProject != null;
+      this.panelRun.Enabled = this.currentProject != null;
+      this.buttonRun.Enabled = this.currentProject != null;
+
+      if (this.currentProject == null) {
+        this.panelRun.BackColor = System.Drawing.SystemColors.Control;
+        this.labelRun.ForeColor = System.Drawing.SystemColors.ControlText;
+        this.labelSelectedTest.ForeColor = System.Drawing.SystemColors.ControlText;
+      } else {
+        this.panelRun.BackColor = System.Drawing.Color.FromArgb(255, 95, 95, 95);
+        this.labelRun.ForeColor = System.Drawing.Color.White;
+        this.labelSelectedTest.ForeColor = System.Drawing.Color.White;
+        /*
+        switch(this.currentProject.Status) {
+          case TestStatus.NotStarted: this.panel1.BackColor = System.Drawing.Color.FromArgb(255, 95, 95, 95); break;
+          case TestStatus.Succeed: this.panel1.BackColor = System.Drawing.Color.FromArgb(255, 76, 175, 81); break;
+          case TestStatus.Ignored: this.panel1.BackColor = System.Drawing.Color.FromArgb(255, 195, 195, 195); break;
+          case TestStatus.Aborted: this.panel1.BackColor = System.Drawing.Color.FromArgb(255, 244, 243, 54); break;
+          case TestStatus.Failed: this.panel1.BackColor = System.Drawing.Color.FromArgb(255, 244, 67, 55); break;
+        }*/
+      }
 
       if (currentProject != null && this.Text != string.Format("{0} {1} - TUnit", string.IsNullOrEmpty(this.currentFileName) ? this.currentProject.Name : System.IO.Path.GetFileNameWithoutExtension(this.currentFileName),  this.currentProject.Saved ? "" : "* ")) this.Text = string.Format("{0}{1} - TUnit", string.IsNullOrEmpty(this.currentFileName) ? this.currentProject.Name : System.IO.Path.GetFileNameWithoutExtension(this.currentFileName), this.currentProject.Saved ? "" : "*");
       if (currentProject == null && this.Text != "TUnit") this.Text = "TUnit";
     }
 
-    private TUnitProject currentProject = null;
+    private ProjectFile currentProject = null;
     private string currentFileName = null;
     private TabPage errorsAndFailuresTabPage;
     private TabPage testsNotRunTabPage;

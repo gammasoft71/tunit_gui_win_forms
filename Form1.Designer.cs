@@ -32,8 +32,9 @@
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
       this.splitContainerMain = new System.Windows.Forms.SplitContainer();
       this.treeViewTests = new System.Windows.Forms.TreeView();
+      this.imageListTest = new System.Windows.Forms.ImageList(this.components);
       this.panelRun = new System.Windows.Forms.Panel();
-      this.label1 = new System.Windows.Forms.Label();
+      this.labelSelectedTest = new System.Windows.Forms.Label();
       this.labelRun = new System.Windows.Forms.Label();
       this.progressBarRun = new System.Windows.Forms.ProgressBar();
       this.buttonStop = new System.Windows.Forms.Button();
@@ -91,12 +92,11 @@
       this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
       this.stopRunToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.tUnitHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.settingsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.imageListTest = new System.Windows.Forms.ImageList(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
       this.splitContainerMain.Panel1.SuspendLayout();
       this.splitContainerMain.Panel2.SuspendLayout();
@@ -147,9 +147,20 @@
       this.treeViewTests.Size = new System.Drawing.Size(237, 402);
       this.treeViewTests.TabIndex = 1;
       // 
+      // imageListTest
+      // 
+      this.imageListTest.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTest.ImageStream")));
+      this.imageListTest.TransparentColor = System.Drawing.Color.Transparent;
+      this.imageListTest.Images.SetKeyName(0, "NotStarted.png");
+      this.imageListTest.Images.SetKeyName(1, "Success.png");
+      this.imageListTest.Images.SetKeyName(2, "Ignored.png");
+      this.imageListTest.Images.SetKeyName(3, "Aborted.png");
+      this.imageListTest.Images.SetKeyName(4, "Failed.png");
+      // 
       // panelRun
       // 
-      this.panelRun.Controls.Add(this.label1);
+      this.panelRun.BackColor = System.Drawing.SystemColors.Control;
+      this.panelRun.Controls.Add(this.labelSelectedTest);
       this.panelRun.Controls.Add(this.labelRun);
       this.panelRun.Controls.Add(this.progressBarRun);
       this.panelRun.Controls.Add(this.buttonStop);
@@ -160,16 +171,16 @@
       this.panelRun.Size = new System.Drawing.Size(559, 120);
       this.panelRun.TabIndex = 1;
       // 
-      // label1
+      // labelSelectedTest
       // 
-      this.label1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+      this.labelSelectedTest.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.label1.Location = new System.Drawing.Point(172, 10);
-      this.label1.Name = "label1";
-      this.label1.Size = new System.Drawing.Size(377, 23);
-      this.label1.TabIndex = 4;
-      this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+      this.labelSelectedTest.Location = new System.Drawing.Point(172, 10);
+      this.labelSelectedTest.Name = "labelSelectedTest";
+      this.labelSelectedTest.Size = new System.Drawing.Size(377, 23);
+      this.labelSelectedTest.TabIndex = 4;
+      this.labelSelectedTest.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
       // labelRun
       // 
@@ -610,7 +621,6 @@
       // statusBarToolStripMenuItem
       // 
       this.statusBarToolStripMenuItem.Checked = true;
-      this.statusBarToolStripMenuItem.CheckOnClick = true;
       this.statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
       this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
@@ -628,14 +638,14 @@
       // addTUnitFileToolStripMenuItem
       // 
       this.addTUnitFileToolStripMenuItem.Name = "addTUnitFileToolStripMenuItem";
-      this.addTUnitFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.addTUnitFileToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
       this.addTUnitFileToolStripMenuItem.Text = "Add TUnit file...";
       // 
       // tUnitPrpertyToolStripMenuItem
       // 
       this.tUnitPrpertyToolStripMenuItem.Enabled = false;
       this.tUnitPrpertyToolStripMenuItem.Name = "tUnitPrpertyToolStripMenuItem";
-      this.tUnitPrpertyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.tUnitPrpertyToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
       this.tUnitPrpertyToolStripMenuItem.Text = "TUnit property...";
       // 
       // testsToolStripMenuItem
@@ -656,7 +666,7 @@
       this.runAllToolStripMenuItem.Enabled = false;
       this.runAllToolStripMenuItem.Name = "runAllToolStripMenuItem";
       this.runAllToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-      this.runAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.runAllToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
       this.runAllToolStripMenuItem.Text = "&Run All";
       // 
       // runSelectedToolStripMenuItem
@@ -664,7 +674,7 @@
       this.runSelectedToolStripMenuItem.Enabled = false;
       this.runSelectedToolStripMenuItem.Name = "runSelectedToolStripMenuItem";
       this.runSelectedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
-      this.runSelectedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.runSelectedToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
       this.runSelectedToolStripMenuItem.Text = "Run &Selected";
       // 
       // runFailedToolStripMenuItem
@@ -672,19 +682,19 @@
       this.runFailedToolStripMenuItem.Enabled = false;
       this.runFailedToolStripMenuItem.Name = "runFailedToolStripMenuItem";
       this.runFailedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
-      this.runFailedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.runFailedToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
       this.runFailedToolStripMenuItem.Text = "Run &Failed";
       // 
       // toolStripMenuItem6
       // 
       this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-      this.toolStripMenuItem6.Size = new System.Drawing.Size(177, 6);
+      this.toolStripMenuItem6.Size = new System.Drawing.Size(158, 6);
       // 
       // stopRunToolStripMenuItem
       // 
       this.stopRunToolStripMenuItem.Enabled = false;
       this.stopRunToolStripMenuItem.Name = "stopRunToolStripMenuItem";
-      this.stopRunToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.stopRunToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
       this.stopRunToolStripMenuItem.Text = "S&top Run";
       // 
       // toolsToolStripMenuItem
@@ -694,6 +704,12 @@
       this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
       this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
       this.toolsToolStripMenuItem.Text = "&Tools";
+      // 
+      // settingsToolStripMenuItem
+      // 
+      this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
+      this.settingsToolStripMenuItem.Size = new System.Drawing.Size(125, 22);
+      this.settingsToolStripMenuItem.Text = "&Settings...";
       // 
       // helpToolStripMenuItem
       // 
@@ -708,35 +724,19 @@
       // tUnitHelpToolStripMenuItem
       // 
       this.tUnitHelpToolStripMenuItem.Name = "tUnitHelpToolStripMenuItem";
-      this.tUnitHelpToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.tUnitHelpToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
       this.tUnitHelpToolStripMenuItem.Text = "TUnit &Help...";
       // 
       // toolStripMenuItem5
       // 
       this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-      this.toolStripMenuItem5.Size = new System.Drawing.Size(177, 6);
+      this.toolStripMenuItem5.Size = new System.Drawing.Size(137, 6);
       // 
       // aboutToolStripMenuItem
       // 
       this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-      this.aboutToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.aboutToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
       this.aboutToolStripMenuItem.Text = "&About...";
-      // 
-      // settingsToolStripMenuItem
-      // 
-      this.settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-      this.settingsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.settingsToolStripMenuItem.Text = "&Settings...";
-      // 
-      // imageListTest
-      // 
-      this.imageListTest.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTest.ImageStream")));
-      this.imageListTest.TransparentColor = System.Drawing.Color.Transparent;
-      this.imageListTest.Images.SetKeyName(0, "NotStarted.png");
-      this.imageListTest.Images.SetKeyName(1, "Success.png");
-      this.imageListTest.Images.SetKeyName(2, "Failed.png");
-      this.imageListTest.Images.SetKeyName(3, "Ignored.png");
-      this.imageListTest.Images.SetKeyName(4, "Aborted.png");
       // 
       // FormMain
       // 
@@ -783,7 +783,7 @@
     private System.Windows.Forms.Button buttonRun;
     private System.Windows.Forms.ProgressBar progressBarRun;
     private System.Windows.Forms.Label labelRun;
-    private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.Label labelSelectedTest;
     private System.Windows.Forms.RichTextBox richTextBoxStackTrace;
     private System.Windows.Forms.RichTextBox richTextBoxErrorsAndFailures;
     private System.Windows.Forms.TreeView treeViewTestsNotRun;

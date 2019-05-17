@@ -5,79 +5,140 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace tunit_gui {
-  class TUnitProject {
-    public TUnitProject() {
-      Name = "Project 1";
-      Files = new string[0];
-      Description = "";
-      Saved = false;
-    }
-
-    public string Name {
-      get { return this.name; }
-      set {
-        if (this.name != value) {
-          this.name = value;
-          this.Saved = false;
-        }
-      }
-    }
-
-    public string[] Files {
-      get { return this.files; }
-      set {
-        if (this.files != value)
-        {
-          this.files = value;
-          this.Saved = false;
-        }
-      }
+  public class TUnitProject {
+    public TUnitProject(string fileName) {
+      this.FileName = fileName;
+      this.Reset();
     }
 
     public string Description {
-      get { return this.description; }
-      set {
-        if (this.description != value) {
-          this.description = value;
-          this.Saved = false;
+      get { return this.File.Description; }
+      set { this.File.Description = value; }
+    }
+
+    public string Name {
+      get { return this.File.Name; }
+      set { this.File.Name = value; }
+    }
+
+    public string FileName { get; private set; }
+
+    public int TestCount {
+      get {
+        int count = 0;
+        foreach (var unitTest in this.unitTests) {
+          count += unitTest.Value.TestCount;
         }
+        return count;
       }
     }
-    public bool Saved { get; set; }
 
-    public static TUnitProject Read(System.IO.Stream stream) {
-      System.IO.StreamReader sr = new System.IO.StreamReader(stream);
-      TUnitProject tunitProject = new TUnitProject();
-      while (!sr.EndOfStream) {
-        string[] keyValue = sr.ReadLine().Split(new char[] { '=' });
-        switch (keyValue[0]) {
-          case "Description": tunitProject.Description = keyValue[1]; break;
-          case "Name": tunitProject.Name = keyValue[1]; break;
-          case "Files": tunitProject.Files = keyValue[1].Split(new char[] { System.IO.Path.PathSeparator }, StringSplitOptions.RemoveEmptyEntries); break;
-          default: throw new System.ArgumentException();
+    public int RanCount { get; set; }
+
+    public int SucceedCount { get; set; }
+
+    public int IngoredCount { get; set; }
+
+    public int AbortedCount { get; set; }
+
+    public int FailedCount { get; set; }
+
+    public string[] TextOutPut {
+      get {
+        List<string> textOutput = new List<string>();
+        bool first = true;
+        foreach (var unitTest in this.unitTests) {
+          if (!first) textOutput.Add("");
+          textOutput.AddRange(unitTest.Value.TextOutput);
+          first = false;
         }
+        return textOutput.ToArray();
       }
-      sr.Close();
-
-      tunitProject.Saved = true;
-      return tunitProject;
     }
 
-    public static TUnitProject Read(string fileName) {return Read(System.IO.File.OpenRead(fileName));}
-
-    public static void Write(System.IO.Stream stream, TUnitProject tunitProject) {
-      System.IO.StreamWriter sw = new System.IO.StreamWriter(stream);
-      sw.WriteLine($"Description={tunitProject.Description}");
-      sw.WriteLine($"Name={tunitProject.Name}");
-      sw.WriteLine($"Files={String.Join(System.IO.Path.PathSeparator.ToString(), tunitProject.Files)}");
-      tunitProject.Saved = true;
-      sw.Close();
+    public UnitTest this[string fileName] {
+      get { return this.unitTests[fileName];}
     }
 
-    public static void Write(string fileName, TUnitProject tunitProject) {Write(System.IO.File.Create(fileName), tunitProject);}
+    public string[] UnitTestNames {
+      get { return this.unitTests.Keys.ToArray(); }
+    }
 
-    private string name;
-    private string description;
-    private string[] files;
+    public UnitTest[] UnitTests {
+      get { return this.unitTests.Values.ToArray(); }
+    }
+
+    public TestStatus Status { get; set; }
+
+    private ProjectFile File { get; set; }
+
+    public EventHandler TUnitProjectStart = null;
+    public EventHandler TUnitProjectEnd = null;
+    public TestEventHandler TestStart = null;
+    public TestEventHandler TestEnd = null;
+
+    private static void OnTestStart(object sender, TestEventArgs e) { }
+
+    public void AddUnitTest(string fileName) {
+      if (this.unitTests.ContainsKey(fileName)) throw new ArgumentException("fileName already exist");
+      this.File.UnitTests = this.File.UnitTests.Append(fileName).ToArray();
+      this.unitTests.Add(fileName, new UnitTest(this, fileName));
+      this[fileName].Load();
+    }
+
+    public void RemoveUnitTest(string fileName) {
+      this.unitTests.Remove(fileName);
+      //this.File.UnitTests.Re
+    }
+
+    public void Load() {
+      this.File = ProjectFile.Read(this.FileName);
+
+      foreach (string fileName in this.File.UnitTests) {
+        this.unitTests.Add(fileName, new UnitTest(this, fileName));
+        this.unitTests[fileName].Load();
+      }
+    }
+
+    public void Reset() {
+      this.Status = TestStatus.NotStarted;
+      foreach (var unitTest in this.unitTests)
+        unitTest.Value.Reset();
+    }
+
+    public void Run() {
+      Run("");
+    }
+
+    public void Run(UnitTest unitTest) {
+      if (this.TUnitProjectStart != null) this.TUnitProjectStart(this, EventArgs.Empty);
+      unitTest.Run();
+      if (this.TUnitProjectEnd != null) this.TUnitProjectEnd(this, EventArgs.Empty);
+    }
+
+    public void Run(TestFixture fixture) {
+      if (this.TUnitProjectStart != null) this.TUnitProjectStart(this, EventArgs.Empty);
+      fixture.UnitTest.Run($"--filter_tests={fixture.Name}.*");
+      if (this.TUnitProjectEnd != null) this.TUnitProjectEnd(this, EventArgs.Empty);
+    }
+
+    public void Run(Test test) {
+      if (this.TUnitProjectStart != null) this.TUnitProjectStart(this, EventArgs.Empty);
+      test.TestFixture.UnitTest.Run($"--filter_tests={test.TestFixture.Name}.{test.Name}");
+      if (this.TUnitProjectEnd != null) this.TUnitProjectEnd(this, EventArgs.Empty);
+    }
+
+    public void Run(string arguments) {
+      if (this.TUnitProjectStart != null) this.TUnitProjectStart(this, EventArgs.Empty);
+      foreach (var unitTest in this.unitTests)
+        unitTest.Value.Run(arguments);
+      if (this.TUnitProjectEnd != null) this.TUnitProjectEnd(this, EventArgs.Empty);
+    }
+
+    public void Save() {
+      ProjectFile.Write(this.FileName, this.File);
+    }
+
+    private Dictionary<string, UnitTest> unitTests = new Dictionary<string, UnitTest>();
   }
 }
