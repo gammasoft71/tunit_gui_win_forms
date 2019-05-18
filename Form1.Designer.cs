@@ -227,11 +227,10 @@
       this.tabControlResults.Controls.Add(this.tabPageErrorsAndFailures);
       this.tabControlResults.Controls.Add(this.tabPageTestsNotRun);
       this.tabControlResults.Controls.Add(this.tabPageTextOutput);
-      this.tabControlResults.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.tabControlResults.Location = new System.Drawing.Point(0, 0);
+      this.tabControlResults.Location = new System.Drawing.Point(0, 126);
       this.tabControlResults.Name = "tabControlResults";
       this.tabControlResults.SelectedIndex = 0;
-      this.tabControlResults.Size = new System.Drawing.Size(559, 402);
+      this.tabControlResults.Size = new System.Drawing.Size(559, 276);
       this.tabControlResults.TabIndex = 0;
       // 
       // tabPageErrorsAndFailures
@@ -242,7 +241,7 @@
       this.tabPageErrorsAndFailures.Location = new System.Drawing.Point(4, 4);
       this.tabPageErrorsAndFailures.Name = "tabPageErrorsAndFailures";
       this.tabPageErrorsAndFailures.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPageErrorsAndFailures.Size = new System.Drawing.Size(551, 376);
+      this.tabPageErrorsAndFailures.Size = new System.Drawing.Size(551, 250);
       this.tabPageErrorsAndFailures.TabIndex = 0;
       this.tabPageErrorsAndFailures.Text = "Errors and Failures";
       this.tabPageErrorsAndFailures.UseVisualStyleBackColor = true;
@@ -251,7 +250,7 @@
       // 
       this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.panel1.Location = new System.Drawing.Point(3, 275);
+      this.panel1.Location = new System.Drawing.Point(3, 149);
       this.panel1.Name = "panel1";
       this.panel1.Size = new System.Drawing.Size(545, 2);
       this.panel1.TabIndex = 2;
@@ -261,7 +260,7 @@
       this.richTextBoxStackTrace.BackColor = System.Drawing.Color.White;
       this.richTextBoxStackTrace.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.richTextBoxStackTrace.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.richTextBoxStackTrace.Location = new System.Drawing.Point(3, 277);
+      this.richTextBoxStackTrace.Location = new System.Drawing.Point(3, 151);
       this.richTextBoxStackTrace.Name = "richTextBoxStackTrace";
       this.richTextBoxStackTrace.ReadOnly = true;
       this.richTextBoxStackTrace.Size = new System.Drawing.Size(545, 96);
@@ -275,10 +274,10 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.richTextBoxErrorsAndFailures.BackColor = System.Drawing.Color.White;
       this.richTextBoxErrorsAndFailures.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.richTextBoxErrorsAndFailures.Location = new System.Drawing.Point(9, 122);
+      this.richTextBoxErrorsAndFailures.Location = new System.Drawing.Point(3, 3);
       this.richTextBoxErrorsAndFailures.Name = "richTextBoxErrorsAndFailures";
       this.richTextBoxErrorsAndFailures.ReadOnly = true;
-      this.richTextBoxErrorsAndFailures.Size = new System.Drawing.Size(539, 131);
+      this.richTextBoxErrorsAndFailures.Size = new System.Drawing.Size(545, 140);
       this.richTextBoxErrorsAndFailures.TabIndex = 0;
       this.richTextBoxErrorsAndFailures.Text = "";
       // 
@@ -288,7 +287,7 @@
       this.tabPageTestsNotRun.Location = new System.Drawing.Point(4, 4);
       this.tabPageTestsNotRun.Name = "tabPageTestsNotRun";
       this.tabPageTestsNotRun.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPageTestsNotRun.Size = new System.Drawing.Size(551, 376);
+      this.tabPageTestsNotRun.Size = new System.Drawing.Size(551, 250);
       this.tabPageTestsNotRun.TabIndex = 1;
       this.tabPageTestsNotRun.Text = "Tests Not Run";
       this.tabPageTestsNotRun.UseVisualStyleBackColor = true;
@@ -299,7 +298,7 @@
       this.treeViewTestsNotRun.Dock = System.Windows.Forms.DockStyle.Fill;
       this.treeViewTestsNotRun.Location = new System.Drawing.Point(3, 3);
       this.treeViewTestsNotRun.Name = "treeViewTestsNotRun";
-      this.treeViewTestsNotRun.Size = new System.Drawing.Size(545, 370);
+      this.treeViewTestsNotRun.Size = new System.Drawing.Size(545, 244);
       this.treeViewTestsNotRun.TabIndex = 0;
       // 
       // tabPageTextOutput
@@ -559,19 +558,19 @@
       this.fullGUIToolStripMenuItem.Checked = true;
       this.fullGUIToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.fullGUIToolStripMenuItem.Name = "fullGUIToolStripMenuItem";
-      this.fullGUIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.fullGUIToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.fullGUIToolStripMenuItem.Text = "&Full GUI";
       // 
       // miniGUIToolStripMenuItem
       // 
       this.miniGUIToolStripMenuItem.Name = "miniGUIToolStripMenuItem";
-      this.miniGUIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.miniGUIToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.miniGUIToolStripMenuItem.Text = "&Mini GUI";
       // 
       // toolStripMenuItem7
       // 
       this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-      this.toolStripMenuItem7.Size = new System.Drawing.Size(177, 6);
+      this.toolStripMenuItem7.Size = new System.Drawing.Size(128, 6);
       // 
       // resultTabsToolStripMenuItem
       // 
@@ -581,7 +580,7 @@
             this.toolStripMenuItem8,
             this.testOutputToolStripMenuItem});
       this.resultTabsToolStripMenuItem.Name = "resultTabsToolStripMenuItem";
-      this.resultTabsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.resultTabsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.resultTabsToolStripMenuItem.Text = "&Result tabs";
       // 
       // errorsFailuresToolStripMenuItem
@@ -616,14 +615,14 @@
       // toolStripMenuItem9
       // 
       this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-      this.toolStripMenuItem9.Size = new System.Drawing.Size(177, 6);
+      this.toolStripMenuItem9.Size = new System.Drawing.Size(128, 6);
       // 
       // statusBarToolStripMenuItem
       // 
       this.statusBarToolStripMenuItem.Checked = true;
       this.statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
-      this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.statusBarToolStripMenuItem.Text = "&Status &Bar";
       // 
       // projectToolStripMenuItem
@@ -638,14 +637,14 @@
       // addTUnitFileToolStripMenuItem
       // 
       this.addTUnitFileToolStripMenuItem.Name = "addTUnitFileToolStripMenuItem";
-      this.addTUnitFileToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+      this.addTUnitFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.addTUnitFileToolStripMenuItem.Text = "Add TUnit file...";
       // 
       // tUnitPrpertyToolStripMenuItem
       // 
       this.tUnitPrpertyToolStripMenuItem.Enabled = false;
       this.tUnitPrpertyToolStripMenuItem.Name = "tUnitPrpertyToolStripMenuItem";
-      this.tUnitPrpertyToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+      this.tUnitPrpertyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.tUnitPrpertyToolStripMenuItem.Text = "TUnit property...";
       // 
       // testsToolStripMenuItem
@@ -666,7 +665,7 @@
       this.runAllToolStripMenuItem.Enabled = false;
       this.runAllToolStripMenuItem.Name = "runAllToolStripMenuItem";
       this.runAllToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-      this.runAllToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+      this.runAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.runAllToolStripMenuItem.Text = "&Run All";
       // 
       // runSelectedToolStripMenuItem
@@ -674,7 +673,7 @@
       this.runSelectedToolStripMenuItem.Enabled = false;
       this.runSelectedToolStripMenuItem.Name = "runSelectedToolStripMenuItem";
       this.runSelectedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
-      this.runSelectedToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+      this.runSelectedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.runSelectedToolStripMenuItem.Text = "Run &Selected";
       // 
       // runFailedToolStripMenuItem
@@ -682,19 +681,19 @@
       this.runFailedToolStripMenuItem.Enabled = false;
       this.runFailedToolStripMenuItem.Name = "runFailedToolStripMenuItem";
       this.runFailedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
-      this.runFailedToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+      this.runFailedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.runFailedToolStripMenuItem.Text = "Run &Failed";
       // 
       // toolStripMenuItem6
       // 
       this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-      this.toolStripMenuItem6.Size = new System.Drawing.Size(158, 6);
+      this.toolStripMenuItem6.Size = new System.Drawing.Size(177, 6);
       // 
       // stopRunToolStripMenuItem
       // 
       this.stopRunToolStripMenuItem.Enabled = false;
       this.stopRunToolStripMenuItem.Name = "stopRunToolStripMenuItem";
-      this.stopRunToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
+      this.stopRunToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.stopRunToolStripMenuItem.Text = "S&top Run";
       // 
       // toolsToolStripMenuItem

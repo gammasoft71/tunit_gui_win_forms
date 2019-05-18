@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace tunit_gui {
   public class TUnitProject {
+    public TUnitProject() {
+      this.Reset();
+    }
+
     public TUnitProject(string fileName) {
       this.FileName = fileName;
       this.Reset();
@@ -21,7 +25,7 @@ namespace tunit_gui {
       set { this.File.Name = value; }
     }
 
-    public string FileName { get; private set; }
+    public string FileName { get; set; }
 
     public int TestCount {
       get {
@@ -43,7 +47,7 @@ namespace tunit_gui {
 
     public int FailedCount { get; set; }
 
-    public string[] TextOutPut {
+    public string[] TextOutput {
       get {
         List<string> textOutput = new List<string>();
         bool first = true;
@@ -54,6 +58,10 @@ namespace tunit_gui {
         }
         return textOutput.ToArray();
       }
+    }
+
+    public bool Saved {
+      get { return this.File.Saved; }
     }
 
     public UnitTest this[string fileName] {
