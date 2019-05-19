@@ -47,6 +47,8 @@ namespace tunit_gui {
 
     public int FailedCount { get; set; }
 
+    public TimeSpan ElapsedTime { get; set; }
+
     public string[] TextOutput {
       get {
         List<string> textOutput = new List<string>();
@@ -108,10 +110,20 @@ namespace tunit_gui {
       }
     }
 
+    public void New() {
+      this.File = new ProjectFile();
+    }
+
     public void Reset() {
       this.Status = TestStatus.NotStarted;
       foreach (var unitTest in this.unitTests)
         unitTest.Value.Reset();
+      this.RanCount = 0;
+      this.SucceedCount = 0;
+      this.IngoredCount = 0;
+      this.AbortedCount = 0;
+      this.FailedCount = 0;
+      this.ElapsedTime = TimeSpan.Zero;
     }
 
     public void Run() {
@@ -120,26 +132,38 @@ namespace tunit_gui {
 
     public void Run(UnitTest unitTest) {
       if (this.TUnitProjectStart != null) this.TUnitProjectStart(this, EventArgs.Empty);
+      System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
       unitTest.Run();
+      sw.Stop();
+      this.ElapsedTime = sw.Elapsed;
       if (this.TUnitProjectEnd != null) this.TUnitProjectEnd(this, EventArgs.Empty);
     }
 
     public void Run(TestFixture fixture) {
       if (this.TUnitProjectStart != null) this.TUnitProjectStart(this, EventArgs.Empty);
+      System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
       fixture.UnitTest.Run($"--filter_tests={fixture.Name}.*");
+      sw.Stop();
+      this.ElapsedTime = sw.Elapsed;
       if (this.TUnitProjectEnd != null) this.TUnitProjectEnd(this, EventArgs.Empty);
     }
 
     public void Run(Test test) {
       if (this.TUnitProjectStart != null) this.TUnitProjectStart(this, EventArgs.Empty);
+      System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
       test.TestFixture.UnitTest.Run($"--filter_tests={test.TestFixture.Name}.{test.Name}");
+      sw.Stop();
+      this.ElapsedTime = sw.Elapsed;
       if (this.TUnitProjectEnd != null) this.TUnitProjectEnd(this, EventArgs.Empty);
     }
 
     public void Run(string arguments) {
       if (this.TUnitProjectStart != null) this.TUnitProjectStart(this, EventArgs.Empty);
+      System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
       foreach (var unitTest in this.unitTests)
         unitTest.Value.Run(arguments);
+      sw.Stop();
+      this.ElapsedTime = sw.Elapsed;
       if (this.TUnitProjectEnd != null) this.TUnitProjectEnd(this, EventArgs.Empty);
     }
 

@@ -18,6 +18,7 @@ namespace tunit_gui {
       this.closeToolStripMenuItem.Click += this.OnFileCloseClick;
       this.saveToolStripMenuItem.Click += this.OnFileSaveClick;
       this.saveAsToolStripMenuItem.Click += this.OnFileSaveAsClick;
+      this.reloadProjectToolStripMenuItem.Click += this.OnReloadProjectClick;
       this.exitToolStripMenuItem.Click += this.OnFileExitClick;
       this.addTUnitFileToolStripMenuItem.Click += this.OnProjectAddTUnitFileClick;
       this.fullGUIToolStripMenuItem.Click += this.OnProjectFullGUIClick;
@@ -27,9 +28,20 @@ namespace tunit_gui {
       this.statusBarToolStripMenuItem.Click += this.OnViewStatusBarClick;
       this.treeViewTests.AfterSelect += this.OnTreeViewTestsAfterSelect;
       this.runAllToolStripMenuItem.Click += this.OnRunAllTestsClick;
+      this.buttonRun.Click += this.OnRunSelectedTestsClick;
+    }
+
+    private void OnReloadProjectClick(object sender, EventArgs e) {
+      this.ReloadProject();
+    }
+
+    private void OnRunSelectedTestsClick(object sender, EventArgs e) {
+      this.ResetProject();
     }
 
     private void OnRunAllTestsClick(object sender, EventArgs e) {
+      this.progressBarRun.Maximum = this.tunitProject.TestCount;
+      this.ResetProject();
       this.tunitProject.Run();
     }
 
@@ -103,6 +115,10 @@ namespace tunit_gui {
     }
 
     private void ReloadProject() {
+      this.tunitProject.Reset();
+      this.progressBarRun.Value = 0;
+      this.progressBarRun.Maximum = this.tunitProject.TestCount;
+      this.richTextBoxTextOutput.Text = "";
       this.treeViewTests.SuspendLayout();
       this.treeViewTests.Nodes.Clear();
       this.treeViewTests.Nodes.Add(string.IsNullOrEmpty(this.tunitProject.FileName) ? this.tunitProject.Name : this.tunitProject.FileName);
@@ -120,6 +136,27 @@ namespace tunit_gui {
       }
       this.treeViewTests.ExpandAll();
       this.treeViewTests.SelectedNode = this.treeViewTests.Nodes[0];
+      this.treeViewTests.ResumeLayout();
+    }
+
+    private void ResetProject() {
+      this.tunitProject.Reset();
+      this.progressBarRun.Value = 0;
+      this.progressBarRun.Maximum = this.tunitProject.TestCount;
+      this.richTextBoxTextOutput.Text = "";
+      this.treeViewTests.SuspendLayout();
+      foreach(TreeNode node1 in this.treeViewTests.Nodes) {
+        node1.ImageIndex = node1.SelectedImageIndex = (int)TestStatus.NotStarted;
+        foreach (TreeNode node2 in node1.Nodes) {
+          node2.ImageIndex = node2.SelectedImageIndex = (int)TestStatus.NotStarted;
+          foreach (TreeNode node3 in node2.Nodes) {
+            node3.ImageIndex = node3.SelectedImageIndex = (int)TestStatus.NotStarted;
+            foreach (TreeNode node4 in node3.Nodes) {
+              node4.ImageIndex = node4.SelectedImageIndex = (int)TestStatus.NotStarted;
+            }
+          }
+        }
+      }
       this.treeViewTests.ResumeLayout();
     }
 
@@ -156,6 +193,7 @@ namespace tunit_gui {
         }
       }
 
+      this.progressBarRun.Increment(1);
       this.richTextBoxTextOutput.Text = string.Join(Environment.NewLine, this.tunitProject.TextOutput);
     }
 
@@ -218,6 +256,7 @@ namespace tunit_gui {
       OnFileCloseClick(sender, e);
       if (this.tunitProject == null) {
         this.tunitProject = new TUnitProject();
+        this.tunitProject.New();
         this.tunitProject.TestEnd += this.OnTestEnd;
         this.ReloadProject();
       }
@@ -238,21 +277,28 @@ namespace tunit_gui {
       this.buttonRun.Enabled = this.tunitProject != null;
 
       if (this.tunitProject == null) {
-        this.panelRun.BackColor = System.Drawing.SystemColors.Control;
-        this.labelRun.ForeColor = System.Drawing.SystemColors.ControlText;
-        this.labelSelectedTest.ForeColor = System.Drawing.SystemColors.ControlText;
-      } else {
-        switch(this.tunitProject.Status) {
-          case TestStatus.NotStarted: this.panelRun.BackColor = System.Drawing.Color.FromArgb(255, 95, 95, 95); break;
-          case TestStatus.Succeed: this.panelRun.BackColor = System.Drawing.Color.FromArgb(255, 76, 175, 81); break;
-          case TestStatus.Ignored: this.panelRun.BackColor = System.Drawing.Color.FromArgb(255, 195, 195, 195); break;
-          case TestStatus.Aborted: this.panelRun.BackColor = System.Drawing.Color.FromArgb(255, 244, 243, 54); break;
-          case TestStatus.Failed: this.panelRun.BackColor = System.Drawing.Color.FromArgb(255, 244, 67, 55); break;
-        }
+        this.toolStripStatusLabelTestCases.Text = $"Test Cases : 0";
+        this.toolStripStatusLabelRanTests.Text = $"Ran Tests : 0";
+        this.toolStripStatusLabelIgnoredTests.Text = $"Ignored Tests : 0";
+        this.toolStripStatusLabelAbortedTests.Text = $"Aborted Tests : 0";
+        this.toolStripStatusLabelFailedTests.Text = $"Failed Tests : 0";
+        this.toolStripStatusLabelTestsDuration.Text = $"Time : {TimeSpan.Zero}";
 
-        if (this.tunitProject.Status == TestStatus.NotStarted) {
-          this.labelRun.ForeColor = System.Drawing.Color.White;
-          this.labelSelectedTest.ForeColor = System.Drawing.Color.White;
+        this.labelColor.BackColor = System.Drawing.SystemColors.Control;
+      } else {
+        this.toolStripStatusLabelTestCases.Text = $"Test Cases : {this.tunitProject.TestCount}";
+        this.toolStripStatusLabelRanTests.Text = $"Ran Tests : {this.tunitProject.RanCount}";
+        this.toolStripStatusLabelIgnoredTests.Text = $"Ignored Tests : {this.tunitProject.IngoredCount}";
+        this.toolStripStatusLabelAbortedTests.Text = $"Aborted Tests : {this.tunitProject.AbortedCount}";
+        this.toolStripStatusLabelFailedTests.Text = $"Failed Tests : {this.tunitProject.FailedCount}";
+        this.toolStripStatusLabelTestsDuration.Text = $"Time : {this.tunitProject.ElapsedTime}";
+
+        switch (this.tunitProject.Status) {
+          case TestStatus.NotStarted: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 95, 95, 95); break;
+          case TestStatus.Succeed: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 76, 175, 81); break;
+          case TestStatus.Ignored: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 195, 195, 195); break;
+          case TestStatus.Aborted: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 244, 243, 54); break;
+          case TestStatus.Failed: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 244, 67, 55); break;
         }
       }
 
