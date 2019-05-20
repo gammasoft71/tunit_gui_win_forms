@@ -127,7 +127,13 @@ namespace tunit_gui {
     }
 
     public void Run() {
-      Run("");
+      if (this.TUnitProjectStart != null) this.TUnitProjectStart(this, EventArgs.Empty);
+      System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
+      foreach (var unitTest in this.unitTests)
+        unitTest.Value.Run("");
+      sw.Stop();
+      this.ElapsedTime = sw.Elapsed;
+      if (this.TUnitProjectEnd != null) this.TUnitProjectEnd(this, EventArgs.Empty);
     }
 
     public void Run(UnitTest unitTest) {
@@ -157,14 +163,9 @@ namespace tunit_gui {
       if (this.TUnitProjectEnd != null) this.TUnitProjectEnd(this, EventArgs.Empty);
     }
 
-    public void Run(string arguments) {
-      if (this.TUnitProjectStart != null) this.TUnitProjectStart(this, EventArgs.Empty);
-      System.Diagnostics.Stopwatch sw = System.Diagnostics.Stopwatch.StartNew();
+    public void Stop() {
       foreach (var unitTest in this.unitTests)
-        unitTest.Value.Run(arguments);
-      sw.Stop();
-      this.ElapsedTime = sw.Elapsed;
-      if (this.TUnitProjectEnd != null) this.TUnitProjectEnd(this, EventArgs.Empty);
+        unitTest.Value.Stop();
     }
 
     public void Save() {

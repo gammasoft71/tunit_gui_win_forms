@@ -7,6 +7,8 @@ namespace tunit_gui {
     public FormMain() {
       InitializeComponent();
 
+      this.ClientSize = new System.Drawing.Size(800, 494);
+
       Application.Idle += this.OnApplicationIdle;
       this.FormClosing += this.OnFormClosing;
 
@@ -28,7 +30,11 @@ namespace tunit_gui {
       this.statusBarToolStripMenuItem.Click += this.OnViewStatusBarClick;
       this.treeViewTests.AfterSelect += this.OnTreeViewTestsAfterSelect;
       this.runAllToolStripMenuItem.Click += this.OnRunAllTestsClick;
+      this.runSelectedToolStripMenuItem.Click += this.OnRunSelectedTestsClick;
+      this.runFailedToolStripMenuItem.Click += this.OnRunFailedTestsClick;
+      this.stopRunToolStripMenuItem.Click += this.OnStopTestsClick;
       this.buttonRun.Click += this.OnRunSelectedTestsClick;
+      this.buttonStop.Click += this.OnStopTestsClick;
     }
 
     private void OnReloadProjectClick(object sender, EventArgs e) {
@@ -36,13 +42,49 @@ namespace tunit_gui {
     }
 
     private void OnRunSelectedTestsClick(object sender, EventArgs e) {
-      this.ResetProject();
+      TreeNode treeNode = this.treeViewTests.SelectedNode;
+      if (treeNode != null) {
+        this.ResetProject();
+        if (treeNode.Tag is TUnitProject) {
+          this.progressBarRun.Maximum = this.tunitProject.TestCount;
+          this.tunitProject.Run();
+        } else if (treeNode.Tag is UnitTest) {
+          this.progressBarRun.Maximum = (treeNode.Tag as UnitTest).TestCount;
+          this.tunitProject.Run(treeNode.Tag as UnitTest);
+        } else if (treeNode.Tag is TestFixture) {
+          this.progressBarRun.Maximum = (treeNode.Tag as TestFixture).TestCount;
+          this.tunitProject.Run(treeNode.Tag as TestFixture);
+        } else if (treeNode.Tag is Test) {
+          this.progressBarRun.Maximum = 1;
+          this.tunitProject.Run(treeNode.Tag as Test);
+        }
+      }
     }
 
     private void OnRunAllTestsClick(object sender, EventArgs e) {
       this.progressBarRun.Maximum = this.tunitProject.TestCount;
       this.ResetProject();
       this.tunitProject.Run();
+    }
+
+    private void OnRunFailedTestsClick(object sender, EventArgs e) {
+      this.progressBarRun.Value = 0;
+      this.progressBarRun.Maximum = this.tunitProject.FailedCount;
+      foreach (TreeNode nodeTUnitProject in this.treeViewTests.Nodes) {
+        foreach (TreeNode nodeUnitTest in nodeTUnitProject.Nodes) {
+          foreach (TreeNode nodeTestFixture in nodeUnitTest.Nodes) {
+            foreach (TreeNode nodeTest in nodeTestFixture.Nodes) {
+              if ((nodeTest.Tag as Test).Status == TestStatus.Failed) {
+                this.tunitProject.Run(nodeTest.Tag as Test);
+              }
+            }
+          }
+        }
+      }
+    }
+
+    private void OnStopTestsClick(object sender, EventArgs e) {
+      this.tunitProject.Stop();
     }
 
     private void OnTreeViewTestsAfterSelect(object sender, TreeViewEventArgs e) {
@@ -54,7 +96,7 @@ namespace tunit_gui {
       this.miniGUIToolStripMenuItem.Checked = false;
       this.splitContainerMain.Panel2Collapsed = false;
       this.statusStripMain.Visible = true;
-      this.ClientSize = new System.Drawing.Size(800, 450);
+      this.ClientSize = new System.Drawing.Size(800, 494);
     }
 
     private void OnViewMiniGUIClick(object sender, EventArgs e) {
@@ -62,7 +104,7 @@ namespace tunit_gui {
       this.miniGUIToolStripMenuItem.Checked = true;
       this.splitContainerMain.Panel2Collapsed = true;
       this.statusStripMain.Visible = false;
-      this.ClientSize = new System.Drawing.Size(400, 450);
+      this.ClientSize = new System.Drawing.Size(306, 494);
     }
 
     private void OnTestsNotRunClick(object sender, EventArgs e) {
@@ -83,37 +125,6 @@ namespace tunit_gui {
       this.statusStripMain.Visible = !this.statusStripMain.Visible;
     }
 
-    private string[] GetTUnitFixtures(string fileName) {
-      System.Diagnostics.Process process = new System.Diagnostics.Process();
-      process.StartInfo = new System.Diagnostics.ProcessStartInfo(fileName, "--list_tests");
-      process.StartInfo.CreateNoWindow = true;
-      process.StartInfo.UseShellExecute = false;
-      process.StartInfo.RedirectStandardOutput = true;
-      process.Start();
-      System.Collections.Generic.SortedSet<string> results = new System.Collections.Generic.SortedSet<string>();
-      while (!process.StandardOutput.EndOfStream)
-        results.Add(process.StandardOutput.ReadLine().Split('.')[0]);
-      process.WaitForExit();
-      return results.ToArray();
-    }
-
-    private string[] GetTUnitTests(string fileName, string fixture) {
-      System.Diagnostics.Process process = new System.Diagnostics.Process();
-      process.StartInfo = new System.Diagnostics.ProcessStartInfo(fileName, "--list_tests");
-      process.StartInfo.CreateNoWindow = true;
-      process.StartInfo.UseShellExecute = false;
-      process.StartInfo.RedirectStandardOutput = true;
-      process.Start();
-      System.Collections.Generic.List<string> results = new System.Collections.Generic.List<string>();
-      while (!process.StandardOutput.EndOfStream) {
-        string[] fixtureTest = process.StandardOutput.ReadLine().Split('.');
-        if (fixtureTest[0] == fixture)
-          results.Add(fixtureTest[1]);
-      }
-      process.WaitForExit();
-      return results.ToArray();
-    }
-
     private void ReloadProject() {
       this.tunitProject.Reset();
       this.progressBarRun.Value = 0;
@@ -122,15 +133,19 @@ namespace tunit_gui {
       this.treeViewTests.SuspendLayout();
       this.treeViewTests.Nodes.Clear();
       this.treeViewTests.Nodes.Add(string.IsNullOrEmpty(this.tunitProject.FileName) ? this.tunitProject.Name : this.tunitProject.FileName);
+      this.treeViewTests.Nodes[0].Tag = this.tunitProject;
       foreach (var unitTest in this.tunitProject.UnitTests) {
         TreeNode unitTestNode = this.treeViewTests.Nodes[0].Nodes.Add(unitTest.FileName);
         unitTestNode.Name = unitTest.FileName;
+        unitTestNode.Tag = unitTest;
         foreach (var testFixture in unitTest.TestFixtures) {
           TreeNode testFixtureNode = unitTestNode.Nodes.Add(testFixture.Name);
           testFixtureNode.Name = testFixture.Name;
+          testFixtureNode.Tag = testFixture;
           foreach (var test in testFixture.Tests) {
             TreeNode testNode = testFixtureNode.Nodes.Add(test.Name);
             testNode.Name = test.Name;
+            testNode.Tag = test;
           }
         }
       }
@@ -146,13 +161,13 @@ namespace tunit_gui {
       this.richTextBoxTextOutput.Text = "";
       this.treeViewTests.SuspendLayout();
       foreach(TreeNode node1 in this.treeViewTests.Nodes) {
-        node1.ImageIndex = node1.SelectedImageIndex = (int)TestStatus.NotStarted;
+        if (node1.ImageIndex != (int)TestStatus.NotStarted) node1.ImageIndex = node1.SelectedImageIndex = (int)TestStatus.NotStarted;
         foreach (TreeNode node2 in node1.Nodes) {
-          node2.ImageIndex = node2.SelectedImageIndex = (int)TestStatus.NotStarted;
+          if (node2.ImageIndex != (int)TestStatus.NotStarted) node2.ImageIndex = node2.SelectedImageIndex = (int)TestStatus.NotStarted;
           foreach (TreeNode node3 in node2.Nodes) {
-            node3.ImageIndex = node3.SelectedImageIndex = (int)TestStatus.NotStarted;
+            if (node3.ImageIndex != (int)TestStatus.NotStarted) node3.ImageIndex = node3.SelectedImageIndex = (int)TestStatus.NotStarted;
             foreach (TreeNode node4 in node3.Nodes) {
-              node4.ImageIndex = node4.SelectedImageIndex = (int)TestStatus.NotStarted;
+              if (node4.ImageIndex != (int)TestStatus.NotStarted) node4.ImageIndex = node4.SelectedImageIndex = (int)TestStatus.NotStarted;
             }
           }
         }
@@ -180,21 +195,33 @@ namespace tunit_gui {
     }
 
     private void OnTestEnd(object sender, TestEventArgs e) {
-      this.treeViewTests.Nodes[0].SelectedImageIndex = this.treeViewTests.Nodes[0].ImageIndex = (int)this.tunitProject.Status;
+      if (this.treeViewTests.Nodes[0].ImageIndex != (int)this.tunitProject.Status) this.treeViewTests.Nodes[0].SelectedImageIndex = this.treeViewTests.Nodes[0].ImageIndex = (int)this.tunitProject.Status;
       TreeNode nodeFound = this.treeViewTests.Nodes[0].Nodes.Find(e.Test.TestFixture.UnitTest.FileName, false)[0];
       if (nodeFound != null) {
-        nodeFound.SelectedImageIndex = nodeFound.ImageIndex = (int)e.Test.TestFixture.UnitTest.Status;
+        if (nodeFound.ImageIndex != (int)e.Test.TestFixture.UnitTest.Status) nodeFound.SelectedImageIndex = nodeFound.ImageIndex = (int)e.Test.TestFixture.UnitTest.Status;
         nodeFound = nodeFound.Nodes.Find(e.Test.TestFixture.Name, false)[0];
         if (nodeFound != null) {
-          nodeFound.SelectedImageIndex = nodeFound.ImageIndex = (int)e.Test.TestFixture.Status;
+          if (nodeFound.ImageIndex != (int)e.Test.TestFixture.Status) nodeFound.SelectedImageIndex = nodeFound.ImageIndex = (int)e.Test.TestFixture.Status;
           nodeFound = nodeFound.Nodes.Find(e.Test.Name, false)[0];
-          if (nodeFound != null)
-            nodeFound.SelectedImageIndex = nodeFound.ImageIndex = (int)e.Test.Status;
+          if (nodeFound != null) {
+            if (nodeFound.ImageIndex != (int)e.Test.Status) nodeFound.SelectedImageIndex = nodeFound.ImageIndex = (int)e.Test.Status;
+          }
         }
       }
 
       this.progressBarRun.Increment(1);
       this.richTextBoxTextOutput.Text = string.Join(Environment.NewLine, this.tunitProject.TextOutput);
+      Application.DoEvents();
+    }
+
+    private void OnTUnitProjectStart(object sender, EventArgs e) {
+      this.running = true;
+      Application.DoEvents();
+    }
+
+    private void OnTUnitProjectEnd(object sender, EventArgs e) {
+      this.running = false;
+      Application.DoEvents();
     }
 
     private void OnFileOpenClick(object sender, EventArgs e) {
@@ -202,10 +229,19 @@ namespace tunit_gui {
       openFileDialog.Filter = "TUnit Files (*.tunit)|*.tunit|All Files (*.*)|*.*";
       DialogResult result = openFileDialog.ShowDialog();
       if (result == DialogResult.OK) {
-        this.tunitProject = new TUnitProject(openFileDialog.FileName);
-        this.tunitProject.Load();
-        this.tunitProject.TestEnd += this.OnTestEnd;
-        this.ReloadProject();
+        OnFileCloseClick(sender, e);
+        if (this.tunitProject == null) {
+          this.Enabled = false;
+          this.SuspendLayout();
+          this.tunitProject = new TUnitProject(openFileDialog.FileName);
+          this.tunitProject.Load();
+          this.tunitProject.TestEnd += this.OnTestEnd;
+          this.tunitProject.TUnitProjectStart += this.OnTUnitProjectStart;
+          this.tunitProject.TUnitProjectEnd += this.OnTUnitProjectEnd;
+          this.ReloadProject();
+          this.Enabled = true;
+          this.ResumeLayout();
+        }
       }
     }
 
@@ -214,23 +250,42 @@ namespace tunit_gui {
       e.Cancel = this.tunitProject != null;
     }
 
+    private void CloseProject() {
+      this.Enabled = false;
+      this.progressBarRun.Value = 0;
+      this.labelColor.BackColor = System.Drawing.SystemColors.Control;
+      this.toolStripStatusLabelTestCases.Text = "Test Cases : 0";
+      this.toolStripStatusLabelRanTests.Text = "Ran Tests : 0";
+      this.toolStripStatusLabelSucceedTests.Text = "Succeed Tests : 0";
+      this.toolStripStatusLabelIgnoredTests.Text = "Ignored Tests : 0";
+      this.toolStripStatusLabelAbortedTests.Text = "Aborted Tests : 0";
+      this.toolStripStatusLabelFailedTests.Text = "Failed Tests : 0";
+      this.toolStripStatusLabelTestsDuration.Text = $"Time : {TimeSpan.Zero}";
+      this.tunitProject.TestEnd -= this.OnTestEnd;
+      this.tunitProject.TUnitProjectStart -= this.OnTUnitProjectStart;
+      this.tunitProject.TUnitProjectEnd -= this.OnTUnitProjectEnd;
+      this.tunitProject = null;
+      Application.DoEvents();
+      this.treeViewTests.Nodes.Clear();
+      this.Enabled = true;
+    }
+
     private void OnFileCloseClick(object sender, EventArgs e) {
       if (this.tunitProject != null) {
         if (this.tunitProject.Saved) {
-          this.tunitProject.TestEnd -= this.OnTestEnd;
-          this.tunitProject = null;
-          this.treeViewTests.Nodes.Clear();
+          this.CloseProject();
         } else {
           DialogResult result = MessageBox.Show("Save current project before closing ?", "Save project", MessageBoxButtons.YesNoCancel);
           if (result == DialogResult.Yes) {
             OnFileSaveClick(sender, e);
             if (this.tunitProject.Saved) {
-              this.tunitProject.TestEnd -= this.OnTestEnd;
-              this.tunitProject = null;
-              this.treeViewTests.Nodes.Clear();
+              this.CloseProject();
             }
           }
-          if (result == DialogResult.No) this.tunitProject = null;
+          if (result == DialogResult.No) {
+            this.tunitProject = null;
+            this.treeViewTests.Nodes.Clear();
+          }
         }
       }
     }
@@ -258,11 +313,13 @@ namespace tunit_gui {
         this.tunitProject = new TUnitProject();
         this.tunitProject.New();
         this.tunitProject.TestEnd += this.OnTestEnd;
+        this.tunitProject.TUnitProjectStart += this.OnTUnitProjectStart;
+        this.tunitProject.TUnitProjectEnd += this.OnTUnitProjectEnd;
         this.ReloadProject();
       }
     }
 
-    private void OnApplicationIdle(object sender, EventArgs e) {
+    private void UpdateGui() {
       this.closeToolStripMenuItem.Enabled = this.tunitProject != null;
       this.saveToolStripMenuItem.Enabled = this.tunitProject != null;
       this.saveAsToolStripMenuItem.Enabled = this.tunitProject != null;
@@ -270,24 +327,30 @@ namespace tunit_gui {
       this.statusBarToolStripMenuItem.Checked = this.statusStripMain.Visible;
       this.reloadTestToolStripMenuItem.Enabled = this.tunitProject != null;
       this.addTUnitFileToolStripMenuItem.Enabled = this.tunitProject != null;
-      this.runAllToolStripMenuItem.Enabled = this.tunitProject != null;
-      this.runSelectedToolStripMenuItem.Enabled = this.tunitProject != null;
-      this.runFailedToolStripMenuItem.Enabled = this.tunitProject != null;
+      this.runAllToolStripMenuItem.Enabled = this.tunitProject != null && !this.running;
+      this.runSelectedToolStripMenuItem.Enabled = this.tunitProject != null && !this.running;
+      this.runFailedToolStripMenuItem.Enabled = this.tunitProject != null && this.tunitProject.FailedCount != 0 && !this.running;
+      this.stopRunToolStripMenuItem.Enabled = this.tunitProject != null && this.running;
       this.panelRun.Enabled = this.tunitProject != null;
-      this.buttonRun.Enabled = this.tunitProject != null;
+      this.buttonRun.Enabled = this.tunitProject != null && !this.running;
+      this.buttonStop.Enabled = this.tunitProject != null && this.running;
+      this.numericUpDownRepeat.Enabled = !this.checkBoxForever.Checked;
+      this.textBoxSeed.Enabled = this.checkBoxShuffle.Checked;
 
       if (this.tunitProject == null) {
-        this.toolStripStatusLabelTestCases.Text = $"Test Cases : 0";
-        this.toolStripStatusLabelRanTests.Text = $"Ran Tests : 0";
-        this.toolStripStatusLabelIgnoredTests.Text = $"Ignored Tests : 0";
-        this.toolStripStatusLabelAbortedTests.Text = $"Aborted Tests : 0";
-        this.toolStripStatusLabelFailedTests.Text = $"Failed Tests : 0";
+        this.toolStripStatusLabelTestCases.Text = "Test Cases : 0";
+        this.toolStripStatusLabelRanTests.Text = "Ran Tests : 0";
+        this.toolStripStatusLabelSucceedTests.Text = "Succeed Tests : 0";
+        this.toolStripStatusLabelIgnoredTests.Text = "Ignored Tests : 0";
+        this.toolStripStatusLabelAbortedTests.Text = "Aborted Tests : 0";
+        this.toolStripStatusLabelFailedTests.Text = "Failed Tests : 0";
         this.toolStripStatusLabelTestsDuration.Text = $"Time : {TimeSpan.Zero}";
 
         this.labelColor.BackColor = System.Drawing.SystemColors.Control;
       } else {
         this.toolStripStatusLabelTestCases.Text = $"Test Cases : {this.tunitProject.TestCount}";
         this.toolStripStatusLabelRanTests.Text = $"Ran Tests : {this.tunitProject.RanCount}";
+        this.toolStripStatusLabelSucceedTests.Text = $"Succeed Tests : {this.tunitProject.SucceedCount}";
         this.toolStripStatusLabelIgnoredTests.Text = $"Ignored Tests : {this.tunitProject.IngoredCount}";
         this.toolStripStatusLabelAbortedTests.Text = $"Aborted Tests : {this.tunitProject.AbortedCount}";
         this.toolStripStatusLabelFailedTests.Text = $"Failed Tests : {this.tunitProject.FailedCount}";
@@ -302,12 +365,17 @@ namespace tunit_gui {
         }
       }
 
-      if (this.tunitProject != null && this.Text != string.Format("{0} {1} - TUnit", string.IsNullOrEmpty(this.tunitProject.FileName) ? this.tunitProject.Name : System.IO.Path.GetFileNameWithoutExtension(this.tunitProject.FileName),  this.tunitProject.Saved ? "" : "* ")) this.Text = string.Format("{0}{1} - TUnit", string.IsNullOrEmpty(this.tunitProject.FileName) ? this.tunitProject.Name : System.IO.Path.GetFileNameWithoutExtension(this.tunitProject.FileName), this.tunitProject.Saved ? "" : "*");
+      if (this.tunitProject != null && this.Text != string.Format("{0} {1} - TUnit", string.IsNullOrEmpty(this.tunitProject.FileName) ? this.tunitProject.Name : System.IO.Path.GetFileNameWithoutExtension(this.tunitProject.FileName), this.tunitProject.Saved ? "" : "* ")) this.Text = string.Format("{0}{1} - TUnit", string.IsNullOrEmpty(this.tunitProject.FileName) ? this.tunitProject.Name : System.IO.Path.GetFileNameWithoutExtension(this.tunitProject.FileName), this.tunitProject.Saved ? "" : "*");
       if (this.tunitProject == null && this.Text != "TUnit") this.Text = "TUnit";
+    }
+
+    private void OnApplicationIdle(object sender, EventArgs e) {
+      UpdateGui();
     }
 
     private TUnitProject tunitProject = null;
     private TabPage errorsAndFailuresTabPage;
     private TabPage testsNotRunTabPage;
+    private bool running = false;
   }
 }

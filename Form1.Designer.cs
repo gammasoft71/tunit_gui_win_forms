@@ -34,6 +34,12 @@
       this.treeViewTests = new System.Windows.Forms.TreeView();
       this.imageListTest = new System.Windows.Forms.ImageList(this.components);
       this.panelRun = new System.Windows.Forms.Panel();
+      this.textBoxSeed = new System.Windows.Forms.TextBox();
+      this.label2 = new System.Windows.Forms.Label();
+      this.checkBoxForever = new System.Windows.Forms.CheckBox();
+      this.label1 = new System.Windows.Forms.Label();
+      this.numericUpDownRepeat = new System.Windows.Forms.NumericUpDown();
+      this.checkBoxShuffle = new System.Windows.Forms.CheckBox();
       this.labelSelectedTest = new System.Windows.Forms.Label();
       this.progressBarRun = new System.Windows.Forms.ProgressBar();
       this.buttonStop = new System.Windows.Forms.Button();
@@ -49,12 +55,14 @@
       this.richTextBoxTextOutput = new System.Windows.Forms.RichTextBox();
       this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
       this.statusStripMain = new System.Windows.Forms.StatusStrip();
-      this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
       this.toolStripStatusLabelTestCases = new System.Windows.Forms.ToolStripStatusLabel();
       this.toolStripStatusLabelRanTests = new System.Windows.Forms.ToolStripStatusLabel();
-      this.toolStripStatusLabelIgnoredTests = new System.Windows.Forms.ToolStripStatusLabel();
-      this.toolStripStatusLabelFailedTests = new System.Windows.Forms.ToolStripStatusLabel();
       this.toolStripStatusLabelTestsDuration = new System.Windows.Forms.ToolStripStatusLabel();
+      this.toolStripStatusLabelSucceedTests = new System.Windows.Forms.ToolStripStatusLabel();
+      this.toolStripStatusLabelIgnoredTests = new System.Windows.Forms.ToolStripStatusLabel();
+      this.toolStripStatusLabelAbortedTests = new System.Windows.Forms.ToolStripStatusLabel();
+      this.toolStripStatusLabelFailedTests = new System.Windows.Forms.ToolStripStatusLabel();
+      this.labelColor = new System.Windows.Forms.Label();
       this.menuStripMain = new System.Windows.Forms.MenuStrip();
       this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.newToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -96,13 +104,12 @@
       this.tUnitHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.labelColor = new System.Windows.Forms.Label();
-      this.toolStripStatusLabelAbortedTests = new System.Windows.Forms.ToolStripStatusLabel();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
       this.splitContainerMain.Panel1.SuspendLayout();
       this.splitContainerMain.Panel2.SuspendLayout();
       this.splitContainerMain.SuspendLayout();
       this.panelRun.SuspendLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeat)).BeginInit();
       this.tabControlResults.SuspendLayout();
       this.tabPageErrorsAndFailures.SuspendLayout();
       this.tabPageTestsNotRun.SuspendLayout();
@@ -134,8 +141,8 @@
       this.splitContainerMain.Panel2.Controls.Add(this.tabControlResults);
       this.splitContainerMain.Panel2.RightToLeft = System.Windows.Forms.RightToLeft.No;
       this.splitContainerMain.RightToLeft = System.Windows.Forms.RightToLeft.No;
-      this.splitContainerMain.Size = new System.Drawing.Size(797, 392);
-      this.splitContainerMain.SplitterDistance = 235;
+      this.splitContainerMain.Size = new System.Drawing.Size(797, 391);
+      this.splitContainerMain.SplitterDistance = 265;
       this.splitContainerMain.TabIndex = 0;
       // 
       // treeViewTests
@@ -147,7 +154,7 @@
       this.treeViewTests.Location = new System.Drawing.Point(0, 0);
       this.treeViewTests.Name = "treeViewTests";
       this.treeViewTests.SelectedImageIndex = 0;
-      this.treeViewTests.Size = new System.Drawing.Size(235, 392);
+      this.treeViewTests.Size = new System.Drawing.Size(265, 391);
       this.treeViewTests.TabIndex = 1;
       // 
       // imageListTest
@@ -163,6 +170,12 @@
       // panelRun
       // 
       this.panelRun.BackColor = System.Drawing.SystemColors.Control;
+      this.panelRun.Controls.Add(this.textBoxSeed);
+      this.panelRun.Controls.Add(this.label2);
+      this.panelRun.Controls.Add(this.checkBoxForever);
+      this.panelRun.Controls.Add(this.label1);
+      this.panelRun.Controls.Add(this.numericUpDownRepeat);
+      this.panelRun.Controls.Add(this.checkBoxShuffle);
       this.panelRun.Controls.Add(this.labelSelectedTest);
       this.panelRun.Controls.Add(this.progressBarRun);
       this.panelRun.Controls.Add(this.buttonStop);
@@ -170,8 +183,76 @@
       this.panelRun.Dock = System.Windows.Forms.DockStyle.Top;
       this.panelRun.Location = new System.Drawing.Point(0, 0);
       this.panelRun.Name = "panelRun";
-      this.panelRun.Size = new System.Drawing.Size(558, 120);
+      this.panelRun.Size = new System.Drawing.Size(528, 120);
       this.panelRun.TabIndex = 1;
+      // 
+      // textBoxSeed
+      // 
+      this.textBoxSeed.Location = new System.Drawing.Point(113, 95);
+      this.textBoxSeed.Name = "textBoxSeed";
+      this.textBoxSeed.Size = new System.Drawing.Size(75, 20);
+      this.textBoxSeed.TabIndex = 10;
+      this.textBoxSeed.Text = "0";
+      // 
+      // label2
+      // 
+      this.label2.AutoSize = true;
+      this.label2.Location = new System.Drawing.Point(75, 99);
+      this.label2.Name = "label2";
+      this.label2.Size = new System.Drawing.Size(32, 13);
+      this.label2.TabIndex = 9;
+      this.label2.Text = "Seed";
+      // 
+      // checkBoxForever
+      // 
+      this.checkBoxForever.AutoSize = true;
+      this.checkBoxForever.Location = new System.Drawing.Point(129, 73);
+      this.checkBoxForever.Name = "checkBoxForever";
+      this.checkBoxForever.Size = new System.Drawing.Size(62, 17);
+      this.checkBoxForever.TabIndex = 8;
+      this.checkBoxForever.Text = "Forever";
+      this.checkBoxForever.UseVisualStyleBackColor = true;
+      // 
+      // label1
+      // 
+      this.label1.AutoSize = true;
+      this.label1.Location = new System.Drawing.Point(7, 74);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(42, 13);
+      this.label1.TabIndex = 7;
+      this.label1.Text = "Repeat";
+      // 
+      // numericUpDownRepeat
+      // 
+      this.numericUpDownRepeat.Location = new System.Drawing.Point(55, 72);
+      this.numericUpDownRepeat.Maximum = new decimal(new int[] {
+            1000000,
+            0,
+            0,
+            0});
+      this.numericUpDownRepeat.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+      this.numericUpDownRepeat.Name = "numericUpDownRepeat";
+      this.numericUpDownRepeat.Size = new System.Drawing.Size(68, 20);
+      this.numericUpDownRepeat.TabIndex = 6;
+      this.numericUpDownRepeat.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+      // 
+      // checkBoxShuffle
+      // 
+      this.checkBoxShuffle.AutoSize = true;
+      this.checkBoxShuffle.Location = new System.Drawing.Point(10, 98);
+      this.checkBoxShuffle.Name = "checkBoxShuffle";
+      this.checkBoxShuffle.Size = new System.Drawing.Size(59, 17);
+      this.checkBoxShuffle.TabIndex = 5;
+      this.checkBoxShuffle.Text = "Shuffle";
+      this.checkBoxShuffle.UseVisualStyleBackColor = true;
       // 
       // labelSelectedTest
       // 
@@ -180,7 +261,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.labelSelectedTest.Location = new System.Drawing.Point(172, 10);
       this.labelSelectedTest.Name = "labelSelectedTest";
-      this.labelSelectedTest.Size = new System.Drawing.Size(375, 23);
+      this.labelSelectedTest.Size = new System.Drawing.Size(345, 23);
       this.labelSelectedTest.TabIndex = 4;
       this.labelSelectedTest.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
@@ -190,7 +271,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.progressBarRun.Location = new System.Drawing.Point(10, 40);
       this.progressBarRun.Name = "progressBarRun";
-      this.progressBarRun.Size = new System.Drawing.Size(537, 23);
+      this.progressBarRun.Size = new System.Drawing.Size(507, 23);
       this.progressBarRun.TabIndex = 2;
       // 
       // buttonStop
@@ -225,7 +306,7 @@
       this.tabControlResults.Location = new System.Drawing.Point(0, 126);
       this.tabControlResults.Name = "tabControlResults";
       this.tabControlResults.SelectedIndex = 0;
-      this.tabControlResults.Size = new System.Drawing.Size(559, 266);
+      this.tabControlResults.Size = new System.Drawing.Size(529, 265);
       this.tabControlResults.TabIndex = 0;
       // 
       // tabPageErrorsAndFailures
@@ -236,7 +317,7 @@
       this.tabPageErrorsAndFailures.Location = new System.Drawing.Point(4, 4);
       this.tabPageErrorsAndFailures.Name = "tabPageErrorsAndFailures";
       this.tabPageErrorsAndFailures.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPageErrorsAndFailures.Size = new System.Drawing.Size(551, 240);
+      this.tabPageErrorsAndFailures.Size = new System.Drawing.Size(521, 239);
       this.tabPageErrorsAndFailures.TabIndex = 0;
       this.tabPageErrorsAndFailures.Text = "Errors and Failures";
       this.tabPageErrorsAndFailures.UseVisualStyleBackColor = true;
@@ -245,9 +326,9 @@
       // 
       this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
       this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.panel1.Location = new System.Drawing.Point(3, 139);
+      this.panel1.Location = new System.Drawing.Point(3, 138);
       this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(545, 2);
+      this.panel1.Size = new System.Drawing.Size(515, 2);
       this.panel1.TabIndex = 2;
       // 
       // richTextBoxStackTrace
@@ -255,10 +336,10 @@
       this.richTextBoxStackTrace.BackColor = System.Drawing.Color.White;
       this.richTextBoxStackTrace.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.richTextBoxStackTrace.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.richTextBoxStackTrace.Location = new System.Drawing.Point(3, 141);
+      this.richTextBoxStackTrace.Location = new System.Drawing.Point(3, 140);
       this.richTextBoxStackTrace.Name = "richTextBoxStackTrace";
       this.richTextBoxStackTrace.ReadOnly = true;
-      this.richTextBoxStackTrace.Size = new System.Drawing.Size(545, 96);
+      this.richTextBoxStackTrace.Size = new System.Drawing.Size(515, 96);
       this.richTextBoxStackTrace.TabIndex = 1;
       this.richTextBoxStackTrace.Text = "";
       // 
@@ -269,10 +350,11 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.richTextBoxErrorsAndFailures.BackColor = System.Drawing.Color.White;
       this.richTextBoxErrorsAndFailures.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.richTextBoxErrorsAndFailures.HideSelection = false;
       this.richTextBoxErrorsAndFailures.Location = new System.Drawing.Point(3, 3);
       this.richTextBoxErrorsAndFailures.Name = "richTextBoxErrorsAndFailures";
       this.richTextBoxErrorsAndFailures.ReadOnly = true;
-      this.richTextBoxErrorsAndFailures.Size = new System.Drawing.Size(545, 130);
+      this.richTextBoxErrorsAndFailures.Size = new System.Drawing.Size(515, 129);
       this.richTextBoxErrorsAndFailures.TabIndex = 0;
       this.richTextBoxErrorsAndFailures.Text = "";
       // 
@@ -282,7 +364,7 @@
       this.tabPageTestsNotRun.Location = new System.Drawing.Point(4, 4);
       this.tabPageTestsNotRun.Name = "tabPageTestsNotRun";
       this.tabPageTestsNotRun.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPageTestsNotRun.Size = new System.Drawing.Size(551, 250);
+      this.tabPageTestsNotRun.Size = new System.Drawing.Size(551, 239);
       this.tabPageTestsNotRun.TabIndex = 1;
       this.tabPageTestsNotRun.Text = "Tests Not Run";
       this.tabPageTestsNotRun.UseVisualStyleBackColor = true;
@@ -293,7 +375,7 @@
       this.treeViewTestsNotRun.Dock = System.Windows.Forms.DockStyle.Fill;
       this.treeViewTestsNotRun.Location = new System.Drawing.Point(3, 3);
       this.treeViewTestsNotRun.Name = "treeViewTestsNotRun";
-      this.treeViewTestsNotRun.Size = new System.Drawing.Size(545, 244);
+      this.treeViewTestsNotRun.Size = new System.Drawing.Size(545, 233);
       this.treeViewTestsNotRun.TabIndex = 0;
       // 
       // tabPageTextOutput
@@ -301,7 +383,7 @@
       this.tabPageTextOutput.Controls.Add(this.richTextBoxTextOutput);
       this.tabPageTextOutput.Location = new System.Drawing.Point(4, 4);
       this.tabPageTextOutput.Name = "tabPageTextOutput";
-      this.tabPageTextOutput.Size = new System.Drawing.Size(551, 376);
+      this.tabPageTextOutput.Size = new System.Drawing.Size(551, 239);
       this.tabPageTextOutput.TabIndex = 2;
       this.tabPageTextOutput.Text = "Text Output";
       this.tabPageTextOutput.UseVisualStyleBackColor = true;
@@ -314,7 +396,7 @@
       this.richTextBoxTextOutput.Location = new System.Drawing.Point(0, 0);
       this.richTextBoxTextOutput.Name = "richTextBoxTextOutput";
       this.richTextBoxTextOutput.ReadOnly = true;
-      this.richTextBoxTextOutput.Size = new System.Drawing.Size(551, 376);
+      this.richTextBoxTextOutput.Size = new System.Drawing.Size(551, 239);
       this.richTextBoxTextOutput.TabIndex = 0;
       this.richTextBoxTextOutput.Text = "";
       // 
@@ -329,7 +411,7 @@
       // 
       this.toolStripContainer1.ContentPanel.Controls.Add(this.labelColor);
       this.toolStripContainer1.ContentPanel.Controls.Add(this.splitContainerMain);
-      this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(800, 402);
+      this.toolStripContainer1.ContentPanel.Size = new System.Drawing.Size(800, 401);
       this.toolStripContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
       this.toolStripContainer1.Location = new System.Drawing.Point(0, 0);
       this.toolStripContainer1.Name = "toolStripContainer1";
@@ -345,25 +427,18 @@
       // 
       this.statusStripMain.Dock = System.Windows.Forms.DockStyle.None;
       this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.toolStripStatusLabel1,
             this.toolStripStatusLabelTestCases,
             this.toolStripStatusLabelRanTests,
+            this.toolStripStatusLabelTestsDuration,
+            this.toolStripStatusLabelSucceedTests,
             this.toolStripStatusLabelIgnoredTests,
             this.toolStripStatusLabelAbortedTests,
-            this.toolStripStatusLabelFailedTests,
-            this.toolStripStatusLabelTestsDuration});
+            this.toolStripStatusLabelFailedTests});
       this.statusStripMain.Location = new System.Drawing.Point(0, 0);
       this.statusStripMain.Name = "statusStripMain";
-      this.statusStripMain.Size = new System.Drawing.Size(800, 24);
+      this.statusStripMain.Size = new System.Drawing.Size(800, 25);
       this.statusStripMain.TabIndex = 2;
       this.statusStripMain.Text = "statusStrip1";
-      // 
-      // toolStripStatusLabel1
-      // 
-      this.toolStripStatusLabel1.Name = "toolStripStatusLabel1";
-      this.toolStripStatusLabel1.Size = new System.Drawing.Size(270, 19);
-      this.toolStripStatusLabel1.Spring = true;
-      this.toolStripStatusLabel1.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
       // toolStripStatusLabelTestCases
       // 
@@ -372,7 +447,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelTestCases.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
       this.toolStripStatusLabelTestCases.Name = "toolStripStatusLabelTestCases";
-      this.toolStripStatusLabelTestCases.Size = new System.Drawing.Size(80, 19);
+      this.toolStripStatusLabelTestCases.Size = new System.Drawing.Size(80, 20);
       this.toolStripStatusLabelTestCases.Text = "Test Cases : 0";
       // 
       // toolStripStatusLabelRanTests
@@ -382,28 +457,8 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelRanTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
       this.toolStripStatusLabelRanTests.Name = "toolStripStatusLabelRanTests";
-      this.toolStripStatusLabelRanTests.Size = new System.Drawing.Size(75, 19);
+      this.toolStripStatusLabelRanTests.Size = new System.Drawing.Size(75, 20);
       this.toolStripStatusLabelRanTests.Text = "Ran Tests : 0";
-      // 
-      // toolStripStatusLabelIgnoredTests
-      // 
-      this.toolStripStatusLabelIgnoredTests.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-      this.toolStripStatusLabelIgnoredTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-      this.toolStripStatusLabelIgnoredTests.Name = "toolStripStatusLabelIgnoredTests";
-      this.toolStripStatusLabelIgnoredTests.Size = new System.Drawing.Size(96, 19);
-      this.toolStripStatusLabelIgnoredTests.Text = "Ignored Tests : 0";
-      // 
-      // toolStripStatusLabelFailedTests
-      // 
-      this.toolStripStatusLabelFailedTests.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-      this.toolStripStatusLabelFailedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-      this.toolStripStatusLabelFailedTests.Name = "toolStripStatusLabelFailedTests";
-      this.toolStripStatusLabelFailedTests.Size = new System.Drawing.Size(86, 19);
-      this.toolStripStatusLabelFailedTests.Text = "Failed Tests : 0";
       // 
       // toolStripStatusLabelTestsDuration
       // 
@@ -412,8 +467,64 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelTestsDuration.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
       this.toolStripStatusLabelTestsDuration.Name = "toolStripStatusLabelTestsDuration";
-      this.toolStripStatusLabelTestsDuration.Size = new System.Drawing.Size(53, 19);
+      this.toolStripStatusLabelTestsDuration.Size = new System.Drawing.Size(53, 20);
       this.toolStripStatusLabelTestsDuration.Text = "Time : 0";
+      // 
+      // toolStripStatusLabelSucceedTests
+      // 
+      this.toolStripStatusLabelSucceedTests.BackColor = System.Drawing.SystemColors.Control;
+      this.toolStripStatusLabelSucceedTests.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+      this.toolStripStatusLabelSucceedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
+      this.toolStripStatusLabelSucceedTests.Image = global::tunit_gui.Properties.Resources.Success;
+      this.toolStripStatusLabelSucceedTests.Name = "toolStripStatusLabelSucceedTests";
+      this.toolStripStatusLabelSucceedTests.Size = new System.Drawing.Size(115, 20);
+      this.toolStripStatusLabelSucceedTests.Text = "Succeed Tests : 0";
+      // 
+      // toolStripStatusLabelIgnoredTests
+      // 
+      this.toolStripStatusLabelIgnoredTests.BackColor = System.Drawing.SystemColors.Control;
+      this.toolStripStatusLabelIgnoredTests.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+      this.toolStripStatusLabelIgnoredTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
+      this.toolStripStatusLabelIgnoredTests.Image = global::tunit_gui.Properties.Resources.Ignored;
+      this.toolStripStatusLabelIgnoredTests.Name = "toolStripStatusLabelIgnoredTests";
+      this.toolStripStatusLabelIgnoredTests.Size = new System.Drawing.Size(112, 20);
+      this.toolStripStatusLabelIgnoredTests.Text = "Ignored Tests : 0";
+      // 
+      // toolStripStatusLabelAbortedTests
+      // 
+      this.toolStripStatusLabelAbortedTests.BackColor = System.Drawing.SystemColors.Control;
+      this.toolStripStatusLabelAbortedTests.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+      this.toolStripStatusLabelAbortedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
+      this.toolStripStatusLabelAbortedTests.Image = global::tunit_gui.Properties.Resources.Aborted;
+      this.toolStripStatusLabelAbortedTests.Name = "toolStripStatusLabelAbortedTests";
+      this.toolStripStatusLabelAbortedTests.Size = new System.Drawing.Size(114, 20);
+      this.toolStripStatusLabelAbortedTests.Text = "Aborted Tests : 0";
+      // 
+      // toolStripStatusLabelFailedTests
+      // 
+      this.toolStripStatusLabelFailedTests.BackColor = System.Drawing.SystemColors.Control;
+      this.toolStripStatusLabelFailedTests.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
+            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
+      this.toolStripStatusLabelFailedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
+      this.toolStripStatusLabelFailedTests.Image = global::tunit_gui.Properties.Resources.Failed;
+      this.toolStripStatusLabelFailedTests.Name = "toolStripStatusLabelFailedTests";
+      this.toolStripStatusLabelFailedTests.Size = new System.Drawing.Size(102, 20);
+      this.toolStripStatusLabelFailedTests.Text = "Failed Tests : 0";
+      // 
+      // labelColor
+      // 
+      this.labelColor.Dock = System.Windows.Forms.DockStyle.Top;
+      this.labelColor.Location = new System.Drawing.Point(0, 0);
+      this.labelColor.Name = "labelColor";
+      this.labelColor.Size = new System.Drawing.Size(800, 4);
+      this.labelColor.TabIndex = 1;
       // 
       // menuStripMain
       // 
@@ -634,14 +745,14 @@
       // addTUnitFileToolStripMenuItem
       // 
       this.addTUnitFileToolStripMenuItem.Name = "addTUnitFileToolStripMenuItem";
-      this.addTUnitFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.addTUnitFileToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
       this.addTUnitFileToolStripMenuItem.Text = "Add TUnit file...";
       // 
       // tUnitPrpertyToolStripMenuItem
       // 
       this.tUnitPrpertyToolStripMenuItem.Enabled = false;
       this.tUnitPrpertyToolStripMenuItem.Name = "tUnitPrpertyToolStripMenuItem";
-      this.tUnitPrpertyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.tUnitPrpertyToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
       this.tUnitPrpertyToolStripMenuItem.Text = "TUnit property...";
       // 
       // testsToolStripMenuItem
@@ -662,7 +773,7 @@
       this.runAllToolStripMenuItem.Enabled = false;
       this.runAllToolStripMenuItem.Name = "runAllToolStripMenuItem";
       this.runAllToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-      this.runAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.runAllToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
       this.runAllToolStripMenuItem.Text = "&Run All";
       // 
       // runSelectedToolStripMenuItem
@@ -670,7 +781,7 @@
       this.runSelectedToolStripMenuItem.Enabled = false;
       this.runSelectedToolStripMenuItem.Name = "runSelectedToolStripMenuItem";
       this.runSelectedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
-      this.runSelectedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.runSelectedToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
       this.runSelectedToolStripMenuItem.Text = "Run &Selected";
       // 
       // runFailedToolStripMenuItem
@@ -678,19 +789,19 @@
       this.runFailedToolStripMenuItem.Enabled = false;
       this.runFailedToolStripMenuItem.Name = "runFailedToolStripMenuItem";
       this.runFailedToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
-      this.runFailedToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.runFailedToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
       this.runFailedToolStripMenuItem.Text = "Run &Failed";
       // 
       // toolStripMenuItem6
       // 
       this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-      this.toolStripMenuItem6.Size = new System.Drawing.Size(177, 6);
+      this.toolStripMenuItem6.Size = new System.Drawing.Size(158, 6);
       // 
       // stopRunToolStripMenuItem
       // 
       this.stopRunToolStripMenuItem.Enabled = false;
       this.stopRunToolStripMenuItem.Name = "stopRunToolStripMenuItem";
-      this.stopRunToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.stopRunToolStripMenuItem.Size = new System.Drawing.Size(161, 22);
       this.stopRunToolStripMenuItem.Text = "S&top Run";
       // 
       // toolsToolStripMenuItem
@@ -734,24 +845,6 @@
       this.aboutToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
       this.aboutToolStripMenuItem.Text = "&About...";
       // 
-      // labelColor
-      // 
-      this.labelColor.Dock = System.Windows.Forms.DockStyle.Top;
-      this.labelColor.Location = new System.Drawing.Point(0, 0);
-      this.labelColor.Name = "labelColor";
-      this.labelColor.Size = new System.Drawing.Size(800, 4);
-      this.labelColor.TabIndex = 1;
-      // 
-      // toolStripStatusLabelAbortedTests
-      // 
-      this.toolStripStatusLabelAbortedTests.BorderSides = ((System.Windows.Forms.ToolStripStatusLabelBorderSides)((((System.Windows.Forms.ToolStripStatusLabelBorderSides.Left | System.Windows.Forms.ToolStripStatusLabelBorderSides.Top) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
-            | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
-      this.toolStripStatusLabelAbortedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-      this.toolStripStatusLabelAbortedTests.Name = "toolStripStatusLabelAbortedTests";
-      this.toolStripStatusLabelAbortedTests.Size = new System.Drawing.Size(98, 19);
-      this.toolStripStatusLabelAbortedTests.Text = "Aborted Tests : 0";
-      // 
       // FormMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -766,6 +859,8 @@
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).EndInit();
       this.splitContainerMain.ResumeLayout(false);
       this.panelRun.ResumeLayout(false);
+      this.panelRun.PerformLayout();
+      ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeat)).EndInit();
       this.tabControlResults.ResumeLayout(false);
       this.tabPageErrorsAndFailures.ResumeLayout(false);
       this.tabPageTestsNotRun.ResumeLayout(false);
@@ -805,7 +900,6 @@
     private System.Windows.Forms.TreeView treeViewTests;
     private System.Windows.Forms.ToolStripContainer toolStripContainer1;
     private System.Windows.Forms.StatusStrip statusStripMain;
-    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
     private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelTestCases;
     private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelRanTests;
     private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelIgnoredTests;
@@ -855,6 +949,13 @@
     private System.Windows.Forms.ImageList imageListTest;
     private System.Windows.Forms.Label labelColor;
     private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelAbortedTests;
+    private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.NumericUpDown numericUpDownRepeat;
+    private System.Windows.Forms.CheckBox checkBoxShuffle;
+    private System.Windows.Forms.CheckBox checkBoxForever;
+    private System.Windows.Forms.TextBox textBoxSeed;
+    private System.Windows.Forms.Label label2;
+    private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelSucceedTests;
   }
 }
 

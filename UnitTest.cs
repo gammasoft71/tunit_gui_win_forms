@@ -59,22 +59,26 @@ namespace tunit_gui {
       process.Start();
       if (process.WaitForExit(1000) == false) return false;
       if (!process.StandardOutput.ReadToEnd().StartsWith("This program contains tests written using xtd::tunit.")) return false;
+      if (!process.HasExited) process.Kill();
+      process.Close();
       return true;
     }
 
     public void Load() {
-      System.Diagnostics.Process process = new System.Diagnostics.Process();
-      process.StartInfo = new System.Diagnostics.ProcessStartInfo(this.FileName, "--list_tests");
-      process.StartInfo.CreateNoWindow = true;
-      process.StartInfo.UseShellExecute = false;
-      process.StartInfo.RedirectStandardOutput = true;
-      process.Start();
+      this.process = new System.Diagnostics.Process();
+      this.process.StartInfo = new System.Diagnostics.ProcessStartInfo(this.FileName, "--list_tests");
+      this.process.StartInfo.CreateNoWindow = true;
+      this.process.StartInfo.UseShellExecute = false;
+      this.process.StartInfo.RedirectStandardOutput = true;
+      this.process.Start();
       while (!process.StandardOutput.EndOfStream) {
-        string[] test = process.StandardOutput.ReadLine().Split('.');
+        string[] test = this.process.StandardOutput.ReadLine().Split('.');
         if (!this.testFixtures.ContainsKey(test[0])) this.testFixtures.Add(test[0], new TestFixture(this, test[0]));
         this.testFixtures[test[0]].AddTest(test[1]);
       }
-      process.WaitForExit();
+      this.process.WaitForExit();
+      this.process.Close();
+      this.process = null;
     }
 
     public void Reset() {
@@ -89,14 +93,16 @@ namespace tunit_gui {
     }
 
     public void Run(string arguments) {
-      System.Diagnostics.Process process = new System.Diagnostics.Process();
-      process.StartInfo = new System.Diagnostics.ProcessStartInfo(this.FileName, $"--output_color=false {arguments}");
-      process.StartInfo.CreateNoWindow = true;
-      process.StartInfo.UseShellExecute = false;
-      process.StartInfo.RedirectStandardOutput = true;
-      process.Start();
-      ParseProcessOutput(process.StandardOutput);
-      process.WaitForExit();
+      this.process = new System.Diagnostics.Process();
+      this.process.StartInfo = new System.Diagnostics.ProcessStartInfo(this.FileName, $"--output_color=false {arguments}");
+      this.process.StartInfo.CreateNoWindow = true;
+      this.process.StartInfo.UseShellExecute = false;
+      this.process.StartInfo.RedirectStandardOutput = true;
+      this.process.Start();
+      ParseProcessOutput(this.process.StandardOutput);
+      this.process.WaitForExit();
+      this.process.Close();
+      this.process = null;
     }
 
     private void ParseProcessOutput(System.IO.StreamReader streamReader) {
@@ -113,16 +119,30 @@ namespace tunit_gui {
         if (countLine++ < 2 || line == "") continue;
         if (line.StartsWith("SUCCEED") || line.StartsWith("IGNORED") || line.StartsWith("ABORTED") || line.StartsWith("FAILED ")) {
           if (status != TestStatus.NotStarted) {
+            if (this[fixtureAndTestName[0]][fixtureAndTestName[1]].Status != status) {
+              switch (this[fixtureAndTestName[0]][fixtureAndTestName[1]].Status) {
+                case TestStatus.Succeed: this.tunitProject.SucceedCount--; this.tunitProject.RanCount--; break;
+                case TestStatus.Ignored: this.tunitProject.IngoredCount--; this.tunitProject.RanCount--; break;
+                case TestStatus.Aborted: this.tunitProject.AbortedCount--; this.tunitProject.RanCount--; break;
+                case TestStatus.Failed: this.tunitProject.FailedCount--; this.tunitProject.RanCount--; break;
+              }
+              switch (status) {
+                case TestStatus.Succeed: this.tunitProject.SucceedCount++; this.tunitProject.RanCount++; break;
+                case TestStatus.Ignored: this.tunitProject.IngoredCount++; this.tunitProject.RanCount++; break;
+                case TestStatus.Aborted: this.tunitProject.AbortedCount++; this.tunitProject.RanCount++; break;
+                case TestStatus.Failed: this.tunitProject.FailedCount++; this.tunitProject.RanCount++; break;
+              }
+            }
             this[fixtureAndTestName[0]][fixtureAndTestName[1]].SetStatus(status, errorsAndFailures.ToArray(), stackTrace);
             stackTrace = "";
             errorsAndFailures.Clear();
             status = TestStatus.NotStarted;
           }
           switch (line.Substring(0, 7)) {
-            case "SUCCEED": status = TestStatus.Succeed; this.tunitProject.SucceedCount++; this.tunitProject.RanCount++; break;
-            case "IGNORED": status = TestStatus.Ignored; this.tunitProject.IngoredCount++; this.tunitProject.RanCount++; break;
-            case "ABORTED": status = TestStatus.Aborted; this.tunitProject.AbortedCount++; this.tunitProject.RanCount++; break;
-            case "FAILED ": status = TestStatus.Failed; this.tunitProject.FailedCount++; this.tunitProject.RanCount++; break;
+            case "SUCCEED": status = TestStatus.Succeed; break;
+            case "IGNORED": status = TestStatus.Ignored; break;
+            case "ABORTED": status = TestStatus.Aborted; break;
+            case "FAILED ": status = TestStatus.Failed; break;
           }
           line = line.Substring(8, line.IndexOf(" (") - 8);
           fixtureAndTestName = line.Split('.');
@@ -135,13 +155,35 @@ namespace tunit_gui {
         }
       }
 
-      if (status != TestStatus.NotStarted) this[fixtureAndTestName[0]][fixtureAndTestName[1]].SetStatus(status, errorsAndFailures.ToArray(), stackTrace);
+      if (status != TestStatus.NotStarted) {
+        if (this[fixtureAndTestName[0]][fixtureAndTestName[1]].Status != status) {
+          switch (this[fixtureAndTestName[0]][fixtureAndTestName[1]].Status) {
+            case TestStatus.Succeed: this.tunitProject.SucceedCount--; this.tunitProject.RanCount--; break;
+            case TestStatus.Ignored: this.tunitProject.IngoredCount--; this.tunitProject.RanCount--; break;
+            case TestStatus.Aborted: this.tunitProject.AbortedCount--; this.tunitProject.RanCount--; break;
+            case TestStatus.Failed: this.tunitProject.FailedCount--; this.tunitProject.RanCount--; break;
+          }
+          switch (status) {
+            case TestStatus.Succeed: this.tunitProject.SucceedCount++; this.tunitProject.RanCount++; break;
+            case TestStatus.Ignored: this.tunitProject.IngoredCount++; this.tunitProject.RanCount++; break;
+            case TestStatus.Aborted: this.tunitProject.AbortedCount++; this.tunitProject.RanCount++; break;
+            case TestStatus.Failed: this.tunitProject.FailedCount++; this.tunitProject.RanCount++; break;
+          }
+        }
+        this[fixtureAndTestName[0]][fixtureAndTestName[1]].SetStatus(status, errorsAndFailures.ToArray(), stackTrace);
+      }
       if (this.TextOutput.Length != 0) lines.Insert(0, "");
       lines.InsertRange(0, this.TextOutput);
       this.TextOutput = lines.ToArray();
     }
 
+    public void Stop() {
+      if (this.process != null && !this.process.HasExited)
+        this.process.Kill();
+    }
+
     private Dictionary<string, TestFixture> testFixtures = new Dictionary<string, TestFixture>();
     private TUnitProject tunitProject;
+    System.Diagnostics.Process process = null;
   }
 }
