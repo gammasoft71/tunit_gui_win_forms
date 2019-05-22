@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 
-namespace tunit_gui {
+namespace tunit {
   static class Program {
     /// <summary>
     /// The main entry point for the application.

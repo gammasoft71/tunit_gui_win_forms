@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tunit_gui {
+namespace tunit {
   public class TUnitProjectEventArgs : EventArgs {
     public TUnitProjectEventArgs(TUnitProject tunitProject) { this.tunitProject = tunitProject; }
 

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tunit_gui {
+namespace tunit {
   public class UnitTest {
     public UnitTest(TUnitProject tunitProject, string fileName) {
       if (!IsTUnitApplication(fileName)) throw new ArgumentException($"{fileName} is not a TUnit application");

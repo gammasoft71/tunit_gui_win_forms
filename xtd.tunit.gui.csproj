@@ -6,8 +6,8 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{6C015CEC-7595-4F83-8F1E-DC5ADDA97C34}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>tunit_gui</RootNamespace>
-    <AssemblyName>tunit_gui</AssemblyName>
+    <RootNamespace>tunit</RootNamespace>
+    <AssemblyName>tunit</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>

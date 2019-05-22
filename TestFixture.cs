@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace tunit_gui {
+namespace tunit {
   public class TestFixture {
     public TestFixture(UnitTest unitTest, string name) {
       this.unitTest = unitTest;

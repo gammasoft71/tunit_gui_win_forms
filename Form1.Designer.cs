@@ -1,4 +1,4 @@
-﻿namespace tunit_gui
+﻿namespace tunit
 {
   partial class FormMain
   {
@@ -479,7 +479,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelSucceedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-      this.toolStripStatusLabelSucceedTests.Image = global::tunit_gui.Properties.Resources.Success;
+      this.toolStripStatusLabelSucceedTests.Image = global::tunit.Properties.Resources.Success;
       this.toolStripStatusLabelSucceedTests.Name = "toolStripStatusLabelSucceedTests";
       this.toolStripStatusLabelSucceedTests.Size = new System.Drawing.Size(115, 20);
       this.toolStripStatusLabelSucceedTests.Text = "Succeed Tests : 0";
@@ -491,7 +491,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelIgnoredTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-      this.toolStripStatusLabelIgnoredTests.Image = global::tunit_gui.Properties.Resources.Ignored;
+      this.toolStripStatusLabelIgnoredTests.Image = global::tunit.Properties.Resources.Ignored;
       this.toolStripStatusLabelIgnoredTests.Name = "toolStripStatusLabelIgnoredTests";
       this.toolStripStatusLabelIgnoredTests.Size = new System.Drawing.Size(112, 20);
       this.toolStripStatusLabelIgnoredTests.Text = "Ignored Tests : 0";
@@ -503,7 +503,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelAbortedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-      this.toolStripStatusLabelAbortedTests.Image = global::tunit_gui.Properties.Resources.Aborted;
+      this.toolStripStatusLabelAbortedTests.Image = global::tunit.Properties.Resources.Aborted;
       this.toolStripStatusLabelAbortedTests.Name = "toolStripStatusLabelAbortedTests";
       this.toolStripStatusLabelAbortedTests.Size = new System.Drawing.Size(114, 20);
       this.toolStripStatusLabelAbortedTests.Text = "Aborted Tests : 0";
@@ -515,7 +515,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelFailedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-      this.toolStripStatusLabelFailedTests.Image = global::tunit_gui.Properties.Resources.Failed;
+      this.toolStripStatusLabelFailedTests.Image = global::tunit.Properties.Resources.Failed;
       this.toolStripStatusLabelFailedTests.Name = "toolStripStatusLabelFailedTests";
       this.toolStripStatusLabelFailedTests.Size = new System.Drawing.Size(102, 20);
       this.toolStripStatusLabelFailedTests.Text = "Failed Tests : 0";

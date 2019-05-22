@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Windows.Forms;
 
-namespace tunit_gui {
+namespace tunit {
   public partial class FormMain : Form {
     public FormMain() {
       InitializeComponent();
