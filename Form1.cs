@@ -7,13 +7,28 @@ namespace tunit {
     public FormMain() {
       InitializeComponent();
 
-      this.ClientSize = new System.Drawing.Size(800, 494);
+      this.ClientSize = new System.Drawing.Size(850, 525);
 
       Application.Idle += this.OnApplicationIdle;
       this.FormClosing += this.OnFormClosing;
 
-      this.errorsAndFailuresTabPage = this.tabControlResults.TabPages[0];
-      this.testsNotRunTabPage = this.tabControlResults.TabPages[1];
+      this.textOutputTabPage = this.tabControlResults.TabPages[0];
+      this.succeedTestsTabPage = this.tabControlResults.TabPages[1];
+      this.ignoredTestsTabPage = this.tabControlResults.TabPages[2];
+      this.abortedTestsTabPage = this.tabControlResults.TabPages[3];
+      this.failedTestsTabPage = this.tabControlResults.TabPages[4];
+
+      this.textOutputTabPage.Tag = 0;
+      this.succeedTestsTabPage.Tag = 1;
+      this.ignoredTestsTabPage.Tag = 2;
+      this.abortedTestsTabPage.Tag = 3;
+      this.failedTestsTabPage.Tag = 4;
+
+      this.tabControlResults.TabPages.Remove(textOutputTabPage);
+      this.tabControlResults.TabPages.Remove(succeedTestsTabPage);
+      this.tabControlResults.TabPages.Remove(ignoredTestsTabPage);
+      this.tabControlResults.TabPages.Remove(abortedTestsTabPage);
+
 
       this.newToolStripMenuItem.Click += this.OnFileNewClick;
       this.openToolStripMenuItem.Click += this.OnFileOpenClick;
@@ -25,8 +40,10 @@ namespace tunit {
       this.addTUnitFileToolStripMenuItem.Click += this.OnProjectAddTUnitFileClick;
       this.fullGUIToolStripMenuItem.Click += this.OnProjectFullGUIClick;
       this.miniGUIToolStripMenuItem.Click += this.OnViewMiniGUIClick;
-      this.errorsFailuresToolStripMenuItem.Click += this.OnViewErrorsAndFailuresClick;
-      this.testsNotRunToolStripMenuItem.Click += this.OnTestsNotRunClick;
+      this.succeedTestsToolStripMenuItem.Click += this.OnSucceedTestsClick;
+      this.ignoredTestsToolStripMenuItem.Click += this.OnIgnoredTestsClick;
+      this.abortedTestsToolStripMenuItem.Click += this.OnAbortedTestsClick;
+      this.failedTestsToolStripMenuItem.Click += this.OnViewFailedTestsClick;
       this.statusBarToolStripMenuItem.Click += this.OnViewStatusBarClick;
       this.treeViewTests.AfterSelect += this.OnTreeViewTestsAfterSelect;
       this.runAllToolStripMenuItem.Click += this.OnRunAllTestsClick;
@@ -96,7 +113,7 @@ namespace tunit {
       this.miniGUIToolStripMenuItem.Checked = false;
       this.splitContainerMain.Panel2Collapsed = false;
       this.statusStripMain.Visible = true;
-      this.ClientSize = new System.Drawing.Size(800, 494);
+      this.ClientSize = new System.Drawing.Size(850, 525);
     }
 
     private void OnViewMiniGUIClick(object sender, EventArgs e) {
@@ -104,21 +121,42 @@ namespace tunit {
       this.miniGUIToolStripMenuItem.Checked = true;
       this.splitContainerMain.Panel2Collapsed = true;
       this.statusStripMain.Visible = false;
-      this.ClientSize = new System.Drawing.Size(306, 494);
+      this.ClientSize = new System.Drawing.Size(324, 525);
     }
 
-    private void OnTestsNotRunClick(object sender, EventArgs e) {
-      if (this.testsNotRunToolStripMenuItem.Checked)
-        this.tabControlResults.TabPages.Insert(this.tabControlResults.TabPages.Count - 1, testsNotRunTabPage);
-      else
-        this.tabControlResults.TabPages.Remove(testsNotRunTabPage);
+    private void AddTabPageToTabControlResult(TabPage tabPage) {
+      int indexToInsert = 0;
+      foreach (TabPage item in this.tabControlResults.TabPages)
+        if ((Int32)item.Tag < (Int32)tabPage.Tag) indexToInsert++;
+      this.tabControlResults.TabPages.Insert(indexToInsert, tabPage);
     }
 
-    private void OnViewErrorsAndFailuresClick(object sender, EventArgs e) {
-      if (this.errorsFailuresToolStripMenuItem.Checked)
-        this.tabControlResults.TabPages.Insert(0, errorsAndFailuresTabPage);
+    private void OnSucceedTestsClick(object sender, EventArgs e) {
+      if (this.succeedTestsToolStripMenuItem.Checked)
+        AddTabPageToTabControlResult(succeedTestsTabPage);
       else
-        this.tabControlResults.TabPages.Remove(errorsAndFailuresTabPage);
+        this.tabControlResults.TabPages.Remove(succeedTestsTabPage);
+    }
+
+    private void OnIgnoredTestsClick(object sender, EventArgs e) {
+      if (this.ignoredTestsToolStripMenuItem.Checked)
+        AddTabPageToTabControlResult(ignoredTestsTabPage);
+      else
+        this.tabControlResults.TabPages.Remove(ignoredTestsTabPage);
+    }
+
+    private void OnAbortedTestsClick(object sender, EventArgs e) {
+      if (this.abortedTestsToolStripMenuItem.Checked)
+        AddTabPageToTabControlResult(abortedTestsTabPage);
+      else
+        this.tabControlResults.TabPages.Remove(abortedTestsTabPage);
+    }
+
+    private void OnViewFailedTestsClick(object sender, EventArgs e) {
+      if (this.failedTestsToolStripMenuItem.Checked)
+        AddTabPageToTabControlResult(failedTestsTabPage);
+      else
+        this.tabControlResults.TabPages.Remove(failedTestsTabPage);
     }
 
     private void OnViewStatusBarClick(object sender, EventArgs e) {
@@ -374,8 +412,11 @@ namespace tunit {
     }
 
     private TUnitProject tunitProject = null;
-    private TabPage errorsAndFailuresTabPage;
-    private TabPage testsNotRunTabPage;
+    private TabPage succeedTestsTabPage;
+    private TabPage ignoredTestsTabPage;
+    private TabPage abortedTestsTabPage;
+    private TabPage failedTestsTabPage;
+    private TabPage textOutputTabPage;
     private bool running = false;
   }
 }
