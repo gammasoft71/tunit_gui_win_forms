@@ -149,6 +149,8 @@
       // 
       this.treeViewTests.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.treeViewTests.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeViewTests.FullRowSelect = true;
+      this.treeViewTests.HideSelection = false;
       this.treeViewTests.ImageIndex = 0;
       this.treeViewTests.ImageList = this.imageListTest;
       this.treeViewTests.Location = new System.Drawing.Point(0, 0);
@@ -429,11 +431,11 @@
       this.statusStripMain.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripStatusLabelTestCases,
             this.toolStripStatusLabelRanTests,
-            this.toolStripStatusLabelTestsDuration,
             this.toolStripStatusLabelSucceedTests,
             this.toolStripStatusLabelIgnoredTests,
             this.toolStripStatusLabelAbortedTests,
-            this.toolStripStatusLabelFailedTests});
+            this.toolStripStatusLabelFailedTests,
+            this.toolStripStatusLabelTestsDuration});
       this.statusStripMain.Location = new System.Drawing.Point(0, 0);
       this.statusStripMain.Name = "statusStripMain";
       this.statusStripMain.Size = new System.Drawing.Size(800, 25);

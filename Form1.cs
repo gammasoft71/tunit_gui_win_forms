@@ -359,8 +359,8 @@ namespace tunit_gui {
         switch (this.tunitProject.Status) {
           case TestStatus.NotStarted: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 95, 95, 95); break;
           case TestStatus.Succeed: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 76, 175, 81); break;
-          case TestStatus.Ignored: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 195, 195, 195); break;
-          case TestStatus.Aborted: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 244, 243, 54); break;
+          case TestStatus.Ignored: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 244, 243, 54); break;
+          case TestStatus.Aborted: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 195, 195, 195); break;
           case TestStatus.Failed: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 244, 67, 55); break;
         }
       }
