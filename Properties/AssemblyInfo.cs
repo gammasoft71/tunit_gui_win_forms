@@ -5,12 +5,12 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("tunit_gui")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyTitle("tunit")]
+[assembly: AssemblyDescription("xtd.tunit.gui is an application to play tunit unit tests.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("tunit_gui")]
-[assembly: AssemblyCopyright("Copyright ©  2019")]
+[assembly: AssemblyProduct("xtd.tunit.gui")]
+[assembly: AssemblyCopyright("Copyright © Gammasoft 2019")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

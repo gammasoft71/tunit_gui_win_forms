@@ -40,6 +40,7 @@ namespace tunit {
       this.addTUnitFileToolStripMenuItem.Click += this.OnProjectAddTUnitFileClick;
       this.fullGUIToolStripMenuItem.Click += this.OnProjectFullGUIClick;
       this.miniGUIToolStripMenuItem.Click += this.OnViewMiniGUIClick;
+      this.textOutputToolStripMenuItem.Click += this.OnViewTextOutputClick;
       this.succeedTestsToolStripMenuItem.Click += this.OnSucceedTestsClick;
       this.ignoredTestsToolStripMenuItem.Click += this.OnIgnoredTestsClick;
       this.abortedTestsToolStripMenuItem.Click += this.OnAbortedTestsClick;
@@ -50,8 +51,14 @@ namespace tunit {
       this.runSelectedToolStripMenuItem.Click += this.OnRunSelectedTestsClick;
       this.runFailedToolStripMenuItem.Click += this.OnRunFailedTestsClick;
       this.stopRunToolStripMenuItem.Click += this.OnStopTestsClick;
+      this.aboutToolStripMenuItem.Click += this.OnAboutClick;
       this.buttonRun.Click += this.OnRunSelectedTestsClick;
       this.buttonStop.Click += this.OnStopTestsClick;
+    }
+
+    private void OnAboutClick(object sender, EventArgs e) {
+      AboutBox aboutBox = new AboutBox();
+      aboutBox.ShowDialog(this);
     }
 
     private void OnReloadProjectClick(object sender, EventArgs e) {
@@ -129,6 +136,13 @@ namespace tunit {
       foreach (TabPage item in this.tabControlResults.TabPages)
         if ((Int32)item.Tag < (Int32)tabPage.Tag) indexToInsert++;
       this.tabControlResults.TabPages.Insert(indexToInsert, tabPage);
+    }
+
+    private void OnViewTextOutputClick(object sender, EventArgs e) {
+      if (this.textOutputToolStripMenuItem.Checked)
+        AddTabPageToTabControlResult(textOutputTabPage);
+      else
+        this.tabControlResults.TabPages.Remove(textOutputTabPage);
     }
 
     private void OnSucceedTestsClick(object sender, EventArgs e) {

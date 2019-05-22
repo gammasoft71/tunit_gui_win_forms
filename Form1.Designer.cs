@@ -45,6 +45,8 @@
       this.buttonStop = new System.Windows.Forms.Button();
       this.buttonRun = new System.Windows.Forms.Button();
       this.tabControlResults = new System.Windows.Forms.TabControl();
+      this.tabPageTextOutput = new System.Windows.Forms.TabPage();
+      this.richTextBoxTextOutput = new System.Windows.Forms.RichTextBox();
       this.tabPageSucceedTests = new System.Windows.Forms.TabPage();
       this.tabPageIgnoredTests = new System.Windows.Forms.TabPage();
       this.treeViewTestsNotRun = new System.Windows.Forms.TreeView();
@@ -53,8 +55,6 @@
       this.panel1 = new System.Windows.Forms.Panel();
       this.richTextBoxStackTrace = new System.Windows.Forms.RichTextBox();
       this.richTextBoxErrorsAndFailures = new System.Windows.Forms.RichTextBox();
-      this.tabPageTextOutput = new System.Windows.Forms.TabPage();
-      this.richTextBoxTextOutput = new System.Windows.Forms.RichTextBox();
       this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
       this.statusStripMain = new System.Windows.Forms.StatusStrip();
       this.toolStripStatusLabelTestCases = new System.Windows.Forms.ToolStripStatusLabel();
@@ -85,6 +85,7 @@
       this.miniGUIToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
       this.resultTabsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.textOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.succeedTestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.ignoredTestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.abortedTestsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -106,7 +107,6 @@
       this.tUnitHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.textOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
       this.splitContainerMain.Panel1.SuspendLayout();
       this.splitContainerMain.Panel2.SuspendLayout();
@@ -114,9 +114,9 @@
       this.panelRun.SuspendLayout();
       ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeat)).BeginInit();
       this.tabControlResults.SuspendLayout();
+      this.tabPageTextOutput.SuspendLayout();
       this.tabPageIgnoredTests.SuspendLayout();
       this.tabPageFailedTests.SuspendLayout();
-      this.tabPageTextOutput.SuspendLayout();
       this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
       this.toolStripContainer1.ContentPanel.SuspendLayout();
       this.toolStripContainer1.TopToolStripPanel.SuspendLayout();
@@ -316,6 +316,29 @@
       this.tabControlResults.Size = new System.Drawing.Size(529, 265);
       this.tabControlResults.TabIndex = 0;
       // 
+      // tabPageTextOutput
+      // 
+      this.tabPageTextOutput.Controls.Add(this.richTextBoxTextOutput);
+      this.tabPageTextOutput.Location = new System.Drawing.Point(4, 4);
+      this.tabPageTextOutput.Name = "tabPageTextOutput";
+      this.tabPageTextOutput.Size = new System.Drawing.Size(521, 239);
+      this.tabPageTextOutput.TabIndex = 2;
+      this.tabPageTextOutput.Tag = "4";
+      this.tabPageTextOutput.Text = "Text Output";
+      this.tabPageTextOutput.UseVisualStyleBackColor = true;
+      // 
+      // richTextBoxTextOutput
+      // 
+      this.richTextBoxTextOutput.BackColor = System.Drawing.Color.White;
+      this.richTextBoxTextOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.richTextBoxTextOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.richTextBoxTextOutput.Location = new System.Drawing.Point(0, 0);
+      this.richTextBoxTextOutput.Name = "richTextBoxTextOutput";
+      this.richTextBoxTextOutput.ReadOnly = true;
+      this.richTextBoxTextOutput.Size = new System.Drawing.Size(521, 239);
+      this.richTextBoxTextOutput.TabIndex = 0;
+      this.richTextBoxTextOutput.Text = "";
+      // 
       // tabPageSucceedTests
       // 
       this.tabPageSucceedTests.Location = new System.Drawing.Point(4, 4);
@@ -407,29 +430,6 @@
       this.richTextBoxErrorsAndFailures.Size = new System.Drawing.Size(515, 129);
       this.richTextBoxErrorsAndFailures.TabIndex = 0;
       this.richTextBoxErrorsAndFailures.Text = "";
-      // 
-      // tabPageTextOutput
-      // 
-      this.tabPageTextOutput.Controls.Add(this.richTextBoxTextOutput);
-      this.tabPageTextOutput.Location = new System.Drawing.Point(4, 4);
-      this.tabPageTextOutput.Name = "tabPageTextOutput";
-      this.tabPageTextOutput.Size = new System.Drawing.Size(521, 239);
-      this.tabPageTextOutput.TabIndex = 2;
-      this.tabPageTextOutput.Tag = "4";
-      this.tabPageTextOutput.Text = "Text Output";
-      this.tabPageTextOutput.UseVisualStyleBackColor = true;
-      // 
-      // richTextBoxTextOutput
-      // 
-      this.richTextBoxTextOutput.BackColor = System.Drawing.Color.White;
-      this.richTextBoxTextOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.richTextBoxTextOutput.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.richTextBoxTextOutput.Location = new System.Drawing.Point(0, 0);
-      this.richTextBoxTextOutput.Name = "richTextBoxTextOutput";
-      this.richTextBoxTextOutput.ReadOnly = true;
-      this.richTextBoxTextOutput.Size = new System.Drawing.Size(521, 239);
-      this.richTextBoxTextOutput.TabIndex = 0;
-      this.richTextBoxTextOutput.Text = "";
       // 
       // toolStripContainer1
       // 
@@ -697,19 +697,19 @@
       this.fullGUIToolStripMenuItem.Checked = true;
       this.fullGUIToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.fullGUIToolStripMenuItem.Name = "fullGUIToolStripMenuItem";
-      this.fullGUIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.fullGUIToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.fullGUIToolStripMenuItem.Text = "&Full GUI";
       // 
       // miniGUIToolStripMenuItem
       // 
       this.miniGUIToolStripMenuItem.Name = "miniGUIToolStripMenuItem";
-      this.miniGUIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.miniGUIToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.miniGUIToolStripMenuItem.Text = "&Mini GUI";
       // 
       // toolStripMenuItem7
       // 
       this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-      this.toolStripMenuItem7.Size = new System.Drawing.Size(177, 6);
+      this.toolStripMenuItem7.Size = new System.Drawing.Size(128, 6);
       // 
       // resultTabsToolStripMenuItem
       // 
@@ -723,25 +723,32 @@
       this.resultTabsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.resultTabsToolStripMenuItem.Text = "&Result tabs";
       // 
+      // textOutputToolStripMenuItem
+      // 
+      this.textOutputToolStripMenuItem.CheckOnClick = true;
+      this.textOutputToolStripMenuItem.Name = "textOutputToolStripMenuItem";
+      this.textOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.textOutputToolStripMenuItem.Text = "Text Output";
+      // 
       // succeedTestsToolStripMenuItem
       // 
       this.succeedTestsToolStripMenuItem.CheckOnClick = true;
       this.succeedTestsToolStripMenuItem.Name = "succeedTestsToolStripMenuItem";
-      this.succeedTestsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.succeedTestsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
       this.succeedTestsToolStripMenuItem.Text = "&Succeed Tests";
       // 
       // ignoredTestsToolStripMenuItem
       // 
       this.ignoredTestsToolStripMenuItem.CheckOnClick = true;
       this.ignoredTestsToolStripMenuItem.Name = "ignoredTestsToolStripMenuItem";
-      this.ignoredTestsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.ignoredTestsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
       this.ignoredTestsToolStripMenuItem.Text = "&Ignored Tests";
       // 
       // abortedTestsToolStripMenuItem
       // 
       this.abortedTestsToolStripMenuItem.CheckOnClick = true;
       this.abortedTestsToolStripMenuItem.Name = "abortedTestsToolStripMenuItem";
-      this.abortedTestsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.abortedTestsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
       this.abortedTestsToolStripMenuItem.Text = "&Aborted Tests";
       // 
       // failedTestsToolStripMenuItem
@@ -750,20 +757,20 @@
       this.failedTestsToolStripMenuItem.CheckOnClick = true;
       this.failedTestsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.failedTestsToolStripMenuItem.Name = "failedTestsToolStripMenuItem";
-      this.failedTestsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.failedTestsToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
       this.failedTestsToolStripMenuItem.Text = "&Failed Tests";
       // 
       // toolStripMenuItem9
       // 
       this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-      this.toolStripMenuItem9.Size = new System.Drawing.Size(177, 6);
+      this.toolStripMenuItem9.Size = new System.Drawing.Size(128, 6);
       // 
       // statusBarToolStripMenuItem
       // 
       this.statusBarToolStripMenuItem.Checked = true;
       this.statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
-      this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.statusBarToolStripMenuItem.Text = "&Status &Bar";
       // 
       // projectToolStripMenuItem
@@ -878,12 +885,6 @@
       this.aboutToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
       this.aboutToolStripMenuItem.Text = "&About...";
       // 
-      // textOutputToolStripMenuItem
-      // 
-      this.textOutputToolStripMenuItem.Name = "textOutputToolStripMenuItem";
-      this.textOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-      this.textOutputToolStripMenuItem.Text = "Text Output";
-      // 
       // FormMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -901,9 +902,9 @@
       this.panelRun.PerformLayout();
       ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeat)).EndInit();
       this.tabControlResults.ResumeLayout(false);
+      this.tabPageTextOutput.ResumeLayout(false);
       this.tabPageIgnoredTests.ResumeLayout(false);
       this.tabPageFailedTests.ResumeLayout(false);
-      this.tabPageTextOutput.ResumeLayout(false);
       this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
       this.toolStripContainer1.BottomToolStripPanel.PerformLayout();
       this.toolStripContainer1.ContentPanel.ResumeLayout(false);
