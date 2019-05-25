@@ -54,6 +54,11 @@ namespace tunit {
       this.aboutToolStripMenuItem.Click += this.OnAboutClick;
       this.buttonRun.Click += this.OnRunSelectedTestsClick;
       this.buttonStop.Click += this.OnStopTestsClick;
+      this.timerUpdateGui.Tick += this.OnTimerUpdateGuidTick;
+    }
+
+    private void OnTimerUpdateGuidTick(object sender, EventArgs e) {
+      this.UpdateGui();
     }
 
     private void OnAboutClick(object sender, EventArgs e) {
@@ -268,11 +273,18 @@ namespace tunit {
 
     private void OnTUnitProjectStart(object sender, EventArgs e) {
       this.running = true;
+      this.stopWatch.Reset();
+      this.stopWatch.Start();
+      this.timerUpdateGui.Enabled = true;
+      this.UpdateGui();
       Application.DoEvents();
     }
 
     private void OnTUnitProjectEnd(object sender, EventArgs e) {
       this.running = false;
+      this.stopWatch.Stop();
+      this.timerUpdateGui.Enabled = false;
+      this.UpdateGui();
       Application.DoEvents();
     }
 
@@ -406,7 +418,8 @@ namespace tunit {
         this.toolStripStatusLabelIgnoredTests.Text = $"Ignored Tests : {this.tunitProject.IngoredCount}";
         this.toolStripStatusLabelAbortedTests.Text = $"Aborted Tests : {this.tunitProject.AbortedCount}";
         this.toolStripStatusLabelFailedTests.Text = $"Failed Tests : {this.tunitProject.FailedCount}";
-        this.toolStripStatusLabelTestsDuration.Text = $"Time : {this.tunitProject.ElapsedTime}";
+        //this.toolStripStatusLabelTestsDuration.Text = $"Time : {this.tunitProject.ElapsedTime}";
+        this.toolStripStatusLabelTestsDuration.Text = $"Time : {this.stopWatch.Elapsed}";
 
         switch (this.tunitProject.Status) {
           case TestStatus.NotStarted: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 95, 95, 95); break;
@@ -432,5 +445,6 @@ namespace tunit {
     private TabPage failedTestsTabPage;
     private TabPage textOutputTabPage;
     private bool running = false;
+    private System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
   }
 }

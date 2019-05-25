@@ -107,6 +107,7 @@
       this.tUnitHelpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+      this.timerUpdateGui = new System.Windows.Forms.Timer(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
       this.splitContainerMain.Panel1.SuspendLayout();
       this.splitContainerMain.Panel2.SuspendLayout();
@@ -720,14 +721,14 @@
             this.abortedTestsToolStripMenuItem,
             this.failedTestsToolStripMenuItem});
       this.resultTabsToolStripMenuItem.Name = "resultTabsToolStripMenuItem";
-      this.resultTabsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.resultTabsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.resultTabsToolStripMenuItem.Text = "&Result tabs";
       // 
       // textOutputToolStripMenuItem
       // 
       this.textOutputToolStripMenuItem.CheckOnClick = true;
       this.textOutputToolStripMenuItem.Name = "textOutputToolStripMenuItem";
-      this.textOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.textOutputToolStripMenuItem.Size = new System.Drawing.Size(147, 22);
       this.textOutputToolStripMenuItem.Text = "Text Output";
       // 
       // succeedTestsToolStripMenuItem
@@ -999,6 +1000,7 @@
     private System.Windows.Forms.ToolStripMenuItem succeedTestsToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem abortedTestsToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem textOutputToolStripMenuItem;
+    private System.Windows.Forms.Timer timerUpdateGui;
   }
 }
 
