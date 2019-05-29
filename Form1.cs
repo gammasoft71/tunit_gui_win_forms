@@ -99,6 +99,7 @@ namespace tunit {
     private void OnRunFailedTestsClick(object sender, EventArgs e) {
       this.progressBarRun.Value = 0;
       this.progressBarRun.Maximum = this.tunitProject.FailedCount;
+      this.treeViewFailedTests.Nodes.Clear();
       foreach (TreeNode nodeTUnitProject in this.treeViewTests.Nodes) {
         foreach (TreeNode nodeUnitTest in nodeTUnitProject.Nodes) {
           foreach (TreeNode nodeTestFixture in nodeUnitTest.Nodes) {
@@ -188,6 +189,10 @@ namespace tunit {
       this.progressBarRun.Maximum = this.tunitProject.TestCount;
       this.richTextBoxTextOutput.Text = "";
       this.treeViewTests.SuspendLayout();
+      this.treeViewSucceedTests.Nodes.Clear();
+      this.treeViewIgnoredTests.Nodes.Clear();
+      this.treeViewAbortedTests.Nodes.Clear();
+      this.treeViewFailedTests.Nodes.Clear();
       this.treeViewTests.Nodes.Clear();
       this.treeViewTests.Nodes.Add(string.IsNullOrEmpty(this.tunitProject.FileName) ? this.tunitProject.Name : this.tunitProject.FileName);
       this.treeViewTests.Nodes[0].Tag = this.tunitProject;
@@ -215,6 +220,10 @@ namespace tunit {
       this.tunitProject.Reset();
       this.progressBarRun.Value = 0;
       this.progressBarRun.Maximum = this.tunitProject.TestCount;
+      this.treeViewSucceedTests.Nodes.Clear();
+      this.treeViewIgnoredTests.Nodes.Clear();
+      this.treeViewAbortedTests.Nodes.Clear();
+      this.treeViewFailedTests.Nodes.Clear();
       this.richTextBoxTextOutput.Text = "";
       this.treeViewTests.SuspendLayout();
       foreach(TreeNode node1 in this.treeViewTests.Nodes) {
@@ -266,9 +275,23 @@ namespace tunit {
         }
       }
 
+      TreeNode treeNode = null;
+
+      switch (e.Test.Status) {
+        case TestStatus.Succeed: treeNode = this.treeViewSucceedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name}"); break;
+        case TestStatus.Ignored: treeNode = this.treeViewIgnoredTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name}"); break;
+        case TestStatus.Aborted: treeNode = this.treeViewAbortedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name}"); break;
+        case TestStatus.Failed: treeNode = this.treeViewFailedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name}"); break;
+      }
+
+      if (treeNode != null) {
+        treeNode.Nodes.Add($"File : {e.Test.TestFixture.UnitTest.FileName}");
+        if (!string.IsNullOrEmpty(e.Test.StackTrace))
+          treeNode.Nodes.Add($"StackTrace : {e.Test.StackTrace}");
+      }
+
       this.progressBarRun.Increment(1);
-      this.richTextBoxTextOutput.Text = string.Join(Environment.NewLine, this.tunitProject.TextOutput);
-      Application.DoEvents();
+      //Application.DoEvents();
     }
 
     private void OnTUnitProjectStart(object sender, EventArgs e) {
@@ -284,6 +307,7 @@ namespace tunit {
       this.running = false;
       this.stopWatch.Stop();
       this.timerUpdateGui.Enabled = false;
+      this.richTextBoxTextOutput.Text = string.Join(Environment.NewLine, this.tunitProject.TextOutput);
       this.UpdateGui();
       Application.DoEvents();
     }

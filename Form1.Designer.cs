@@ -49,12 +49,9 @@
       this.richTextBoxTextOutput = new System.Windows.Forms.RichTextBox();
       this.tabPageSucceedTests = new System.Windows.Forms.TabPage();
       this.tabPageIgnoredTests = new System.Windows.Forms.TabPage();
-      this.treeViewTestsNotRun = new System.Windows.Forms.TreeView();
+      this.treeViewIgnoredTests = new System.Windows.Forms.TreeView();
       this.tabPageAbortedTests = new System.Windows.Forms.TabPage();
       this.tabPageFailedTests = new System.Windows.Forms.TabPage();
-      this.panel1 = new System.Windows.Forms.Panel();
-      this.richTextBoxStackTrace = new System.Windows.Forms.RichTextBox();
-      this.richTextBoxErrorsAndFailures = new System.Windows.Forms.RichTextBox();
       this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
       this.statusStripMain = new System.Windows.Forms.StatusStrip();
       this.toolStripStatusLabelTestCases = new System.Windows.Forms.ToolStripStatusLabel();
@@ -108,6 +105,9 @@
       this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.timerUpdateGui = new System.Windows.Forms.Timer(this.components);
+      this.treeViewSucceedTests = new System.Windows.Forms.TreeView();
+      this.treeViewFailedTests = new System.Windows.Forms.TreeView();
+      this.treeViewAbortedTests = new System.Windows.Forms.TreeView();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
       this.splitContainerMain.Panel1.SuspendLayout();
       this.splitContainerMain.Panel2.SuspendLayout();
@@ -116,7 +116,9 @@
       ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeat)).BeginInit();
       this.tabControlResults.SuspendLayout();
       this.tabPageTextOutput.SuspendLayout();
+      this.tabPageSucceedTests.SuspendLayout();
       this.tabPageIgnoredTests.SuspendLayout();
+      this.tabPageAbortedTests.SuspendLayout();
       this.tabPageFailedTests.SuspendLayout();
       this.toolStripContainer1.BottomToolStripPanel.SuspendLayout();
       this.toolStripContainer1.ContentPanel.SuspendLayout();
@@ -342,6 +344,7 @@
       // 
       // tabPageSucceedTests
       // 
+      this.tabPageSucceedTests.Controls.Add(this.treeViewSucceedTests);
       this.tabPageSucceedTests.Location = new System.Drawing.Point(4, 4);
       this.tabPageSucceedTests.Name = "tabPageSucceedTests";
       this.tabPageSucceedTests.Padding = new System.Windows.Forms.Padding(3);
@@ -353,7 +356,7 @@
       // 
       // tabPageIgnoredTests
       // 
-      this.tabPageIgnoredTests.Controls.Add(this.treeViewTestsNotRun);
+      this.tabPageIgnoredTests.Controls.Add(this.treeViewIgnoredTests);
       this.tabPageIgnoredTests.Location = new System.Drawing.Point(4, 4);
       this.tabPageIgnoredTests.Name = "tabPageIgnoredTests";
       this.tabPageIgnoredTests.Padding = new System.Windows.Forms.Padding(3);
@@ -363,17 +366,18 @@
       this.tabPageIgnoredTests.Text = "Ignored Tests";
       this.tabPageIgnoredTests.UseVisualStyleBackColor = true;
       // 
-      // treeViewTestsNotRun
+      // treeViewIgnoredTests
       // 
-      this.treeViewTestsNotRun.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.treeViewTestsNotRun.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.treeViewTestsNotRun.Location = new System.Drawing.Point(3, 3);
-      this.treeViewTestsNotRun.Name = "treeViewTestsNotRun";
-      this.treeViewTestsNotRun.Size = new System.Drawing.Size(515, 233);
-      this.treeViewTestsNotRun.TabIndex = 0;
+      this.treeViewIgnoredTests.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.treeViewIgnoredTests.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeViewIgnoredTests.Location = new System.Drawing.Point(3, 3);
+      this.treeViewIgnoredTests.Name = "treeViewIgnoredTests";
+      this.treeViewIgnoredTests.Size = new System.Drawing.Size(515, 233);
+      this.treeViewIgnoredTests.TabIndex = 0;
       // 
       // tabPageAbortedTests
       // 
+      this.tabPageAbortedTests.Controls.Add(this.treeViewAbortedTests);
       this.tabPageAbortedTests.Location = new System.Drawing.Point(4, 4);
       this.tabPageAbortedTests.Name = "tabPageAbortedTests";
       this.tabPageAbortedTests.Size = new System.Drawing.Size(521, 239);
@@ -384,9 +388,7 @@
       // 
       // tabPageFailedTests
       // 
-      this.tabPageFailedTests.Controls.Add(this.panel1);
-      this.tabPageFailedTests.Controls.Add(this.richTextBoxStackTrace);
-      this.tabPageFailedTests.Controls.Add(this.richTextBoxErrorsAndFailures);
+      this.tabPageFailedTests.Controls.Add(this.treeViewFailedTests);
       this.tabPageFailedTests.Location = new System.Drawing.Point(4, 4);
       this.tabPageFailedTests.Name = "tabPageFailedTests";
       this.tabPageFailedTests.Padding = new System.Windows.Forms.Padding(3);
@@ -395,42 +397,6 @@
       this.tabPageFailedTests.Tag = "3";
       this.tabPageFailedTests.Text = "Failed Tests";
       this.tabPageFailedTests.UseVisualStyleBackColor = true;
-      // 
-      // panel1
-      // 
-      this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.panel1.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.panel1.Location = new System.Drawing.Point(3, 138);
-      this.panel1.Name = "panel1";
-      this.panel1.Size = new System.Drawing.Size(515, 2);
-      this.panel1.TabIndex = 2;
-      // 
-      // richTextBoxStackTrace
-      // 
-      this.richTextBoxStackTrace.BackColor = System.Drawing.Color.White;
-      this.richTextBoxStackTrace.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.richTextBoxStackTrace.Dock = System.Windows.Forms.DockStyle.Bottom;
-      this.richTextBoxStackTrace.Location = new System.Drawing.Point(3, 140);
-      this.richTextBoxStackTrace.Name = "richTextBoxStackTrace";
-      this.richTextBoxStackTrace.ReadOnly = true;
-      this.richTextBoxStackTrace.Size = new System.Drawing.Size(515, 96);
-      this.richTextBoxStackTrace.TabIndex = 1;
-      this.richTextBoxStackTrace.Text = "";
-      // 
-      // richTextBoxErrorsAndFailures
-      // 
-      this.richTextBoxErrorsAndFailures.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-      this.richTextBoxErrorsAndFailures.BackColor = System.Drawing.Color.White;
-      this.richTextBoxErrorsAndFailures.BorderStyle = System.Windows.Forms.BorderStyle.None;
-      this.richTextBoxErrorsAndFailures.HideSelection = false;
-      this.richTextBoxErrorsAndFailures.Location = new System.Drawing.Point(3, 3);
-      this.richTextBoxErrorsAndFailures.Name = "richTextBoxErrorsAndFailures";
-      this.richTextBoxErrorsAndFailures.ReadOnly = true;
-      this.richTextBoxErrorsAndFailures.Size = new System.Drawing.Size(515, 129);
-      this.richTextBoxErrorsAndFailures.TabIndex = 0;
-      this.richTextBoxErrorsAndFailures.Text = "";
       // 
       // toolStripContainer1
       // 
@@ -886,6 +852,30 @@
       this.aboutToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
       this.aboutToolStripMenuItem.Text = "&About...";
       // 
+      // treeViewSucceedTests
+      // 
+      this.treeViewSucceedTests.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeViewSucceedTests.Location = new System.Drawing.Point(3, 3);
+      this.treeViewSucceedTests.Name = "treeViewSucceedTests";
+      this.treeViewSucceedTests.Size = new System.Drawing.Size(515, 233);
+      this.treeViewSucceedTests.TabIndex = 0;
+      // 
+      // treeViewFailedTests
+      // 
+      this.treeViewFailedTests.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeViewFailedTests.Location = new System.Drawing.Point(3, 3);
+      this.treeViewFailedTests.Name = "treeViewFailedTests";
+      this.treeViewFailedTests.Size = new System.Drawing.Size(515, 233);
+      this.treeViewFailedTests.TabIndex = 0;
+      // 
+      // treeViewAbortedTests
+      // 
+      this.treeViewAbortedTests.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeViewAbortedTests.Location = new System.Drawing.Point(0, 0);
+      this.treeViewAbortedTests.Name = "treeViewAbortedTests";
+      this.treeViewAbortedTests.Size = new System.Drawing.Size(521, 239);
+      this.treeViewAbortedTests.TabIndex = 0;
+      // 
       // FormMain
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -904,7 +894,9 @@
       ((System.ComponentModel.ISupportInitialize)(this.numericUpDownRepeat)).EndInit();
       this.tabControlResults.ResumeLayout(false);
       this.tabPageTextOutput.ResumeLayout(false);
+      this.tabPageSucceedTests.ResumeLayout(false);
       this.tabPageIgnoredTests.ResumeLayout(false);
+      this.tabPageAbortedTests.ResumeLayout(false);
       this.tabPageFailedTests.ResumeLayout(false);
       this.toolStripContainer1.BottomToolStripPanel.ResumeLayout(false);
       this.toolStripContainer1.BottomToolStripPanel.PerformLayout();
@@ -933,11 +925,8 @@
     private System.Windows.Forms.Button buttonRun;
     private System.Windows.Forms.ProgressBar progressBarRun;
     private System.Windows.Forms.Label labelSelectedTest;
-    private System.Windows.Forms.RichTextBox richTextBoxStackTrace;
-    private System.Windows.Forms.RichTextBox richTextBoxErrorsAndFailures;
-    private System.Windows.Forms.TreeView treeViewTestsNotRun;
+    private System.Windows.Forms.TreeView treeViewIgnoredTests;
     private System.Windows.Forms.RichTextBox richTextBoxTextOutput;
-    private System.Windows.Forms.Panel panel1;
     private System.Windows.Forms.TreeView treeViewTests;
     private System.Windows.Forms.ToolStripContainer toolStripContainer1;
     private System.Windows.Forms.StatusStrip statusStripMain;
@@ -1001,6 +990,9 @@
     private System.Windows.Forms.ToolStripMenuItem abortedTestsToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem textOutputToolStripMenuItem;
     private System.Windows.Forms.Timer timerUpdateGui;
+    private System.Windows.Forms.TreeView treeViewSucceedTests;
+    private System.Windows.Forms.TreeView treeViewFailedTests;
+    private System.Windows.Forms.TreeView treeViewAbortedTests;
   }
 }
 
