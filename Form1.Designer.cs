@@ -332,15 +332,18 @@
       // 
       // richTextBoxTextOutput
       // 
-      this.richTextBoxTextOutput.BackColor = System.Drawing.Color.White;
+      this.richTextBoxTextOutput.BackColor = System.Drawing.Color.Black;
       this.richTextBoxTextOutput.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.richTextBoxTextOutput.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.richTextBoxTextOutput.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.richTextBoxTextOutput.ForeColor = System.Drawing.Color.LightGray;
       this.richTextBoxTextOutput.Location = new System.Drawing.Point(0, 0);
       this.richTextBoxTextOutput.Name = "richTextBoxTextOutput";
       this.richTextBoxTextOutput.ReadOnly = true;
       this.richTextBoxTextOutput.Size = new System.Drawing.Size(521, 239);
       this.richTextBoxTextOutput.TabIndex = 0;
       this.richTextBoxTextOutput.Text = "";
+      this.richTextBoxTextOutput.WordWrap = false;
       // 
       // tabPageSucceedTests
       // 
@@ -370,6 +373,7 @@
       // 
       this.treeViewIgnoredTests.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.treeViewIgnoredTests.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeViewIgnoredTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.treeViewIgnoredTests.Location = new System.Drawing.Point(3, 3);
       this.treeViewIgnoredTests.Name = "treeViewIgnoredTests";
       this.treeViewIgnoredTests.Size = new System.Drawing.Size(515, 233);
@@ -855,6 +859,7 @@
       // treeViewSucceedTests
       // 
       this.treeViewSucceedTests.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeViewSucceedTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.treeViewSucceedTests.Location = new System.Drawing.Point(3, 3);
       this.treeViewSucceedTests.Name = "treeViewSucceedTests";
       this.treeViewSucceedTests.Size = new System.Drawing.Size(515, 233);
@@ -863,6 +868,7 @@
       // treeViewFailedTests
       // 
       this.treeViewFailedTests.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeViewFailedTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.treeViewFailedTests.Location = new System.Drawing.Point(3, 3);
       this.treeViewFailedTests.Name = "treeViewFailedTests";
       this.treeViewFailedTests.Size = new System.Drawing.Size(515, 233);
@@ -871,6 +877,7 @@
       // treeViewAbortedTests
       // 
       this.treeViewAbortedTests.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeViewAbortedTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.treeViewAbortedTests.Location = new System.Drawing.Point(0, 0);
       this.treeViewAbortedTests.Name = "treeViewAbortedTests";
       this.treeViewAbortedTests.Size = new System.Drawing.Size(521, 239);

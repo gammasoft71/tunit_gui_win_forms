@@ -145,37 +145,42 @@ namespace tunit {
     }
 
     private void OnViewTextOutputClick(object sender, EventArgs e) {
-      if (this.textOutputToolStripMenuItem.Checked)
-        AddTabPageToTabControlResult(textOutputTabPage);
-      else
+      if (this.textOutputToolStripMenuItem.Checked) {
+        AddTabPageToTabControlResult(this.textOutputTabPage);
+        this.tabControlResults.SelectedTab = this.textOutputTabPage;
+      } else
         this.tabControlResults.TabPages.Remove(textOutputTabPage);
     }
 
     private void OnSucceedTestsClick(object sender, EventArgs e) {
-      if (this.succeedTestsToolStripMenuItem.Checked)
-        AddTabPageToTabControlResult(succeedTestsTabPage);
-      else
+      if (this.succeedTestsToolStripMenuItem.Checked) {
+        AddTabPageToTabControlResult(this.succeedTestsTabPage);
+        this.tabControlResults.SelectedTab = this.succeedTestsTabPage;
+      } else
         this.tabControlResults.TabPages.Remove(succeedTestsTabPage);
     }
 
     private void OnIgnoredTestsClick(object sender, EventArgs e) {
-      if (this.ignoredTestsToolStripMenuItem.Checked)
-        AddTabPageToTabControlResult(ignoredTestsTabPage);
-      else
+      if (this.ignoredTestsToolStripMenuItem.Checked) {
+        AddTabPageToTabControlResult(this.ignoredTestsTabPage);
+        this.tabControlResults.SelectedTab = this.ignoredTestsTabPage;
+      } else
         this.tabControlResults.TabPages.Remove(ignoredTestsTabPage);
     }
 
     private void OnAbortedTestsClick(object sender, EventArgs e) {
-      if (this.abortedTestsToolStripMenuItem.Checked)
-        AddTabPageToTabControlResult(abortedTestsTabPage);
-      else
+      if (this.abortedTestsToolStripMenuItem.Checked) {
+        AddTabPageToTabControlResult(this.abortedTestsTabPage);
+        this.tabControlResults.SelectedTab = this.abortedTestsTabPage;
+      } else
         this.tabControlResults.TabPages.Remove(abortedTestsTabPage);
     }
 
     private void OnViewFailedTestsClick(object sender, EventArgs e) {
-      if (this.failedTestsToolStripMenuItem.Checked)
-        AddTabPageToTabControlResult(failedTestsTabPage);
-      else
+      if (this.failedTestsToolStripMenuItem.Checked) {
+        AddTabPageToTabControlResult(this.failedTestsTabPage);
+        this.tabControlResults.SelectedTab = this.failedTestsTabPage;
+      } else
         this.tabControlResults.TabPages.Remove(failedTestsTabPage);
     }
 
@@ -276,7 +281,6 @@ namespace tunit {
       }
 
       TreeNode treeNode = null;
-
       switch (e.Test.Status) {
         case TestStatus.Succeed: treeNode = this.treeViewSucceedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name}"); break;
         case TestStatus.Ignored: treeNode = this.treeViewIgnoredTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name}"); break;
@@ -286,8 +290,10 @@ namespace tunit {
 
       if (treeNode != null) {
         treeNode.Nodes.Add($"File : {e.Test.TestFixture.UnitTest.FileName}");
+        foreach (string message in e.Test.Messages)
+          treeNode.Nodes.Add(message);
         if (!string.IsNullOrEmpty(e.Test.StackTrace))
-          treeNode.Nodes.Add($"StackTrace : {e.Test.StackTrace}");
+          treeNode.Nodes.Add($"StackTrace: {e.Test.StackTrace}");
       }
 
       this.progressBarRun.Increment(1);

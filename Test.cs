@@ -18,7 +18,7 @@ namespace tunit {
 
     public string StackTrace { get; private set; }
 
-    public string[] ErrorsAndFailures { get; private set; }
+    public string[] Messages { get; private set; }
 
     public TestFixture TestFixture {
       get { return this.testFixture; }
@@ -26,13 +26,13 @@ namespace tunit {
 
     public void Reset() {
       this.Status = TestStatus.NotStarted;
-      this.ErrorsAndFailures = new string[0];
+      this.Messages = new string[0];
     }
 
     public void SetStatus(TestStatus status, string[] infos, string stackTrace) {
       if (this.TestFixture.UnitTest.TUnitProject.TestStart != null) this.TestFixture.UnitTest.TUnitProject.TestStart(this, new TestEventArgs(this));
       this.Status = status;
-      ErrorsAndFailures = infos;
+      Messages = infos;
 
       this.StackTrace = stackTrace;
 
