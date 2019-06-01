@@ -57,6 +57,21 @@ namespace tunit {
       this.timerUpdateGui.Tick += this.OnTimerUpdateGuidTick;
       this.runToolStripMenuItem.Click += this.OnRunSelectedTestsClick;
       this.treeViewTests.AfterSelect += this.OnAfterSelected;
+      this.propertiesToolStripMenuItem.Click += this.OnPropertiesClick;
+    }
+
+    private void OnPropertiesClick(object sender, EventArgs e) {
+      TreeNode treeNode = this.treeViewTests.SelectedNode;
+      if (treeNode != null) {
+        if (treeNode.Tag is TUnitProject) {
+        } else if (treeNode.Tag is UnitTest) {
+        } else if (treeNode.Tag is TestFixture) {
+        } else if (treeNode.Tag is Test) {
+          Test test = treeNode.Tag as Test;
+          FormTestProperties testProperties = new FormTestProperties(test.Name, test.TestFixture.Name, test.TestFixture.UnitTest.FileName, test.Status, test.Messages, TimeSpan.Zero);
+          testProperties.ShowDialog();
+        }
+      }
     }
 
     private void OnAfterSelected(object sender, TreeViewEventArgs e) {
@@ -330,21 +345,36 @@ namespace tunit {
 
     private void OnFileOpenClick(object sender, EventArgs e) {
       OpenFileDialog openFileDialog = new OpenFileDialog();
-      openFileDialog.Filter = "TUnit Files (*.tunit)|*.tunit|All Files (*.*)|*.*";
+      openFileDialog.Filter = "TUnit project or application Files (*.tunit;*.exe)|*.tunit;*.exe|TUnit project Files (*.tunit)|*.tunit|TUnit application Files (*.exe)|*.exe|All Files (*.*)|*.*";
       DialogResult result = openFileDialog.ShowDialog();
       if (result == DialogResult.OK) {
         OnFileCloseClick(sender, e);
         if (this.tunitProject == null) {
-          this.Enabled = false;
-          this.SuspendLayout();
-          this.tunitProject = new TUnitProject(openFileDialog.FileName);
-          this.tunitProject.Load();
-          this.tunitProject.TestEnd += this.OnTestEnd;
-          this.tunitProject.TUnitProjectStart += this.OnTUnitProjectStart;
-          this.tunitProject.TUnitProjectEnd += this.OnTUnitProjectEnd;
-          this.ReloadProject();
-          this.Enabled = true;
-          this.ResumeLayout();
+          if (System.IO.Path.GetExtension(openFileDialog.FileName) == ".exe") {
+            this.tunitProject = new TUnitProject();
+            this.tunitProject.New();
+            this.tunitProject.TestEnd += this.OnTestEnd;
+            this.tunitProject.TUnitProjectStart += this.OnTUnitProjectStart;
+            this.tunitProject.TUnitProjectEnd += this.OnTUnitProjectEnd;
+            if (!UnitTest.IsTUnitApplication(openFileDialog.FileName)) {
+              MessageBox.Show($"{openFileDialog.FileName} is not a TUnit application", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } else {
+              this.tunitProject.AddUnitTest(openFileDialog.FileName);
+              //this.ReloadTests(openFileDialog.FileName);
+              this.ReloadProject();
+            }
+          } else {
+            this.Enabled = false;
+            this.SuspendLayout();
+            this.tunitProject = new TUnitProject(openFileDialog.FileName);
+            this.tunitProject.Load();
+            this.tunitProject.TestEnd += this.OnTestEnd;
+            this.tunitProject.TUnitProjectStart += this.OnTUnitProjectStart;
+            this.tunitProject.TUnitProjectEnd += this.OnTUnitProjectEnd;
+            this.ReloadProject();
+            this.Enabled = true;
+            this.ResumeLayout();
+          }
         }
       }
     }

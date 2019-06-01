@@ -474,7 +474,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelSucceedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-      this.toolStripStatusLabelSucceedTests.Image = global::tunit.Properties.Resources.Success;
+      this.toolStripStatusLabelSucceedTests.Image = global::tunit.Properties.Resources.Succeed;
       this.toolStripStatusLabelSucceedTests.Name = "toolStripStatusLabelSucceedTests";
       this.toolStripStatusLabelSucceedTests.Size = new System.Drawing.Size(115, 20);
       this.toolStripStatusLabelSucceedTests.Text = "Succeed Tests : 0";
