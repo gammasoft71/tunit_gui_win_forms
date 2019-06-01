@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("tunit")]
-[assembly: AssemblyDescription("xtd.tunit.gui is an application to play tunit unit tests.")]
+[assembly: AssemblyDescription("xtd.tunit.gui is an application to run tunit unit tests.")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("xtd.tunit.gui")]

@@ -12,19 +12,19 @@ namespace tunit {
       Application.Idle += this.OnApplicationIdle;
       this.FormClosing += this.OnFormClosing;
 
-      this.textOutputTabPage = this.tabControlResults.TabPages[0];
+      this.consoleOutputTabPage = this.tabControlResults.TabPages[0];
       this.succeedTestsTabPage = this.tabControlResults.TabPages[1];
       this.ignoredTestsTabPage = this.tabControlResults.TabPages[2];
       this.abortedTestsTabPage = this.tabControlResults.TabPages[3];
       this.failedTestsTabPage = this.tabControlResults.TabPages[4];
 
-      this.textOutputTabPage.Tag = 0;
+      this.consoleOutputTabPage.Tag = 0;
       this.succeedTestsTabPage.Tag = 1;
       this.ignoredTestsTabPage.Tag = 2;
       this.abortedTestsTabPage.Tag = 3;
       this.failedTestsTabPage.Tag = 4;
 
-      this.tabControlResults.TabPages.Remove(textOutputTabPage);
+      this.tabControlResults.TabPages.Remove(consoleOutputTabPage);
       this.tabControlResults.TabPages.Remove(succeedTestsTabPage);
       this.tabControlResults.TabPages.Remove(ignoredTestsTabPage);
       this.tabControlResults.TabPages.Remove(abortedTestsTabPage);
@@ -40,7 +40,7 @@ namespace tunit {
       this.addTUnitFileToolStripMenuItem.Click += this.OnProjectAddTUnitFileClick;
       this.fullGUIToolStripMenuItem.Click += this.OnProjectFullGUIClick;
       this.miniGUIToolStripMenuItem.Click += this.OnViewMiniGUIClick;
-      this.textOutputToolStripMenuItem.Click += this.OnViewTextOutputClick;
+      this.consoleOutputToolStripMenuItem.Click += this.OnViewConsoleOutputClick;
       this.succeedTestsToolStripMenuItem.Click += this.OnSucceedTestsClick;
       this.ignoredTestsToolStripMenuItem.Click += this.OnIgnoredTestsClick;
       this.abortedTestsToolStripMenuItem.Click += this.OnAbortedTestsClick;
@@ -55,6 +55,12 @@ namespace tunit {
       this.buttonRun.Click += this.OnRunSelectedTestsClick;
       this.buttonStop.Click += this.OnStopTestsClick;
       this.timerUpdateGui.Tick += this.OnTimerUpdateGuidTick;
+      this.runToolStripMenuItem.Click += this.OnRunSelectedTestsClick;
+      this.treeViewTests.AfterSelect += this.OnAfterSelected;
+    }
+
+    private void OnAfterSelected(object sender, TreeViewEventArgs e) {
+      this.selectedTreeNode = this.treeViewTests.SelectedNode;
     }
 
     private void OnTimerUpdateGuidTick(object sender, EventArgs e) {
@@ -144,12 +150,12 @@ namespace tunit {
       this.tabControlResults.TabPages.Insert(indexToInsert, tabPage);
     }
 
-    private void OnViewTextOutputClick(object sender, EventArgs e) {
-      if (this.textOutputToolStripMenuItem.Checked) {
-        AddTabPageToTabControlResult(this.textOutputTabPage);
-        this.tabControlResults.SelectedTab = this.textOutputTabPage;
+    private void OnViewConsoleOutputClick(object sender, EventArgs e) {
+      if (this.consoleOutputToolStripMenuItem.Checked) {
+        AddTabPageToTabControlResult(this.consoleOutputTabPage);
+        this.tabControlResults.SelectedTab = this.consoleOutputTabPage;
       } else
-        this.tabControlResults.TabPages.Remove(textOutputTabPage);
+        this.tabControlResults.TabPages.Remove(consoleOutputTabPage);
     }
 
     private void OnSucceedTestsClick(object sender, EventArgs e) {
@@ -200,18 +206,22 @@ namespace tunit {
       this.treeViewFailedTests.Nodes.Clear();
       this.treeViewTests.Nodes.Clear();
       this.treeViewTests.Nodes.Add(string.IsNullOrEmpty(this.tunitProject.FileName) ? this.tunitProject.Name : this.tunitProject.FileName);
+      this.treeViewTests.Nodes[0].ContextMenuStrip = this.contextMenuStripTests;
       this.treeViewTests.Nodes[0].Tag = this.tunitProject;
       foreach (var unitTest in this.tunitProject.UnitTests) {
         TreeNode unitTestNode = this.treeViewTests.Nodes[0].Nodes.Add(unitTest.FileName);
         unitTestNode.Name = unitTest.FileName;
+        unitTestNode.ContextMenuStrip = this.contextMenuStripTests;
         unitTestNode.Tag = unitTest;
         foreach (var testFixture in unitTest.TestFixtures) {
           TreeNode testFixtureNode = unitTestNode.Nodes.Add(testFixture.Name);
           testFixtureNode.Name = testFixture.Name;
+          testFixtureNode.ContextMenuStrip = this.contextMenuStripTests;
           testFixtureNode.Tag = testFixture;
           foreach (var test in testFixture.Tests) {
             TreeNode testNode = testFixtureNode.Nodes.Add(test.Name);
             testNode.Name = test.Name;
+            testNode.ContextMenuStrip = this.contextMenuStripTests;
             testNode.Tag = test;
           }
         }
@@ -473,8 +483,9 @@ namespace tunit {
     private TabPage ignoredTestsTabPage;
     private TabPage abortedTestsTabPage;
     private TabPage failedTestsTabPage;
-    private TabPage textOutputTabPage;
+    private TabPage consoleOutputTabPage;
     private bool running = false;
     private System.Diagnostics.Stopwatch stopWatch = new System.Diagnostics.Stopwatch();
+    private TreeNode selectedTreeNode;
   }
 }
