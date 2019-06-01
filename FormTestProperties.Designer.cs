@@ -39,6 +39,8 @@
       this.label5 = new System.Windows.Forms.Label();
       this.label7 = new System.Windows.Forms.Label();
       this.label8 = new System.Windows.Forms.Label();
+      this.richTextBoxStackTrace = new System.Windows.Forms.RichTextBox();
+      this.label9 = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBoxStatus)).BeginInit();
       this.SuspendLayout();
       // 
@@ -69,7 +71,7 @@
       this.richTextBoxResult.Location = new System.Drawing.Point(85, 154);
       this.richTextBoxResult.Name = "richTextBoxResult";
       this.richTextBoxResult.ReadOnly = true;
-      this.richTextBoxResult.Size = new System.Drawing.Size(157, 96);
+      this.richTextBoxResult.Size = new System.Drawing.Size(157, 67);
       this.richTextBoxResult.TabIndex = 3;
       this.richTextBoxResult.Text = "";
       this.richTextBoxResult.WordWrap = false;
@@ -198,12 +200,37 @@
       this.label8.Size = new System.Drawing.Size(230, 1);
       this.label8.TabIndex = 16;
       // 
+      // richTextBoxStackTrace
+      // 
+      this.richTextBoxStackTrace.BackColor = System.Drawing.SystemColors.Control;
+      this.richTextBoxStackTrace.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.richTextBoxStackTrace.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.richTextBoxStackTrace.Location = new System.Drawing.Point(82, 236);
+      this.richTextBoxStackTrace.Name = "richTextBoxStackTrace";
+      this.richTextBoxStackTrace.ReadOnly = true;
+      this.richTextBoxStackTrace.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+      this.richTextBoxStackTrace.Size = new System.Drawing.Size(160, 13);
+      this.richTextBoxStackTrace.TabIndex = 18;
+      this.richTextBoxStackTrace.Text = "CallStack";
+      this.richTextBoxStackTrace.WordWrap = false;
+      // 
+      // label9
+      // 
+      this.label9.AutoSize = true;
+      this.label9.Location = new System.Drawing.Point(11, 236);
+      this.label9.Name = "label9";
+      this.label9.Size = new System.Drawing.Size(69, 13);
+      this.label9.TabIndex = 17;
+      this.label9.Text = "Stack Trace:";
+      // 
       // FormTestProperties
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.buttonOk;
       this.ClientSize = new System.Drawing.Size(258, 331);
+      this.Controls.Add(this.richTextBoxStackTrace);
+      this.Controls.Add(this.label9);
       this.Controls.Add(this.label8);
       this.Controls.Add(this.label7);
       this.Controls.Add(this.label5);
@@ -251,5 +278,7 @@
     private System.Windows.Forms.Label label5;
     private System.Windows.Forms.Label label7;
     private System.Windows.Forms.Label label8;
+    private System.Windows.Forms.RichTextBox richTextBoxStackTrace;
+    private System.Windows.Forms.Label label9;
   }
 }

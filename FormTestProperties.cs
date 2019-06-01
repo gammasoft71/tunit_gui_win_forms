@@ -13,7 +13,7 @@ namespace tunit {
     public FormTestProperties() {
       InitializeComponent();
     }
-    public FormTestProperties(string testName, string testFixtureName, string file, TestStatus testStatus, string[] message, TimeSpan duration) {
+    public FormTestProperties(string testName, string testFixtureName, string file, TestStatus testStatus, string[] message, string stackTrace, TimeSpan duration) {
       InitializeComponent();
       this.Text = $"{testFixtureName}::{testName} properties";
       this.labelTestName.Text = testName;
@@ -44,6 +44,7 @@ namespace tunit {
       }
       this.richTextBoxFile.Text = file;
       this.richTextBoxResult.Lines = message;
+      this.richTextBoxStackTrace.Text = stackTrace;
       this.labelTime.Text = duration.ToString();
     }
   }

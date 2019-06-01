@@ -68,7 +68,7 @@ namespace tunit {
         } else if (treeNode.Tag is TestFixture) {
         } else if (treeNode.Tag is Test) {
           Test test = treeNode.Tag as Test;
-          FormTestProperties testProperties = new FormTestProperties(test.Name, test.TestFixture.Name, test.TestFixture.UnitTest.FileName, test.Status, test.Messages, TimeSpan.Zero);
+          FormTestProperties testProperties = new FormTestProperties(test.Name, test.TestFixture.Name, test.TestFixture.UnitTest.FileName, test.Status, test.Messages, test.StackTrace, TimeSpan.Zero);
           testProperties.ShowDialog();
         }
       }
