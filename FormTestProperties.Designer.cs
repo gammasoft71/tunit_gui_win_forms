@@ -25,7 +25,7 @@
     private void InitializeComponent() {
       this.buttonOk = new System.Windows.Forms.Button();
       this.labelStatus = new System.Windows.Forms.Label();
-      this.richTextBoxResult = new System.Windows.Forms.RichTextBox();
+      this.richTextBoxMessage = new System.Windows.Forms.RichTextBox();
       this.label2 = new System.Windows.Forms.Label();
       this.labelTime = new System.Windows.Forms.Label();
       this.label4 = new System.Windows.Forms.Label();
@@ -52,7 +52,7 @@
       this.buttonOk.Name = "buttonOk";
       this.buttonOk.Size = new System.Drawing.Size(75, 23);
       this.buttonOk.TabIndex = 0;
-      this.buttonOk.Text = "Ok";
+      this.buttonOk.Text = "&OK";
       this.buttonOk.UseVisualStyleBackColor = true;
       // 
       // labelStatus
@@ -65,19 +65,19 @@
       this.labelStatus.TabIndex = 2;
       this.labelStatus.Text = "Not started";
       // 
-      // richTextBoxResult
+      // richTextBoxMessage
       // 
-      this.richTextBoxResult.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+      this.richTextBoxMessage.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-      this.richTextBoxResult.BackColor = System.Drawing.SystemColors.Control;
-      this.richTextBoxResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-      this.richTextBoxResult.Location = new System.Drawing.Point(82, 154);
-      this.richTextBoxResult.Name = "richTextBoxResult";
-      this.richTextBoxResult.ReadOnly = true;
-      this.richTextBoxResult.Size = new System.Drawing.Size(194, 67);
-      this.richTextBoxResult.TabIndex = 3;
-      this.richTextBoxResult.Text = "";
-      this.richTextBoxResult.WordWrap = false;
+      this.richTextBoxMessage.BackColor = System.Drawing.SystemColors.Control;
+      this.richTextBoxMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.richTextBoxMessage.Location = new System.Drawing.Point(82, 154);
+      this.richTextBoxMessage.Name = "richTextBoxMessage";
+      this.richTextBoxMessage.ReadOnly = true;
+      this.richTextBoxMessage.Size = new System.Drawing.Size(194, 67);
+      this.richTextBoxMessage.TabIndex = 3;
+      this.richTextBoxMessage.Text = "Message";
+      this.richTextBoxMessage.WordWrap = false;
       // 
       // label2
       // 
@@ -106,9 +106,9 @@
       this.label4.AutoSize = true;
       this.label4.Location = new System.Drawing.Point(14, 154);
       this.label4.Name = "label4";
-      this.label4.Size = new System.Drawing.Size(40, 13);
+      this.label4.Size = new System.Drawing.Size(53, 13);
       this.label4.TabIndex = 6;
-      this.label4.Text = "Result:";
+      this.label4.Text = "Message:";
       // 
       // label6
       // 
@@ -133,7 +133,7 @@
       // 
       this.labelTestName.AutoSize = true;
       this.labelTestName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.labelTestName.Location = new System.Drawing.Point(82, 90);
+      this.labelTestName.Location = new System.Drawing.Point(82, 114);
       this.labelTestName.Name = "labelTestName";
       this.labelTestName.Size = new System.Drawing.Size(35, 13);
       this.labelTestName.TabIndex = 9;
@@ -158,7 +158,7 @@
       // label1
       // 
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(12, 90);
+      this.label1.Location = new System.Drawing.Point(12, 114);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(31, 13);
       this.label1.TabIndex = 11;
@@ -167,7 +167,7 @@
       // label3
       // 
       this.label3.AutoSize = true;
-      this.label3.Location = new System.Drawing.Point(12, 114);
+      this.label3.Location = new System.Drawing.Point(12, 91);
       this.label3.Name = "label3";
       this.label3.Size = new System.Drawing.Size(65, 13);
       this.label3.TabIndex = 13;
@@ -179,7 +179,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.labelTestFixtureName.AutoSize = true;
       this.labelTestFixtureName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.labelTestFixtureName.Location = new System.Drawing.Point(82, 114);
+      this.labelTestFixtureName.Location = new System.Drawing.Point(82, 91);
       this.labelTestFixtureName.Name = "labelTestFixtureName";
       this.labelTestFixtureName.Size = new System.Drawing.Size(35, 13);
       this.labelTestFixtureName.TabIndex = 12;
@@ -260,7 +260,7 @@
       this.Controls.Add(this.label4);
       this.Controls.Add(this.labelTime);
       this.Controls.Add(this.label2);
-      this.Controls.Add(this.richTextBoxResult);
+      this.Controls.Add(this.richTextBoxMessage);
       this.Controls.Add(this.labelStatus);
       this.Controls.Add(this.pictureBoxStatus);
       this.Controls.Add(this.buttonOk);
@@ -282,7 +282,7 @@
     private System.Windows.Forms.Button buttonOk;
     private System.Windows.Forms.PictureBox pictureBoxStatus;
     private System.Windows.Forms.Label labelStatus;
-    private System.Windows.Forms.RichTextBox richTextBoxResult;
+    private System.Windows.Forms.RichTextBox richTextBoxMessage;
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Label labelTime;
     private System.Windows.Forms.Label label4;
