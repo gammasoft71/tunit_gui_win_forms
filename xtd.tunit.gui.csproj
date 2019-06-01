@@ -55,6 +55,12 @@
     <Compile Include="AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="FormTestProperties.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FormTestProperties.Designer.cs">
+      <DependentUpon>FormTestProperties.cs</DependentUpon>
+    </Compile>
     <Compile Include="FormTUnit.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -73,6 +79,9 @@
     <Compile Include="TUnitProject.cs" />
     <EmbeddedResource Include="AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FormTestProperties.resx">
+      <DependentUpon>FormTestProperties.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FormTUnit.resx">
       <DependentUpon>FormTUnit.cs</DependentUpon>
