@@ -103,9 +103,9 @@ namespace tunit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Success {
+        internal static System.Drawing.Bitmap Succeed {
             get {
-                object obj = ResourceManager.GetObject("Success", resourceCulture);
+                object obj = ResourceManager.GetObject("Succeed", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

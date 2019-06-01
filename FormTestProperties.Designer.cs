@@ -24,41 +24,40 @@
     /// </summary>
     private void InitializeComponent() {
       this.buttonOk = new System.Windows.Forms.Button();
-      this.pictureBoxStatus = new System.Windows.Forms.PictureBox();
       this.labelStatus = new System.Windows.Forms.Label();
       this.richTextBoxResult = new System.Windows.Forms.RichTextBox();
       this.label2 = new System.Windows.Forms.Label();
       this.labelTime = new System.Windows.Forms.Label();
       this.label4 = new System.Windows.Forms.Label();
-      this.labelFile = new System.Windows.Forms.Label();
       this.label6 = new System.Windows.Forms.Label();
+      this.pictureBoxStatus = new System.Windows.Forms.PictureBox();
+      this.labelTestName = new System.Windows.Forms.Label();
+      this.richTextBoxFile = new System.Windows.Forms.RichTextBox();
+      this.label1 = new System.Windows.Forms.Label();
+      this.label3 = new System.Windows.Forms.Label();
+      this.labelTestFixtureName = new System.Windows.Forms.Label();
+      this.label5 = new System.Windows.Forms.Label();
+      this.label7 = new System.Windows.Forms.Label();
+      this.label8 = new System.Windows.Forms.Label();
       ((System.ComponentModel.ISupportInitialize)(this.pictureBoxStatus)).BeginInit();
       this.SuspendLayout();
       // 
       // buttonOk
       // 
       this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-      this.buttonOk.Location = new System.Drawing.Point(171, 315);
+      this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
+      this.buttonOk.Location = new System.Drawing.Point(167, 296);
       this.buttonOk.Name = "buttonOk";
       this.buttonOk.Size = new System.Drawing.Size(75, 23);
       this.buttonOk.TabIndex = 0;
       this.buttonOk.Text = "Ok";
       this.buttonOk.UseVisualStyleBackColor = true;
       // 
-      // pictureBoxStatus
-      // 
-      this.pictureBoxStatus.Image = global::tunit.Properties.Resources.NotStarted;
-      this.pictureBoxStatus.Location = new System.Drawing.Point(13, 13);
-      this.pictureBoxStatus.Name = "pictureBoxStatus";
-      this.pictureBoxStatus.Size = new System.Drawing.Size(32, 32);
-      this.pictureBoxStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-      this.pictureBoxStatus.TabIndex = 1;
-      this.pictureBoxStatus.TabStop = false;
-      // 
       // labelStatus
       // 
       this.labelStatus.AutoSize = true;
-      this.labelStatus.Location = new System.Drawing.Point(61, 24);
+      this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.labelStatus.Location = new System.Drawing.Point(82, 23);
       this.labelStatus.Name = "labelStatus";
       this.labelStatus.Size = new System.Drawing.Size(59, 13);
       this.labelStatus.TabIndex = 2;
@@ -66,10 +65,11 @@
       // 
       // richTextBoxResult
       // 
-      this.richTextBoxResult.Location = new System.Drawing.Point(13, 117);
+      this.richTextBoxResult.BackColor = System.Drawing.SystemColors.Control;
+      this.richTextBoxResult.Location = new System.Drawing.Point(85, 154);
       this.richTextBoxResult.Name = "richTextBoxResult";
       this.richTextBoxResult.ReadOnly = true;
-      this.richTextBoxResult.Size = new System.Drawing.Size(233, 96);
+      this.richTextBoxResult.Size = new System.Drawing.Size(157, 96);
       this.richTextBoxResult.TabIndex = 3;
       this.richTextBoxResult.Text = "";
       this.richTextBoxResult.WordWrap = false;
@@ -77,56 +77,141 @@
       // label2
       // 
       this.label2.AutoSize = true;
-      this.label2.Location = new System.Drawing.Point(13, 232);
+      this.label2.Location = new System.Drawing.Point(14, 275);
       this.label2.Name = "label2";
-      this.label2.Size = new System.Drawing.Size(30, 13);
+      this.label2.Size = new System.Drawing.Size(50, 13);
       this.label2.TabIndex = 4;
-      this.label2.Text = "Time";
+      this.label2.Text = "Duration:";
       // 
       // labelTime
       // 
-      this.labelTime.BackColor = System.Drawing.SystemColors.Window;
-      this.labelTime.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-      this.labelTime.Location = new System.Drawing.Point(49, 230);
+      this.labelTime.BackColor = System.Drawing.SystemColors.Control;
+      this.labelTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.labelTime.Location = new System.Drawing.Point(85, 274);
       this.labelTime.Name = "labelTime";
-      this.labelTime.Size = new System.Drawing.Size(87, 15);
+      this.labelTime.Size = new System.Drawing.Size(157, 13);
       this.labelTime.TabIndex = 5;
-      this.labelTime.Text = "0";
+      this.labelTime.Text = "00:00:00";
+      this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
       // 
       // label4
       // 
       this.label4.AutoSize = true;
-      this.label4.Location = new System.Drawing.Point(15, 101);
+      this.label4.Location = new System.Drawing.Point(14, 154);
       this.label4.Name = "label4";
-      this.label4.Size = new System.Drawing.Size(37, 13);
+      this.label4.Size = new System.Drawing.Size(40, 13);
       this.label4.TabIndex = 6;
-      this.label4.Text = "Result";
-      // 
-      // labelFile
-      // 
-      this.labelFile.BackColor = System.Drawing.SystemColors.Window;
-      this.labelFile.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-      this.labelFile.Location = new System.Drawing.Point(42, 70);
-      this.labelFile.Name = "labelFile";
-      this.labelFile.Size = new System.Drawing.Size(204, 15);
-      this.labelFile.TabIndex = 8;
+      this.label4.Text = "Result:";
       // 
       // label6
       // 
       this.label6.AutoSize = true;
-      this.label6.Location = new System.Drawing.Point(13, 71);
+      this.label6.Location = new System.Drawing.Point(14, 115);
       this.label6.Name = "label6";
-      this.label6.Size = new System.Drawing.Size(23, 13);
+      this.label6.Size = new System.Drawing.Size(26, 13);
       this.label6.TabIndex = 7;
-      this.label6.Text = "File";
+      this.label6.Text = "File:";
+      // 
+      // pictureBoxStatus
+      // 
+      this.pictureBoxStatus.Image = global::tunit.Properties.Resources.NotStarted;
+      this.pictureBoxStatus.Location = new System.Drawing.Point(15, 12);
+      this.pictureBoxStatus.Name = "pictureBoxStatus";
+      this.pictureBoxStatus.Size = new System.Drawing.Size(32, 32);
+      this.pictureBoxStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+      this.pictureBoxStatus.TabIndex = 1;
+      this.pictureBoxStatus.TabStop = false;
+      // 
+      // labelTestName
+      // 
+      this.labelTestName.AutoSize = true;
+      this.labelTestName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.labelTestName.Location = new System.Drawing.Point(82, 64);
+      this.labelTestName.Name = "labelTestName";
+      this.labelTestName.Size = new System.Drawing.Size(35, 13);
+      this.labelTestName.TabIndex = 9;
+      this.labelTestName.Text = "Name";
+      // 
+      // richTextBoxFile
+      // 
+      this.richTextBoxFile.BackColor = System.Drawing.SystemColors.Control;
+      this.richTextBoxFile.BorderStyle = System.Windows.Forms.BorderStyle.None;
+      this.richTextBoxFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.richTextBoxFile.Location = new System.Drawing.Point(85, 115);
+      this.richTextBoxFile.Name = "richTextBoxFile";
+      this.richTextBoxFile.ReadOnly = true;
+      this.richTextBoxFile.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
+      this.richTextBoxFile.Size = new System.Drawing.Size(160, 13);
+      this.richTextBoxFile.TabIndex = 10;
+      this.richTextBoxFile.Text = "FileName";
+      this.richTextBoxFile.WordWrap = false;
+      // 
+      // label1
+      // 
+      this.label1.AutoSize = true;
+      this.label1.Location = new System.Drawing.Point(12, 64);
+      this.label1.Name = "label1";
+      this.label1.Size = new System.Drawing.Size(31, 13);
+      this.label1.TabIndex = 11;
+      this.label1.Text = "Test:";
+      // 
+      // label3
+      // 
+      this.label3.AutoSize = true;
+      this.label3.Location = new System.Drawing.Point(12, 90);
+      this.label3.Name = "label3";
+      this.label3.Size = new System.Drawing.Size(65, 13);
+      this.label3.TabIndex = 13;
+      this.label3.Text = "Test Fixture:";
+      // 
+      // labelTestFixtureName
+      // 
+      this.labelTestFixtureName.AutoSize = true;
+      this.labelTestFixtureName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.labelTestFixtureName.Location = new System.Drawing.Point(80, 90);
+      this.labelTestFixtureName.Name = "labelTestFixtureName";
+      this.labelTestFixtureName.Size = new System.Drawing.Size(35, 13);
+      this.labelTestFixtureName.TabIndex = 12;
+      this.labelTestFixtureName.Text = "Name";
+      // 
+      // label5
+      // 
+      this.label5.BackColor = System.Drawing.Color.Black;
+      this.label5.Location = new System.Drawing.Point(12, 54);
+      this.label5.Name = "label5";
+      this.label5.Size = new System.Drawing.Size(230, 1);
+      this.label5.TabIndex = 14;
+      // 
+      // label7
+      // 
+      this.label7.BackColor = System.Drawing.Color.Black;
+      this.label7.Location = new System.Drawing.Point(12, 140);
+      this.label7.Name = "label7";
+      this.label7.Size = new System.Drawing.Size(230, 1);
+      this.label7.TabIndex = 15;
+      // 
+      // label8
+      // 
+      this.label8.BackColor = System.Drawing.Color.Black;
+      this.label8.Location = new System.Drawing.Point(12, 262);
+      this.label8.Name = "label8";
+      this.label8.Size = new System.Drawing.Size(230, 1);
+      this.label8.TabIndex = 16;
       // 
       // FormTestProperties
       // 
-      this.AcceptButton = this.buttonOk;
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-      this.ClientSize = new System.Drawing.Size(258, 350);
-      this.Controls.Add(this.labelFile);
+      this.CancelButton = this.buttonOk;
+      this.ClientSize = new System.Drawing.Size(258, 331);
+      this.Controls.Add(this.label8);
+      this.Controls.Add(this.label7);
+      this.Controls.Add(this.label5);
+      this.Controls.Add(this.label3);
+      this.Controls.Add(this.labelTestFixtureName);
+      this.Controls.Add(this.label1);
+      this.Controls.Add(this.richTextBoxFile);
+      this.Controls.Add(this.labelTestName);
       this.Controls.Add(this.label6);
       this.Controls.Add(this.label4);
       this.Controls.Add(this.labelTime);
@@ -136,8 +221,12 @@
       this.Controls.Add(this.pictureBoxStatus);
       this.Controls.Add(this.buttonOk);
       this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+      this.MaximizeBox = false;
+      this.MinimizeBox = false;
       this.Name = "FormTestProperties";
-      this.Text = "Test Properties";
+      this.ShowIcon = false;
+      this.ShowInTaskbar = false;
+      this.Text = "Properties";
       ((System.ComponentModel.ISupportInitialize)(this.pictureBoxStatus)).EndInit();
       this.ResumeLayout(false);
       this.PerformLayout();
@@ -153,7 +242,14 @@
     private System.Windows.Forms.Label label2;
     private System.Windows.Forms.Label labelTime;
     private System.Windows.Forms.Label label4;
-    private System.Windows.Forms.Label labelFile;
     private System.Windows.Forms.Label label6;
+    private System.Windows.Forms.Label labelTestName;
+    private System.Windows.Forms.RichTextBox richTextBoxFile;
+    private System.Windows.Forms.Label label1;
+    private System.Windows.Forms.Label label3;
+    private System.Windows.Forms.Label labelTestFixtureName;
+    private System.Windows.Forms.Label label5;
+    private System.Windows.Forms.Label label7;
+    private System.Windows.Forms.Label label8;
   }
 }
