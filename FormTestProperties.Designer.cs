@@ -48,7 +48,7 @@
       // 
       this.buttonOk.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
       this.buttonOk.DialogResult = System.Windows.Forms.DialogResult.OK;
-      this.buttonOk.Location = new System.Drawing.Point(167, 296);
+      this.buttonOk.Location = new System.Drawing.Point(201, 337);
       this.buttonOk.Name = "buttonOk";
       this.buttonOk.Size = new System.Drawing.Size(75, 23);
       this.buttonOk.TabIndex = 0;
@@ -59,7 +59,7 @@
       // 
       this.labelStatus.AutoSize = true;
       this.labelStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.labelStatus.Location = new System.Drawing.Point(82, 23);
+      this.labelStatus.Location = new System.Drawing.Point(82, 22);
       this.labelStatus.Name = "labelStatus";
       this.labelStatus.Size = new System.Drawing.Size(59, 13);
       this.labelStatus.TabIndex = 2;
@@ -67,11 +67,14 @@
       // 
       // richTextBoxResult
       // 
+      this.richTextBoxResult.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.richTextBoxResult.BackColor = System.Drawing.SystemColors.Control;
-      this.richTextBoxResult.Location = new System.Drawing.Point(85, 154);
+      this.richTextBoxResult.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.richTextBoxResult.Location = new System.Drawing.Point(82, 154);
       this.richTextBoxResult.Name = "richTextBoxResult";
       this.richTextBoxResult.ReadOnly = true;
-      this.richTextBoxResult.Size = new System.Drawing.Size(157, 67);
+      this.richTextBoxResult.Size = new System.Drawing.Size(194, 67);
       this.richTextBoxResult.TabIndex = 3;
       this.richTextBoxResult.Text = "";
       this.richTextBoxResult.WordWrap = false;
@@ -87,11 +90,13 @@
       // 
       // labelTime
       // 
+      this.labelTime.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.labelTime.BackColor = System.Drawing.SystemColors.Control;
       this.labelTime.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.labelTime.Location = new System.Drawing.Point(85, 274);
+      this.labelTime.Location = new System.Drawing.Point(82, 274);
       this.labelTime.Name = "labelTime";
-      this.labelTime.Size = new System.Drawing.Size(157, 13);
+      this.labelTime.Size = new System.Drawing.Size(194, 13);
       this.labelTime.TabIndex = 5;
       this.labelTime.Text = "00:00:00";
       this.labelTime.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
@@ -108,7 +113,7 @@
       // label6
       // 
       this.label6.AutoSize = true;
-      this.label6.Location = new System.Drawing.Point(14, 115);
+      this.label6.Location = new System.Drawing.Point(12, 66);
       this.label6.Name = "label6";
       this.label6.Size = new System.Drawing.Size(26, 13);
       this.label6.TabIndex = 7;
@@ -128,7 +133,7 @@
       // 
       this.labelTestName.AutoSize = true;
       this.labelTestName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.labelTestName.Location = new System.Drawing.Point(82, 64);
+      this.labelTestName.Location = new System.Drawing.Point(82, 90);
       this.labelTestName.Name = "labelTestName";
       this.labelTestName.Size = new System.Drawing.Size(35, 13);
       this.labelTestName.TabIndex = 9;
@@ -136,14 +141,16 @@
       // 
       // richTextBoxFile
       // 
+      this.richTextBoxFile.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.richTextBoxFile.BackColor = System.Drawing.SystemColors.Control;
       this.richTextBoxFile.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.richTextBoxFile.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.richTextBoxFile.Location = new System.Drawing.Point(85, 115);
+      this.richTextBoxFile.Location = new System.Drawing.Point(82, 66);
       this.richTextBoxFile.Name = "richTextBoxFile";
       this.richTextBoxFile.ReadOnly = true;
       this.richTextBoxFile.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-      this.richTextBoxFile.Size = new System.Drawing.Size(160, 13);
+      this.richTextBoxFile.Size = new System.Drawing.Size(194, 13);
       this.richTextBoxFile.TabIndex = 10;
       this.richTextBoxFile.Text = "FileName";
       this.richTextBoxFile.WordWrap = false;
@@ -151,7 +158,7 @@
       // label1
       // 
       this.label1.AutoSize = true;
-      this.label1.Location = new System.Drawing.Point(12, 64);
+      this.label1.Location = new System.Drawing.Point(12, 90);
       this.label1.Name = "label1";
       this.label1.Size = new System.Drawing.Size(31, 13);
       this.label1.TabIndex = 11;
@@ -160,7 +167,7 @@
       // label3
       // 
       this.label3.AutoSize = true;
-      this.label3.Location = new System.Drawing.Point(12, 90);
+      this.label3.Location = new System.Drawing.Point(12, 114);
       this.label3.Name = "label3";
       this.label3.Size = new System.Drawing.Size(65, 13);
       this.label3.TabIndex = 13;
@@ -168,9 +175,11 @@
       // 
       // labelTestFixtureName
       // 
+      this.labelTestFixtureName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.labelTestFixtureName.AutoSize = true;
       this.labelTestFixtureName.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.labelTestFixtureName.Location = new System.Drawing.Point(80, 90);
+      this.labelTestFixtureName.Location = new System.Drawing.Point(82, 114);
       this.labelTestFixtureName.Name = "labelTestFixtureName";
       this.labelTestFixtureName.Size = new System.Drawing.Size(35, 13);
       this.labelTestFixtureName.TabIndex = 12;
@@ -178,30 +187,38 @@
       // 
       // label5
       // 
+      this.label5.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.label5.BackColor = System.Drawing.Color.Black;
       this.label5.Location = new System.Drawing.Point(12, 54);
       this.label5.Name = "label5";
-      this.label5.Size = new System.Drawing.Size(230, 1);
+      this.label5.Size = new System.Drawing.Size(264, 1);
       this.label5.TabIndex = 14;
       // 
       // label7
       // 
+      this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.label7.BackColor = System.Drawing.Color.Black;
       this.label7.Location = new System.Drawing.Point(12, 140);
       this.label7.Name = "label7";
-      this.label7.Size = new System.Drawing.Size(230, 1);
+      this.label7.Size = new System.Drawing.Size(264, 1);
       this.label7.TabIndex = 15;
       // 
       // label8
       // 
+      this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.label8.BackColor = System.Drawing.Color.Black;
       this.label8.Location = new System.Drawing.Point(12, 262);
       this.label8.Name = "label8";
-      this.label8.Size = new System.Drawing.Size(230, 1);
+      this.label8.Size = new System.Drawing.Size(264, 1);
       this.label8.TabIndex = 16;
       // 
       // richTextBoxStackTrace
       // 
+      this.richTextBoxStackTrace.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
       this.richTextBoxStackTrace.BackColor = System.Drawing.SystemColors.Control;
       this.richTextBoxStackTrace.BorderStyle = System.Windows.Forms.BorderStyle.None;
       this.richTextBoxStackTrace.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -209,7 +226,7 @@
       this.richTextBoxStackTrace.Name = "richTextBoxStackTrace";
       this.richTextBoxStackTrace.ReadOnly = true;
       this.richTextBoxStackTrace.ScrollBars = System.Windows.Forms.RichTextBoxScrollBars.None;
-      this.richTextBoxStackTrace.Size = new System.Drawing.Size(160, 13);
+      this.richTextBoxStackTrace.Size = new System.Drawing.Size(194, 13);
       this.richTextBoxStackTrace.TabIndex = 18;
       this.richTextBoxStackTrace.Text = "CallStack";
       this.richTextBoxStackTrace.WordWrap = false;
@@ -228,7 +245,7 @@
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.CancelButton = this.buttonOk;
-      this.ClientSize = new System.Drawing.Size(258, 331);
+      this.ClientSize = new System.Drawing.Size(292, 372);
       this.Controls.Add(this.richTextBoxStackTrace);
       this.Controls.Add(this.label9);
       this.Controls.Add(this.label8);
