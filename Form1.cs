@@ -299,7 +299,7 @@ namespace tunit {
       }
 
       if (treeNode != null) {
-        treeNode.Nodes.Add($"File : {e.Test.TestFixture.UnitTest.FileName}");
+        treeNode.Nodes.Add($"File: {e.Test.TestFixture.UnitTest.FileName}");
         foreach (string message in e.Test.Messages)
           treeNode.Nodes.Add(message);
         if (!string.IsNullOrEmpty(e.Test.StackTrace))
