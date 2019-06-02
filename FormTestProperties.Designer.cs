@@ -122,7 +122,7 @@
       // pictureBoxStatus
       // 
       this.pictureBoxStatus.Image = global::tunit.Properties.Resources.NotStarted;
-      this.pictureBoxStatus.Location = new System.Drawing.Point(15, 12);
+      this.pictureBoxStatus.Location = new System.Drawing.Point(12, 12);
       this.pictureBoxStatus.Name = "pictureBoxStatus";
       this.pictureBoxStatus.Size = new System.Drawing.Size(32, 32);
       this.pictureBoxStatus.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;

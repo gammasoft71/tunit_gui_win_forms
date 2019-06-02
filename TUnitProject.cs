@@ -114,6 +114,10 @@ namespace tunit {
       this.File = new ProjectFile();
     }
 
+    public void New(string name) {
+      this.File = new ProjectFile(name);
+    }
+
     public void Reset() {
       this.Status = TestStatus.NotStarted;
       foreach (var unitTest in this.unitTests)

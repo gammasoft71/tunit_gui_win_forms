@@ -48,10 +48,13 @@
       this.tabPageConsoleOutput = new System.Windows.Forms.TabPage();
       this.richTextBoxTextOutput = new System.Windows.Forms.RichTextBox();
       this.tabPageSucceedTests = new System.Windows.Forms.TabPage();
+      this.treeViewSucceedTests = new System.Windows.Forms.TreeView();
       this.tabPageIgnoredTests = new System.Windows.Forms.TabPage();
       this.treeViewIgnoredTests = new System.Windows.Forms.TreeView();
       this.tabPageAbortedTests = new System.Windows.Forms.TabPage();
+      this.treeViewAbortedTests = new System.Windows.Forms.TreeView();
       this.tabPageFailedTests = new System.Windows.Forms.TabPage();
+      this.treeViewFailedTests = new System.Windows.Forms.TreeView();
       this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
       this.statusStripMain = new System.Windows.Forms.StatusStrip();
       this.toolStripStatusLabelTestCases = new System.Windows.Forms.ToolStripStatusLabel();
@@ -105,9 +108,6 @@
       this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
       this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.timerUpdateGui = new System.Windows.Forms.Timer(this.components);
-      this.treeViewSucceedTests = new System.Windows.Forms.TreeView();
-      this.treeViewFailedTests = new System.Windows.Forms.TreeView();
-      this.treeViewAbortedTests = new System.Windows.Forms.TreeView();
       this.contextMenuStripTests = new System.Windows.Forms.ContextMenuStrip(this.components);
       this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
@@ -285,6 +285,7 @@
       this.progressBarRun.Location = new System.Drawing.Point(10, 40);
       this.progressBarRun.Name = "progressBarRun";
       this.progressBarRun.Size = new System.Drawing.Size(507, 23);
+      this.progressBarRun.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
       this.progressBarRun.TabIndex = 2;
       // 
       // buttonStop
@@ -362,6 +363,15 @@
       this.tabPageSucceedTests.Text = "Succeed Tests";
       this.tabPageSucceedTests.UseVisualStyleBackColor = true;
       // 
+      // treeViewSucceedTests
+      // 
+      this.treeViewSucceedTests.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeViewSucceedTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.treeViewSucceedTests.Location = new System.Drawing.Point(3, 3);
+      this.treeViewSucceedTests.Name = "treeViewSucceedTests";
+      this.treeViewSucceedTests.Size = new System.Drawing.Size(515, 233);
+      this.treeViewSucceedTests.TabIndex = 0;
+      // 
       // tabPageIgnoredTests
       // 
       this.tabPageIgnoredTests.Controls.Add(this.treeViewIgnoredTests);
@@ -395,6 +405,15 @@
       this.tabPageAbortedTests.Text = "Aborted Tests";
       this.tabPageAbortedTests.UseVisualStyleBackColor = true;
       // 
+      // treeViewAbortedTests
+      // 
+      this.treeViewAbortedTests.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeViewAbortedTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.treeViewAbortedTests.Location = new System.Drawing.Point(0, 0);
+      this.treeViewAbortedTests.Name = "treeViewAbortedTests";
+      this.treeViewAbortedTests.Size = new System.Drawing.Size(521, 239);
+      this.treeViewAbortedTests.TabIndex = 0;
+      // 
       // tabPageFailedTests
       // 
       this.tabPageFailedTests.Controls.Add(this.treeViewFailedTests);
@@ -406,6 +425,15 @@
       this.tabPageFailedTests.Tag = "3";
       this.tabPageFailedTests.Text = "Failed Tests";
       this.tabPageFailedTests.UseVisualStyleBackColor = true;
+      // 
+      // treeViewFailedTests
+      // 
+      this.treeViewFailedTests.Dock = System.Windows.Forms.DockStyle.Fill;
+      this.treeViewFailedTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+      this.treeViewFailedTests.Location = new System.Drawing.Point(3, 3);
+      this.treeViewFailedTests.Name = "treeViewFailedTests";
+      this.treeViewFailedTests.Size = new System.Drawing.Size(515, 233);
+      this.treeViewFailedTests.TabIndex = 0;
       // 
       // toolStripContainer1
       // 
@@ -673,19 +701,19 @@
       this.fullGUIToolStripMenuItem.Checked = true;
       this.fullGUIToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.fullGUIToolStripMenuItem.Name = "fullGUIToolStripMenuItem";
-      this.fullGUIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.fullGUIToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.fullGUIToolStripMenuItem.Text = "&Full GUI";
       // 
       // miniGUIToolStripMenuItem
       // 
       this.miniGUIToolStripMenuItem.Name = "miniGUIToolStripMenuItem";
-      this.miniGUIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.miniGUIToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.miniGUIToolStripMenuItem.Text = "&Mini GUI";
       // 
       // toolStripMenuItem7
       // 
       this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-      this.toolStripMenuItem7.Size = new System.Drawing.Size(177, 6);
+      this.toolStripMenuItem7.Size = new System.Drawing.Size(128, 6);
       // 
       // resultTabsToolStripMenuItem
       // 
@@ -696,35 +724,35 @@
             this.abortedTestsToolStripMenuItem,
             this.failedTestsToolStripMenuItem});
       this.resultTabsToolStripMenuItem.Name = "resultTabsToolStripMenuItem";
-      this.resultTabsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.resultTabsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.resultTabsToolStripMenuItem.Text = "&Result tabs";
       // 
       // consoleOutputToolStripMenuItem
       // 
       this.consoleOutputToolStripMenuItem.CheckOnClick = true;
       this.consoleOutputToolStripMenuItem.Name = "consoleOutputToolStripMenuItem";
-      this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.consoleOutputToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
       this.consoleOutputToolStripMenuItem.Text = "Console Output";
       // 
       // succeedTestsToolStripMenuItem
       // 
       this.succeedTestsToolStripMenuItem.CheckOnClick = true;
       this.succeedTestsToolStripMenuItem.Name = "succeedTestsToolStripMenuItem";
-      this.succeedTestsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.succeedTestsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
       this.succeedTestsToolStripMenuItem.Text = "&Succeed Tests";
       // 
       // ignoredTestsToolStripMenuItem
       // 
       this.ignoredTestsToolStripMenuItem.CheckOnClick = true;
       this.ignoredTestsToolStripMenuItem.Name = "ignoredTestsToolStripMenuItem";
-      this.ignoredTestsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.ignoredTestsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
       this.ignoredTestsToolStripMenuItem.Text = "&Ignored Tests";
       // 
       // abortedTestsToolStripMenuItem
       // 
       this.abortedTestsToolStripMenuItem.CheckOnClick = true;
       this.abortedTestsToolStripMenuItem.Name = "abortedTestsToolStripMenuItem";
-      this.abortedTestsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.abortedTestsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
       this.abortedTestsToolStripMenuItem.Text = "&Aborted Tests";
       // 
       // failedTestsToolStripMenuItem
@@ -733,20 +761,20 @@
       this.failedTestsToolStripMenuItem.CheckOnClick = true;
       this.failedTestsToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.failedTestsToolStripMenuItem.Name = "failedTestsToolStripMenuItem";
-      this.failedTestsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.failedTestsToolStripMenuItem.Size = new System.Drawing.Size(158, 22);
       this.failedTestsToolStripMenuItem.Text = "&Failed Tests";
       // 
       // toolStripMenuItem9
       // 
       this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-      this.toolStripMenuItem9.Size = new System.Drawing.Size(177, 6);
+      this.toolStripMenuItem9.Size = new System.Drawing.Size(128, 6);
       // 
       // statusBarToolStripMenuItem
       // 
       this.statusBarToolStripMenuItem.Checked = true;
       this.statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
-      this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.statusBarToolStripMenuItem.Text = "&Status &Bar";
       // 
       // projectToolStripMenuItem
@@ -860,33 +888,6 @@
       this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
       this.aboutToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
       this.aboutToolStripMenuItem.Text = "&About...";
-      // 
-      // treeViewSucceedTests
-      // 
-      this.treeViewSucceedTests.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.treeViewSucceedTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.treeViewSucceedTests.Location = new System.Drawing.Point(3, 3);
-      this.treeViewSucceedTests.Name = "treeViewSucceedTests";
-      this.treeViewSucceedTests.Size = new System.Drawing.Size(515, 233);
-      this.treeViewSucceedTests.TabIndex = 0;
-      // 
-      // treeViewFailedTests
-      // 
-      this.treeViewFailedTests.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.treeViewFailedTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.treeViewFailedTests.Location = new System.Drawing.Point(3, 3);
-      this.treeViewFailedTests.Name = "treeViewFailedTests";
-      this.treeViewFailedTests.Size = new System.Drawing.Size(515, 233);
-      this.treeViewFailedTests.TabIndex = 0;
-      // 
-      // treeViewAbortedTests
-      // 
-      this.treeViewAbortedTests.Dock = System.Windows.Forms.DockStyle.Fill;
-      this.treeViewAbortedTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-      this.treeViewAbortedTests.Location = new System.Drawing.Point(0, 0);
-      this.treeViewAbortedTests.Name = "treeViewAbortedTests";
-      this.treeViewAbortedTests.Size = new System.Drawing.Size(521, 239);
-      this.treeViewAbortedTests.TabIndex = 0;
       // 
       // contextMenuStripTests
       // 

@@ -13,6 +13,13 @@ namespace tunit {
       Saved = false;
     }
 
+    public ProjectFile(string name) {
+      Name = name;
+      UnitTests = new string[0];
+      Description = "";
+      Saved = false;
+    }
+
     public string Name {
       get { return this.name; }
       set {
