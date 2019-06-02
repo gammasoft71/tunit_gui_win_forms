@@ -285,7 +285,6 @@
       this.progressBarRun.Location = new System.Drawing.Point(10, 40);
       this.progressBarRun.Name = "progressBarRun";
       this.progressBarRun.Size = new System.Drawing.Size(507, 23);
-      this.progressBarRun.Style = System.Windows.Forms.ProgressBarStyle.Continuous;
       this.progressBarRun.TabIndex = 2;
       // 
       // buttonStop

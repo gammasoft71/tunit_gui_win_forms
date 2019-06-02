@@ -9,15 +9,15 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace tunit {
-  public partial class FormTestProperties : Form {
-    public FormTestProperties() {
+  public partial class FormTestFixtureProperties : Form {
+    public FormTestFixtureProperties() {
       InitializeComponent();
     }
-    public FormTestProperties(string file, string testFixtureName, string testName, TestStatus testStatus, string[] messages, string stackTrace, TimeSpan duration) {
+    public FormTestFixtureProperties(string file, string testFixtureName, int tests, TestStatus testStatus, TimeSpan duration) {
       InitializeComponent();
-      this.Text = $"{testFixtureName}::{testName} properties";
-      this.labelTestName.Text = testName;
+      this.Text = $"{testFixtureName} properties";
       this.labelTestFixtureName.Text = testFixtureName;
+      this.labelTests.Text = tests.ToString();
       switch (testStatus) {
         case TestStatus.NotStarted:
           this.pictureBoxStatus.Image = tunit.Properties.Resources.NotStarted;
@@ -43,8 +43,6 @@ namespace tunit {
           break;
       }
       this.richTextBoxFile.Text = file;
-      this.richTextBoxMessage.Lines = messages;
-      this.richTextBoxStackTrace.Text = stackTrace;
       this.labelTime.Text = duration.ToString();
     }
   }

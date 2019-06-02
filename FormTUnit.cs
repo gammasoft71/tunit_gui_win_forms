@@ -66,9 +66,12 @@ namespace tunit {
         if (treeNode.Tag is TUnitProject) {
         } else if (treeNode.Tag is UnitTest) {
         } else if (treeNode.Tag is TestFixture) {
+          TestFixture testFixture = treeNode.Tag as TestFixture;
+          FormTestFixtureProperties testFixtureProperties = new FormTestFixtureProperties(testFixture.UnitTest.FileName, testFixture.Name, testFixture.TestCount, testFixture.Status, TimeSpan.Zero);
+          testFixtureProperties.ShowDialog();
         } else if (treeNode.Tag is Test) {
           Test test = treeNode.Tag as Test;
-          FormTestProperties testProperties = new FormTestProperties(test.Name, test.TestFixture.Name, test.TestFixture.UnitTest.FileName, test.Status, test.Messages, test.StackTrace, TimeSpan.Zero);
+          FormTestProperties testProperties = new FormTestProperties(test.TestFixture.UnitTest.FileName, test.TestFixture.Name, test.Name, test.Status, test.Messages, test.StackTrace, TimeSpan.Zero);
           testProperties.ShowDialog();
         }
       }
