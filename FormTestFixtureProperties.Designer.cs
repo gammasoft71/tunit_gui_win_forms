@@ -180,10 +180,12 @@
       // 
       // listBoxTests
       // 
+      this.listBoxTests.BackColor = System.Drawing.SystemColors.Control;
       this.listBoxTests.FormattingEnabled = true;
       this.listBoxTests.HorizontalScrollbar = true;
       this.listBoxTests.Location = new System.Drawing.Point(85, 131);
       this.listBoxTests.Name = "listBoxTests";
+      this.listBoxTests.SelectionMode = System.Windows.Forms.SelectionMode.None;
       this.listBoxTests.Size = new System.Drawing.Size(188, 121);
       this.listBoxTests.TabIndex = 16;
       // 

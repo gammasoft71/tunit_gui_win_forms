@@ -334,7 +334,8 @@ namespace tunit {
       }
 
       this.progressBarRun.Increment(1);
-      //Application.DoEvents();
+      //this.UpdateGui();
+      Application.DoEvents();
     }
 
     private void OnTUnitProjectStart(object sender, EventArgs e) {
@@ -476,6 +477,7 @@ namespace tunit {
       this.runAllToolStripMenuItem.Enabled = this.tunitProject != null && !this.running;
       this.runSelectedToolStripMenuItem.Enabled = this.tunitProject != null && !this.running;
       this.runFailedToolStripMenuItem.Enabled = this.tunitProject != null && this.tunitProject.FailedCount != 0 && !this.running;
+      this.labelRunSeparator.BackColor = this.tunitProject != null ? System.Drawing.Color.Black : System.Drawing.Color.Silver;
       this.stopRunToolStripMenuItem.Enabled = this.tunitProject != null && this.running;
       this.panelRun.Enabled = this.tunitProject != null;
       this.buttonRun.Enabled = this.tunitProject != null && !this.running;
