@@ -57,7 +57,18 @@ namespace tunit {
       this.timerUpdateGui.Tick += this.OnTimerUpdateGuidTick;
       this.runToolStripMenuItem.Click += this.OnRunSelectedTestsClick;
       this.treeViewTests.AfterSelect += this.OnAfterSelected;
+      this.treeViewTests.NodeMouseDoubleClick += this.OnTreeViewTestsNodeMouseDoubleClick;
+      this.treeViewTests.NodeMouseClick += this.OnTreeViewTestsNodeMouseClick;
       this.propertiesToolStripMenuItem.Click += this.OnPropertiesClick;
+    }
+
+    private void OnTreeViewTestsNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e) {
+      this.selectedTreeNode = e.Node;
+    }
+
+    private void OnTreeViewTestsNodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
+      this.selectedTreeNode = e.Node;
+      this.OnRunSelectedTestsClick(sender, EventArgs.Empty);
     }
 
     private void OnPropertiesClick(object sender, EventArgs e) {
@@ -308,10 +319,10 @@ namespace tunit {
 
       TreeNode treeNode = null;
       switch (e.Test.Status) {
-        case TestStatus.Succeed: treeNode = this.treeViewSucceedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name}"); break;
-        case TestStatus.Ignored: treeNode = this.treeViewIgnoredTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name}"); break;
-        case TestStatus.Aborted: treeNode = this.treeViewAbortedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name}"); break;
-        case TestStatus.Failed: treeNode = this.treeViewFailedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name}"); break;
+        case TestStatus.Succeed: treeNode = this.treeViewSucceedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name} ({e.Test.Duration})"); break;
+        case TestStatus.Ignored: treeNode = this.treeViewIgnoredTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name} ({e.Test.Duration})"); break;
+        case TestStatus.Aborted: treeNode = this.treeViewAbortedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name} ({e.Test.Duration})"); break;
+        case TestStatus.Failed: treeNode = this.treeViewFailedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name} ({e.Test.Duration})"); break;
       }
 
       if (treeNode != null) {

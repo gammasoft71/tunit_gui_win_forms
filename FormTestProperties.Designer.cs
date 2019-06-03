@@ -71,6 +71,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
       this.richTextBoxMessage.BackColor = System.Drawing.SystemColors.Control;
       this.richTextBoxMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+      this.richTextBoxMessage.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.richTextBoxMessage.Location = new System.Drawing.Point(82, 154);
       this.richTextBoxMessage.Name = "richTextBoxMessage";
       this.richTextBoxMessage.ReadOnly = true;
