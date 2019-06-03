@@ -13,12 +13,12 @@ namespace tunit {
     public FormTestFixtureProperties() {
       InitializeComponent();
     }
-    public FormTestFixtureProperties(string file, string testFixtureName, int tests, TestStatus testStatus, TimeSpan duration) {
+    public FormTestFixtureProperties(TestFixture testFixture) {
       InitializeComponent();
-      this.Text = $"{testFixtureName} properties";
-      this.labelTestFixtureName.Text = testFixtureName;
-      this.labelTests.Text = tests.ToString();
-      switch (testStatus) {
+      this.Text = $"{testFixture.Name} properties";
+      this.labelTestFixtureName.Text = testFixture.Name;
+      this.labelTests.Text = testFixture.TestCount.ToString();
+      switch (testFixture.Status) {
         case TestStatus.NotStarted:
           this.pictureBoxStatus.Image = tunit.Properties.Resources.NotStarted;
           this.labelStatus.Text = "Not Started";
@@ -42,8 +42,9 @@ namespace tunit {
         default:
           break;
       }
-      this.richTextBoxFile.Text = file;
-      this.labelTime.Text = duration.ToString();
+      this.richTextBoxFile.Text = testFixture.UnitTest.FileName;
+      this.labelTime.Text = testFixture.Duration.ToString();
+      this.listBoxTests.Items.AddRange(testFixture.Tests);
     }
   }
 }

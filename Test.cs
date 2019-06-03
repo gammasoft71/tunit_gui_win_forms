@@ -12,6 +12,8 @@ namespace tunit {
       this.Reset();
     }
 
+    public TimeSpan Duration { get; private set; }
+
     public string Name { get; private set; }
 
     public TestStatus Status { get; set; }
@@ -25,6 +27,7 @@ namespace tunit {
     }
 
     public void Reset() {
+      this.Duration = TimeSpan.Zero;
       this.Status = TestStatus.NotStarted;
       this.Messages = new string[0];
     }
@@ -42,6 +45,8 @@ namespace tunit {
 
       if (this.TestFixture.UnitTest.TUnitProject.TestEnd != null) this.TestFixture.UnitTest.TUnitProject.TestEnd(this, new TestEventArgs(this));
     }
+
+    public override string ToString() { return this.Name; }
 
     private TestFixture testFixture;
   }

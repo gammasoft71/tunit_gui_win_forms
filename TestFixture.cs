@@ -12,6 +12,8 @@ namespace tunit {
       this.Reset();
     }
 
+    public TimeSpan Duration { get; private set; }
+
     public int TestCount {
       get { return this.tests.Count; }
     }
@@ -39,10 +41,13 @@ namespace tunit {
     public void AddTest(string testName) { this.tests.Add(testName, new Test(this, testName)); }
 
     public void Reset() {
+      this.Duration = TimeSpan.Zero;
       this.Status = TestStatus.NotStarted;
       foreach (var test in this.tests)
         test.Value.Reset();
     }
+
+    public override string ToString() { return this.Name; }
 
     private Dictionary<string, Test> tests = new Dictionary<string, Test>();
     private UnitTest unitTest;
