@@ -204,7 +204,7 @@
       // 
       // textBoxSeed
       // 
-      this.textBoxSeed.Location = new System.Drawing.Point(309, 70);
+      this.textBoxSeed.Location = new System.Drawing.Point(309, 71);
       this.textBoxSeed.Name = "textBoxSeed";
       this.textBoxSeed.Size = new System.Drawing.Size(75, 20);
       this.textBoxSeed.TabIndex = 10;
@@ -240,7 +240,7 @@
       // 
       // numericUpDownRepeat
       // 
-      this.numericUpDownRepeat.Location = new System.Drawing.Point(55, 72);
+      this.numericUpDownRepeat.Location = new System.Drawing.Point(55, 71);
       this.numericUpDownRepeat.Maximum = new decimal(new int[] {
             1000000,
             0,
