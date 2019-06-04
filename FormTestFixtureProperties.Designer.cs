@@ -94,7 +94,7 @@
       // 
       // pictureBoxStatus
       // 
-      this.pictureBoxStatus.Image = global::tunit.Properties.Resources.NotStarted;
+      this.pictureBoxStatus.Image = global::tunit.Properties.Resources.NotStartedPicture;
       this.pictureBoxStatus.Location = new System.Drawing.Point(12, 12);
       this.pictureBoxStatus.Name = "pictureBoxStatus";
       this.pictureBoxStatus.Size = new System.Drawing.Size(32, 32);

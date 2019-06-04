@@ -32,8 +32,9 @@
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
       this.splitContainerMain = new System.Windows.Forms.SplitContainer();
       this.treeViewTests = new System.Windows.Forms.TreeView();
-      this.imageListTest = new System.Windows.Forms.ImageList(this.components);
+      this.imageListPicture = new System.Windows.Forms.ImageList(this.components);
       this.panelRun = new System.Windows.Forms.Panel();
+      this.labelRunSeparator = new System.Windows.Forms.Label();
       this.textBoxSeed = new System.Windows.Forms.TextBox();
       this.label2 = new System.Windows.Forms.Label();
       this.checkBoxForever = new System.Windows.Forms.CheckBox();
@@ -112,7 +113,7 @@
       this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
       this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.labelRunSeparator = new System.Windows.Forms.Label();
+      this.imageListColor = new System.Windows.Forms.ImageList(this.components);
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
       this.splitContainerMain.Panel1.SuspendLayout();
       this.splitContainerMain.Panel2.SuspendLayout();
@@ -164,22 +165,22 @@
       this.treeViewTests.FullRowSelect = true;
       this.treeViewTests.HideSelection = false;
       this.treeViewTests.ImageIndex = 0;
-      this.treeViewTests.ImageList = this.imageListTest;
+      this.treeViewTests.ImageList = this.imageListColor;
       this.treeViewTests.Location = new System.Drawing.Point(0, 0);
       this.treeViewTests.Name = "treeViewTests";
       this.treeViewTests.SelectedImageIndex = 0;
       this.treeViewTests.Size = new System.Drawing.Size(265, 391);
       this.treeViewTests.TabIndex = 1;
       // 
-      // imageListTest
+      // imageListPicture
       // 
-      this.imageListTest.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListTest.ImageStream")));
-      this.imageListTest.TransparentColor = System.Drawing.Color.Transparent;
-      this.imageListTest.Images.SetKeyName(0, "NotStarted.png");
-      this.imageListTest.Images.SetKeyName(1, "Success.png");
-      this.imageListTest.Images.SetKeyName(2, "Ignored.png");
-      this.imageListTest.Images.SetKeyName(3, "Aborted.png");
-      this.imageListTest.Images.SetKeyName(4, "Failed.png");
+      this.imageListPicture.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListPicture.ImageStream")));
+      this.imageListPicture.TransparentColor = System.Drawing.Color.Transparent;
+      this.imageListPicture.Images.SetKeyName(0, "NotStarted.png");
+      this.imageListPicture.Images.SetKeyName(1, "Success.png");
+      this.imageListPicture.Images.SetKeyName(2, "Ignored.png");
+      this.imageListPicture.Images.SetKeyName(3, "Aborted.png");
+      this.imageListPicture.Images.SetKeyName(4, "Failed.png");
       // 
       // panelRun
       // 
@@ -201,6 +202,14 @@
       this.panelRun.Name = "panelRun";
       this.panelRun.Size = new System.Drawing.Size(528, 103);
       this.panelRun.TabIndex = 1;
+      // 
+      // labelRunSeparator
+      // 
+      this.labelRunSeparator.BackColor = System.Drawing.Color.Silver;
+      this.labelRunSeparator.Location = new System.Drawing.Point(196, 70);
+      this.labelRunSeparator.Name = "labelRunSeparator";
+      this.labelRunSeparator.Size = new System.Drawing.Size(1, 23);
+      this.labelRunSeparator.TabIndex = 11;
       // 
       // textBoxSeed
       // 
@@ -358,7 +367,7 @@
       this.tabPageSucceedTests.Location = new System.Drawing.Point(4, 4);
       this.tabPageSucceedTests.Name = "tabPageSucceedTests";
       this.tabPageSucceedTests.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPageSucceedTests.Size = new System.Drawing.Size(521, 242);
+      this.tabPageSucceedTests.Size = new System.Drawing.Size(521, 256);
       this.tabPageSucceedTests.TabIndex = 3;
       this.tabPageSucceedTests.Tag = "0";
       this.tabPageSucceedTests.Text = "Succeed Tests";
@@ -370,7 +379,7 @@
       this.treeViewSucceedTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.treeViewSucceedTests.Location = new System.Drawing.Point(3, 3);
       this.treeViewSucceedTests.Name = "treeViewSucceedTests";
-      this.treeViewSucceedTests.Size = new System.Drawing.Size(515, 236);
+      this.treeViewSucceedTests.Size = new System.Drawing.Size(515, 250);
       this.treeViewSucceedTests.TabIndex = 0;
       // 
       // tabPageIgnoredTests
@@ -379,7 +388,7 @@
       this.tabPageIgnoredTests.Location = new System.Drawing.Point(4, 4);
       this.tabPageIgnoredTests.Name = "tabPageIgnoredTests";
       this.tabPageIgnoredTests.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPageIgnoredTests.Size = new System.Drawing.Size(521, 242);
+      this.tabPageIgnoredTests.Size = new System.Drawing.Size(521, 256);
       this.tabPageIgnoredTests.TabIndex = 1;
       this.tabPageIgnoredTests.Tag = "1";
       this.tabPageIgnoredTests.Text = "Ignored Tests";
@@ -392,7 +401,7 @@
       this.treeViewIgnoredTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.treeViewIgnoredTests.Location = new System.Drawing.Point(3, 3);
       this.treeViewIgnoredTests.Name = "treeViewIgnoredTests";
-      this.treeViewIgnoredTests.Size = new System.Drawing.Size(515, 236);
+      this.treeViewIgnoredTests.Size = new System.Drawing.Size(515, 250);
       this.treeViewIgnoredTests.TabIndex = 0;
       // 
       // tabPageAbortedTests
@@ -400,7 +409,7 @@
       this.tabPageAbortedTests.Controls.Add(this.treeViewAbortedTests);
       this.tabPageAbortedTests.Location = new System.Drawing.Point(4, 4);
       this.tabPageAbortedTests.Name = "tabPageAbortedTests";
-      this.tabPageAbortedTests.Size = new System.Drawing.Size(521, 242);
+      this.tabPageAbortedTests.Size = new System.Drawing.Size(521, 256);
       this.tabPageAbortedTests.TabIndex = 4;
       this.tabPageAbortedTests.Tag = "2";
       this.tabPageAbortedTests.Text = "Aborted Tests";
@@ -412,7 +421,7 @@
       this.treeViewAbortedTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.treeViewAbortedTests.Location = new System.Drawing.Point(0, 0);
       this.treeViewAbortedTests.Name = "treeViewAbortedTests";
-      this.treeViewAbortedTests.Size = new System.Drawing.Size(521, 242);
+      this.treeViewAbortedTests.Size = new System.Drawing.Size(521, 256);
       this.treeViewAbortedTests.TabIndex = 0;
       // 
       // tabPageFailedTests
@@ -421,7 +430,7 @@
       this.tabPageFailedTests.Location = new System.Drawing.Point(4, 4);
       this.tabPageFailedTests.Name = "tabPageFailedTests";
       this.tabPageFailedTests.Padding = new System.Windows.Forms.Padding(3);
-      this.tabPageFailedTests.Size = new System.Drawing.Size(521, 242);
+      this.tabPageFailedTests.Size = new System.Drawing.Size(521, 256);
       this.tabPageFailedTests.TabIndex = 0;
       this.tabPageFailedTests.Tag = "3";
       this.tabPageFailedTests.Text = "Failed Tests";
@@ -433,7 +442,7 @@
       this.treeViewFailedTests.Font = new System.Drawing.Font("Lucida Console", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
       this.treeViewFailedTests.Location = new System.Drawing.Point(3, 3);
       this.treeViewFailedTests.Name = "treeViewFailedTests";
-      this.treeViewFailedTests.Size = new System.Drawing.Size(515, 236);
+      this.treeViewFailedTests.Size = new System.Drawing.Size(515, 250);
       this.treeViewFailedTests.TabIndex = 0;
       // 
       // toolStripContainer1
@@ -503,7 +512,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelSucceedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-      this.toolStripStatusLabelSucceedTests.Image = global::tunit.Properties.Resources.Succeed;
+      this.toolStripStatusLabelSucceedTests.Image = global::tunit.Properties.Resources.SucceedColor;
       this.toolStripStatusLabelSucceedTests.Name = "toolStripStatusLabelSucceedTests";
       this.toolStripStatusLabelSucceedTests.Size = new System.Drawing.Size(115, 20);
       this.toolStripStatusLabelSucceedTests.Text = "Succeed Tests : 0";
@@ -515,7 +524,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelIgnoredTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-      this.toolStripStatusLabelIgnoredTests.Image = global::tunit.Properties.Resources.Ignored;
+      this.toolStripStatusLabelIgnoredTests.Image = global::tunit.Properties.Resources.IgnoredColor;
       this.toolStripStatusLabelIgnoredTests.Name = "toolStripStatusLabelIgnoredTests";
       this.toolStripStatusLabelIgnoredTests.Size = new System.Drawing.Size(112, 20);
       this.toolStripStatusLabelIgnoredTests.Text = "Ignored Tests : 0";
@@ -527,7 +536,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelAbortedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-      this.toolStripStatusLabelAbortedTests.Image = global::tunit.Properties.Resources.Aborted;
+      this.toolStripStatusLabelAbortedTests.Image = global::tunit.Properties.Resources.AbortedColor;
       this.toolStripStatusLabelAbortedTests.Name = "toolStripStatusLabelAbortedTests";
       this.toolStripStatusLabelAbortedTests.Size = new System.Drawing.Size(114, 20);
       this.toolStripStatusLabelAbortedTests.Text = "Aborted Tests : 0";
@@ -539,7 +548,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Right) 
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelFailedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
-      this.toolStripStatusLabelFailedTests.Image = global::tunit.Properties.Resources.Failed;
+      this.toolStripStatusLabelFailedTests.Image = global::tunit.Properties.Resources.FailedColor;
       this.toolStripStatusLabelFailedTests.Name = "toolStripStatusLabelFailedTests";
       this.toolStripStatusLabelFailedTests.Size = new System.Drawing.Size(102, 20);
       this.toolStripStatusLabelFailedTests.Text = "Failed Tests : 0";
@@ -916,13 +925,15 @@
       this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
       this.propertiesToolStripMenuItem.Text = "&Properties...";
       // 
-      // labelRunSeparator
+      // imageListColor
       // 
-      this.labelRunSeparator.BackColor = System.Drawing.Color.Silver;
-      this.labelRunSeparator.Location = new System.Drawing.Point(196, 70);
-      this.labelRunSeparator.Name = "labelRunSeparator";
-      this.labelRunSeparator.Size = new System.Drawing.Size(1, 23);
-      this.labelRunSeparator.TabIndex = 11;
+      this.imageListColor.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListColor.ImageStream")));
+      this.imageListColor.TransparentColor = System.Drawing.Color.Transparent;
+      this.imageListColor.Images.SetKeyName(0, "NotStarted3.png");
+      this.imageListColor.Images.SetKeyName(1, "Success3.png");
+      this.imageListColor.Images.SetKeyName(2, "Ignored3.png");
+      this.imageListColor.Images.SetKeyName(3, "Aborted3.png");
+      this.imageListColor.Images.SetKeyName(4, "Failed3.png");
       // 
       // FormMain
       // 
@@ -1023,7 +1034,7 @@
     private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
     private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem settingsToolStripMenuItem;
-    private System.Windows.Forms.ImageList imageListTest;
+    private System.Windows.Forms.ImageList imageListPicture;
     private System.Windows.Forms.Label labelColor;
     private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelAbortedTests;
     private System.Windows.Forms.Label label1;
@@ -1047,6 +1058,7 @@
     private System.Windows.Forms.ToolStripSeparator toolStripMenuItem8;
     private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
     private System.Windows.Forms.Label labelRunSeparator;
+    private System.Windows.Forms.ImageList imageListColor;
   }
 }
 

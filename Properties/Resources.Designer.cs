@@ -63,9 +63,9 @@ namespace tunit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Aborted {
+        internal static System.Drawing.Bitmap AbortedColor {
             get {
-                object obj = ResourceManager.GetObject("Aborted", resourceCulture);
+                object obj = ResourceManager.GetObject("AbortedColor", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -73,9 +73,9 @@ namespace tunit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Failed {
+        internal static System.Drawing.Bitmap AbortedPicture {
             get {
-                object obj = ResourceManager.GetObject("Failed", resourceCulture);
+                object obj = ResourceManager.GetObject("AbortedPicture", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -83,9 +83,9 @@ namespace tunit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Ignored {
+        internal static System.Drawing.Bitmap FailedColor {
             get {
-                object obj = ResourceManager.GetObject("Ignored", resourceCulture);
+                object obj = ResourceManager.GetObject("FailedColor", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -93,9 +93,9 @@ namespace tunit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap NotStarted {
+        internal static System.Drawing.Bitmap FailedPicture {
             get {
-                object obj = ResourceManager.GetObject("NotStarted", resourceCulture);
+                object obj = ResourceManager.GetObject("FailedPicture", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -103,9 +103,59 @@ namespace tunit.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
-        internal static System.Drawing.Bitmap Succeed {
+        internal static System.Drawing.Bitmap IgnoredColor {
             get {
-                object obj = ResourceManager.GetObject("Succeed", resourceCulture);
+                object obj = ResourceManager.GetObject("IgnoredColor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap IgnoredPicture {
+            get {
+                object obj = ResourceManager.GetObject("IgnoredPicture", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NotStartedColor {
+            get {
+                object obj = ResourceManager.GetObject("NotStartedColor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap NotStartedPicture {
+            get {
+                object obj = ResourceManager.GetObject("NotStartedPicture", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SucceedColor {
+            get {
+                object obj = ResourceManager.GetObject("SucceedColor", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap SucceedPicture {
+            get {
+                object obj = ResourceManager.GetObject("SucceedPicture", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

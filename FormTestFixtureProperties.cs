@@ -20,23 +20,23 @@ namespace tunit {
       this.labelTests.Text = testFixture.TestCount.ToString();
       switch (testFixture.Status) {
         case TestStatus.NotStarted:
-          this.pictureBoxStatus.Image = tunit.Properties.Resources.NotStarted;
+          this.pictureBoxStatus.Image = tunit.Properties.Resources.NotStartedColor;
           this.labelStatus.Text = "Not Started";
           break;
         case TestStatus.Succeed:
-          this.pictureBoxStatus.Image = tunit.Properties.Resources.Succeed;
+          this.pictureBoxStatus.Image = tunit.Properties.Resources.SucceedColor;
           this.labelStatus.Text = "Succeed";
           break;
         case TestStatus.Ignored:
-          this.pictureBoxStatus.Image = tunit.Properties.Resources.Ignored;
+          this.pictureBoxStatus.Image = tunit.Properties.Resources.IgnoredColor;
           this.labelStatus.Text = "Ignored";
           break;
         case TestStatus.Aborted:
-          this.pictureBoxStatus.Image = tunit.Properties.Resources.Aborted;
+          this.pictureBoxStatus.Image = tunit.Properties.Resources.AbortedColor;
           this.labelStatus.Text = "Aborted";
           break;
         case TestStatus.Failed:
-          this.pictureBoxStatus.Image = tunit.Properties.Resources.Failed;
+          this.pictureBoxStatus.Image = tunit.Properties.Resources.FailedColor;
           this.labelStatus.Text = "Failed";
           break;
         default:
