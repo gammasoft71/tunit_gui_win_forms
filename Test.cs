@@ -32,12 +32,17 @@ namespace tunit {
       this.Messages = new string[0];
     }
 
-    public void SetStatus(TestStatus status, string[] infos, string stackTrace) {
+    public void SetStatus(TestStatus status, string[] infos, string stackTrace, TimeSpan duration) {
       if (this.TestFixture.UnitTest.TUnitProject.TestStart != null) this.TestFixture.UnitTest.TUnitProject.TestStart(this, new TestEventArgs(this));
       this.Status = status;
       Messages = infos;
 
       this.StackTrace = stackTrace;
+      this.Duration = duration;
+
+      this.TestFixture.Duration += this.Duration;
+      this.TestFixture.UnitTest.Duration += this.Duration;
+      this.TestFixture.UnitTest.TUnitProject.Duration += this.Duration;
 
       if (this.TestFixture.Status < this.Status) this.TestFixture.Status = this.Status;
       if (this.TestFixture.UnitTest.Status < this.Status) this.TestFixture.UnitTest.Status = this.Status;

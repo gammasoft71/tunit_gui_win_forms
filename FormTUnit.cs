@@ -333,7 +333,8 @@ namespace tunit {
           treeNode.Nodes.Add($"StackTrace: {e.Test.StackTrace}");
       }
 
-      this.progressBarRun.Increment(1);
+      if (this.checkBoxForever.Checked == false)
+        this.progressBarRun.Increment(1);
       //this.UpdateGui();
       Application.DoEvents();
     }
@@ -343,6 +344,7 @@ namespace tunit {
       this.stopWatch.Reset();
       this.stopWatch.Start();
       this.timerUpdateGui.Enabled = true;
+      this.progressBarRun.Style = this.checkBoxForever.Checked ? ProgressBarStyle.Marquee : ProgressBarStyle.Continuous;
       this.UpdateGui();
       Application.DoEvents();
     }
@@ -352,6 +354,7 @@ namespace tunit {
       this.stopWatch.Stop();
       this.timerUpdateGui.Enabled = false;
       this.richTextBoxTextOutput.Text = string.Join(Environment.NewLine, this.tunitProject.TextOutput);
+      this.progressBarRun.Style = ProgressBarStyle.Continuous;
       this.UpdateGui();
       Application.DoEvents();
     }
@@ -506,12 +509,21 @@ namespace tunit {
         this.toolStripStatusLabelTestsDuration.Text = $"Time : {this.stopWatch.Elapsed}";
 
         switch (this.tunitProject.Status) {
+          case TestStatus.NotStarted: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 96, 96, 96); break;
+          case TestStatus.Succeed: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 0, 255, 0); break;
+          case TestStatus.Ignored: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 255, 255, 0); break;
+          case TestStatus.Aborted: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 224, 224, 224); break;
+          case TestStatus.Failed: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 255, 0, 0); break;
+        }
+
+        /*
+        switch (this.tunitProject.Status) {
           case TestStatus.NotStarted: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 95, 95, 95); break;
           case TestStatus.Succeed: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 76, 175, 81); break;
           case TestStatus.Ignored: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 244, 243, 54); break;
           case TestStatus.Aborted: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 195, 195, 195); break;
           case TestStatus.Failed: this.labelColor.BackColor = System.Drawing.Color.FromArgb(255, 244, 67, 55); break;
-        }
+        } */
       }
 
       if (this.tunitProject != null && this.Text != string.Format("{0} {1} - TUnit", string.IsNullOrEmpty(this.tunitProject.FileName) ? this.tunitProject.Name : System.IO.Path.GetFileNameWithoutExtension(this.tunitProject.FileName), this.tunitProject.Saved ? "" : "* ")) this.Text = string.Format("{0}{1} - TUnit", string.IsNullOrEmpty(this.tunitProject.FileName) ? this.tunitProject.Name : System.IO.Path.GetFileNameWithoutExtension(this.tunitProject.FileName), this.tunitProject.Saved ? "" : "*");

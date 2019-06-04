@@ -20,6 +20,9 @@ namespace tunit {
       set { this.File.Description = value; }
     }
 
+    public TimeSpan Duration { get; set; }
+
+
     public string Name {
       get { return this.File.Name; }
       set { this.File.Name = value; }

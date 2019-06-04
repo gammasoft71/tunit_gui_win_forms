@@ -13,6 +13,8 @@ namespace tunit {
       this.Reset();
     }
 
+    public TimeSpan Duration { get; set; }
+
     public string FileName { get; private set; }
 
     public int TestCount {
@@ -111,6 +113,7 @@ namespace tunit {
       List<string> errorsAndFailures = new List<string>();
       string stackTrace = "";
       string[] fixtureAndTestName = null;
+      TimeSpan duration = TimeSpan.Zero;
       int countLine = 0;
       TestStatus status = TestStatus.NotStarted;
       while ((line = streamReader.ReadLine()) != null) {
@@ -133,7 +136,7 @@ namespace tunit {
                 case TestStatus.Failed: this.tunitProject.FailedCount++; this.tunitProject.RanCount++; break;
               }
             }
-            this[fixtureAndTestName[0]][fixtureAndTestName[1]].SetStatus(status, errorsAndFailures.ToArray(), stackTrace);
+            this[fixtureAndTestName[0]][fixtureAndTestName[1]].SetStatus(status, errorsAndFailures.ToArray(), stackTrace, duration);
             stackTrace = "";
             errorsAndFailures.Clear();
             status = TestStatus.NotStarted;
@@ -144,6 +147,7 @@ namespace tunit {
             case "ABORTED": status = TestStatus.Aborted; break;
             case "FAILED ": status = TestStatus.Failed; break;
           }
+          duration = TimeSpan.FromMilliseconds(double.Parse(line.Substring(line.IndexOf("(") + 1, line.IndexOf(" ms") - line.IndexOf("("))));
           line = line.Substring(8, line.IndexOf(" (") - 8);
           fixtureAndTestName = line.Split('.');
         } else if (line.StartsWith("Stack Trace: in ")) {
@@ -170,7 +174,7 @@ namespace tunit {
             case TestStatus.Failed: this.tunitProject.FailedCount++; this.tunitProject.RanCount++; break;
           }
         }
-        this[fixtureAndTestName[0]][fixtureAndTestName[1]].SetStatus(status, errorsAndFailures.ToArray(), stackTrace);
+        this[fixtureAndTestName[0]][fixtureAndTestName[1]].SetStatus(status, errorsAndFailures.ToArray(), stackTrace, duration);
       }
       if (this.TextOutput.Length != 0) lines.Insert(0, "");
       lines.InsertRange(0, this.TextOutput);

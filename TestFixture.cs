@@ -12,7 +12,7 @@ namespace tunit {
       this.Reset();
     }
 
-    public TimeSpan Duration { get; private set; }
+    public TimeSpan Duration { get; set; }
 
     public int TestCount {
       get { return this.tests.Count; }
