@@ -7,9 +7,16 @@ namespace tunit {
     public FormMain() {
       InitializeComponent();
 
-      this.ClientSize = new System.Drawing.Size(850, 525);
+      if (tunit.Properties.Settings.Default.IsMiniGui)
+        this.OnViewMiniGUIClick(this, EventArgs.Empty);
+      this.ClientSize = tunit.Properties.Settings.Default.ClentSize;
+      if (tunit.Properties.Settings.Default.Location != new System.Drawing.Point(-1, -1)) {
+        this.StartPosition = FormStartPosition.Manual;
+        this.Location = tunit.Properties.Settings.Default.Location;
+      }
 
       Application.Idle += this.OnApplicationIdle;
+      this.FormClosed += this.OnFormCloed; ;
       this.FormClosing += this.OnFormClosing;
 
       this.consoleOutputTabPage = this.tabControlResults.TabPages[0];
@@ -24,10 +31,18 @@ namespace tunit {
       this.abortedTestsTabPage.Tag = 3;
       this.failedTestsTabPage.Tag = 4;
 
-      this.tabControlResults.TabPages.Remove(consoleOutputTabPage);
-      this.tabControlResults.TabPages.Remove(succeedTestsTabPage);
-      this.tabControlResults.TabPages.Remove(ignoredTestsTabPage);
-      this.tabControlResults.TabPages.Remove(abortedTestsTabPage);
+      if (!tunit.Properties.Settings.Default.IsConsoleOutputVisible) this.tabControlResults.TabPages.Remove(consoleOutputTabPage);
+      if (!tunit.Properties.Settings.Default.IsSucceedTestsVisible) this.tabControlResults.TabPages.Remove(succeedTestsTabPage);
+      if (!tunit.Properties.Settings.Default.IsIgnoredTestsVisible) this.tabControlResults.TabPages.Remove(ignoredTestsTabPage);
+      if (!tunit.Properties.Settings.Default.IsAbortedTestsVisible) this.tabControlResults.TabPages.Remove(abortedTestsTabPage);
+      if (!tunit.Properties.Settings.Default.IsFailedTestsVisible) this.tabControlResults.TabPages.Remove(failedTestsTabPage);
+
+      this.consoleOutputToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsConsoleOutputVisible;
+      this.succeedTestsToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsSucceedTestsVisible;
+      this.ignoredTestsToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsIgnoredTestsVisible;
+      this.abortedTestsToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsAbortedTestsVisible;
+      this.failedTestsToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsFailedTestsVisible;
+      this.statusStripMain.Visible = tunit.Properties.Settings.Default.IsStatusBarVisible;
 
 
       this.newToolStripMenuItem.Click += this.OnFileNewClick;
@@ -38,7 +53,7 @@ namespace tunit {
       this.reloadProjectToolStripMenuItem.Click += this.OnReloadProjectClick;
       this.exitToolStripMenuItem.Click += this.OnFileExitClick;
       this.addTUnitFileToolStripMenuItem.Click += this.OnProjectAddTUnitFileClick;
-      this.fullGUIToolStripMenuItem.Click += this.OnProjectFullGUIClick;
+      this.fullGUIToolStripMenuItem.Click += this.OnViewFullGUIClick;
       this.miniGUIToolStripMenuItem.Click += this.OnViewMiniGUIClick;
       this.consoleOutputToolStripMenuItem.Click += this.OnViewConsoleOutputClick;
       this.succeedTestsToolStripMenuItem.Click += this.OnSucceedTestsClick;
@@ -62,13 +77,178 @@ namespace tunit {
       this.propertiesToolStripMenuItem.Click += this.OnPropertiesClick;
     }
 
-    private void OnTreeViewTestsNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e) {
-      this.selectedTreeNode = e.Node;
+    private void AddTabPageToTabControlResult(TabPage tabPage) {
+      int indexToInsert = 0;
+      foreach (TabPage item in this.tabControlResults.TabPages)
+        if ((Int32)item.Tag < (Int32)tabPage.Tag) indexToInsert++;
+      this.tabControlResults.TabPages.Insert(indexToInsert, tabPage);
     }
 
-    private void OnTreeViewTestsNodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
-      this.selectedTreeNode = e.Node;
-      this.OnRunSelectedTestsClick(sender, EventArgs.Empty);
+    private void CloseProject() {
+      this.Enabled = false;
+      this.progressBarRun.Value = 0;
+      this.labelColor.BackColor = System.Drawing.SystemColors.Control;
+      this.toolStripStatusLabelTestCases.Text = "Test Cases : 0";
+      this.toolStripStatusLabelRanTests.Text = "Ran Tests : 0";
+      this.toolStripStatusLabelSucceedTests.Text = "Succeed Tests : 0";
+      this.toolStripStatusLabelIgnoredTests.Text = "Ignored Tests : 0";
+      this.toolStripStatusLabelAbortedTests.Text = "Aborted Tests : 0";
+      this.toolStripStatusLabelFailedTests.Text = "Failed Tests : 0";
+      this.toolStripStatusLabelTestsDuration.Text = $"Time : {TimeSpan.Zero}";
+      this.tunitProject.TestEnd -= this.OnTestEnd;
+      this.tunitProject.TUnitProjectStart -= this.OnTUnitProjectStart;
+      this.tunitProject.TUnitProjectEnd -= this.OnTUnitProjectEnd;
+      this.tunitProject = null;
+      Application.DoEvents();
+      this.treeViewTests.Nodes.Clear();
+      this.Enabled = true;
+    }
+
+    private void OnAbortedTestsClick(object sender, EventArgs e) {
+      if (this.abortedTestsToolStripMenuItem.Checked) {
+        AddTabPageToTabControlResult(this.abortedTestsTabPage);
+        this.tabControlResults.SelectedTab = this.abortedTestsTabPage;
+      } else
+        this.tabControlResults.TabPages.Remove(abortedTestsTabPage);
+    }
+
+    private void OnAboutClick(object sender, EventArgs e) {
+      AboutBox aboutBox = new AboutBox();
+      aboutBox.ShowDialog(this);
+    }
+
+    private void OnAfterSelected(object sender, TreeViewEventArgs e) {
+      this.selectedTreeNode = this.treeViewTests.SelectedNode;
+    }
+
+    private void OnApplicationIdle(object sender, EventArgs e) {
+      UpdateGui();
+    }
+
+    private void OnFileCloseClick(object sender, EventArgs e) {
+      if (this.tunitProject != null) {
+        if (this.tunitProject.Saved) {
+          this.CloseProject();
+        } else {
+          DialogResult result = MessageBox.Show("Save current project before closing ?", "Save project", MessageBoxButtons.YesNoCancel);
+          if (result == DialogResult.Yes) {
+            OnFileSaveClick(sender, e);
+            if (this.tunitProject.Saved) {
+              this.CloseProject();
+            }
+          }
+          if (result == DialogResult.No) {
+            this.tunitProject = null;
+            this.treeViewTests.Nodes.Clear();
+          }
+        }
+      }
+    }
+
+    private void OnFileNewClick(object sender, EventArgs e) {
+      OnFileCloseClick(sender, e);
+      if (this.tunitProject == null) {
+        this.tunitProject = new TUnitProject();
+        this.tunitProject.New();
+        this.tunitProject.TestEnd += this.OnTestEnd;
+        this.tunitProject.TUnitProjectStart += this.OnTUnitProjectStart;
+        this.tunitProject.TUnitProjectEnd += this.OnTUnitProjectEnd;
+        this.ReloadProject();
+      }
+    }
+
+    private void OnFileOpenClick(object sender, EventArgs e) {
+      OpenFileDialog openFileDialog = new OpenFileDialog();
+      openFileDialog.Filter = "TUnit project or application Files (*.tunit;*.exe)|*.tunit;*.exe|TUnit project Files (*.tunit)|*.tunit|TUnit application Files (*.exe)|*.exe|All Files (*.*)|*.*";
+      DialogResult result = openFileDialog.ShowDialog();
+      if (result == DialogResult.OK) {
+        OnFileCloseClick(sender, e);
+        if (this.tunitProject == null) {
+          if (System.IO.Path.GetExtension(openFileDialog.FileName) == ".exe") {
+            this.tunitProject = new TUnitProject();
+            this.tunitProject.New(System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName));
+            this.tunitProject.TestEnd += this.OnTestEnd;
+            this.tunitProject.TUnitProjectStart += this.OnTUnitProjectStart;
+            this.tunitProject.TUnitProjectEnd += this.OnTUnitProjectEnd;
+            if (!UnitTest.IsTUnitApplication(openFileDialog.FileName)) {
+              MessageBox.Show($"{openFileDialog.FileName} is not a TUnit application", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            } else {
+              this.tunitProject.AddUnitTest(openFileDialog.FileName);
+              //this.ReloadTests(openFileDialog.FileName);
+              this.ReloadProject();
+            }
+          } else {
+            this.Enabled = false;
+            this.SuspendLayout();
+            this.tunitProject = new TUnitProject(openFileDialog.FileName);
+            this.tunitProject.Load();
+            this.tunitProject.TestEnd += this.OnTestEnd;
+            this.tunitProject.TUnitProjectStart += this.OnTUnitProjectStart;
+            this.tunitProject.TUnitProjectEnd += this.OnTUnitProjectEnd;
+            this.ReloadProject();
+            this.Enabled = true;
+            this.ResumeLayout();
+          }
+        }
+      }
+    }
+
+    private void OnFileSaveAsClick(object sender, EventArgs e) {
+      SaveFileDialog saveFileDialog = new SaveFileDialog();
+      saveFileDialog.FileName = $"{this.tunitProject.Name}.tunit";
+      DialogResult result = saveFileDialog.ShowDialog();
+      if (result == DialogResult.OK) this.tunitProject.FileName = saveFileDialog.FileName;
+
+      if (!string.IsNullOrEmpty(this.tunitProject.FileName))
+        this.tunitProject.Save();
+    }
+
+    private void OnFileSaveClick(object sender, EventArgs e) {
+      if (string.IsNullOrEmpty(this.tunitProject.FileName))
+        OnFileSaveAsClick(sender, e);
+      else if (!string.IsNullOrEmpty(this.tunitProject.FileName))
+        this.tunitProject.Save();
+    }
+
+    private void OnFormCloed(object sender, FormClosedEventArgs e) {
+      tunit.Properties.Settings.Default.ClentSize = this.ClientSize;
+      tunit.Properties.Settings.Default.Location = this.Location;
+      tunit.Properties.Settings.Default.IsMiniGui = this.miniGUIToolStripMenuItem.Checked;
+      tunit.Properties.Settings.Default.IsConsoleOutputVisible = this.tabControlResults.TabPages.Contains(this.consoleOutputTabPage);
+      tunit.Properties.Settings.Default.IsSucceedTestsVisible = this.tabControlResults.TabPages.Contains(this.succeedTestsTabPage);
+      tunit.Properties.Settings.Default.IsIgnoredTestsVisible = this.tabControlResults.TabPages.Contains(this.ignoredTestsTabPage);
+      tunit.Properties.Settings.Default.IsAbortedTestsVisible = this.tabControlResults.TabPages.Contains(this.abortedTestsTabPage);
+      tunit.Properties.Settings.Default.IsFailedTestsVisible = this.tabControlResults.TabPages.Contains(this.failedTestsTabPage);
+      tunit.Properties.Settings.Default.IsStatusBarVisible = this.statusStripMain.Visible;
+      tunit.Properties.Settings.Default.Save();
+    }
+
+    private void OnFormClosing(object sender, FormClosingEventArgs e) {
+      this.OnFileCloseClick(sender, EventArgs.Empty);
+      e.Cancel = this.tunitProject != null;
+    }
+
+    private void OnIgnoredTestsClick(object sender, EventArgs e) {
+      if (this.ignoredTestsToolStripMenuItem.Checked) {
+        AddTabPageToTabControlResult(this.ignoredTestsTabPage);
+        this.tabControlResults.SelectedTab = this.ignoredTestsTabPage;
+      } else
+        this.tabControlResults.TabPages.Remove(ignoredTestsTabPage);
+    }
+
+    private void OnProjectAddTUnitFileClick(object sender, EventArgs e) {
+      OpenFileDialog openFileDialog = new OpenFileDialog();
+      openFileDialog.Filter = "TUnit Application Files (*.exe)|*.exe|All Files (*.*)|*.*";
+      DialogResult result = openFileDialog.ShowDialog();
+      if (result == DialogResult.OK) {
+        if (!UnitTest.IsTUnitApplication(openFileDialog.FileName)) {
+          MessageBox.Show($"{openFileDialog.FileName} is not a TUnit application", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+        } else {
+          this.tunitProject.AddUnitTest(openFileDialog.FileName);
+          //this.ReloadTests(openFileDialog.FileName);
+          this.ReloadProject();
+        }
+      }
     }
 
     private void OnPropertiesClick(object sender, EventArgs e) {
@@ -86,41 +266,8 @@ namespace tunit {
       }
     }
 
-    private void OnAfterSelected(object sender, TreeViewEventArgs e) {
-      this.selectedTreeNode = this.treeViewTests.SelectedNode;
-    }
-
-    private void OnTimerUpdateGuidTick(object sender, EventArgs e) {
-      this.UpdateGui();
-    }
-
-    private void OnAboutClick(object sender, EventArgs e) {
-      AboutBox aboutBox = new AboutBox();
-      aboutBox.ShowDialog(this);
-    }
-
     private void OnReloadProjectClick(object sender, EventArgs e) {
       this.ReloadProject();
-    }
-
-    private void OnRunSelectedTestsClick(object sender, EventArgs e) {
-      TreeNode treeNode = this.treeViewTests.SelectedNode;
-      if (treeNode != null) {
-        this.ResetProject();
-        if (treeNode.Tag is TUnitProject) {
-          this.progressBarRun.Maximum = this.tunitProject.TestCount;
-          this.tunitProject.Run();
-        } else if (treeNode.Tag is UnitTest) {
-          this.progressBarRun.Maximum = (treeNode.Tag as UnitTest).TestCount;
-          this.tunitProject.Run(treeNode.Tag as UnitTest);
-        } else if (treeNode.Tag is TestFixture) {
-          this.progressBarRun.Maximum = (treeNode.Tag as TestFixture).TestCount;
-          this.tunitProject.Run(treeNode.Tag as TestFixture);
-        } else if (treeNode.Tag is Test) {
-          this.progressBarRun.Maximum = 1;
-          this.tunitProject.Run(treeNode.Tag as Test);
-        }
-      }
     }
 
     private void OnRunAllTestsClick(object sender, EventArgs e) {
@@ -146,15 +293,72 @@ namespace tunit {
       }
     }
 
+    private void OnRunSelectedTestsClick(object sender, EventArgs e) {
+      TreeNode treeNode = this.treeViewTests.SelectedNode;
+      if (treeNode != null) {
+        this.ResetProject();
+        if (treeNode.Tag is TUnitProject) {
+          this.progressBarRun.Maximum = this.tunitProject.TestCount;
+          this.tunitProject.Run();
+        } else if (treeNode.Tag is UnitTest) {
+          this.progressBarRun.Maximum = (treeNode.Tag as UnitTest).TestCount;
+          this.tunitProject.Run(treeNode.Tag as UnitTest);
+        } else if (treeNode.Tag is TestFixture) {
+          this.progressBarRun.Maximum = (treeNode.Tag as TestFixture).TestCount;
+          this.tunitProject.Run(treeNode.Tag as TestFixture);
+        } else if (treeNode.Tag is Test) {
+          this.progressBarRun.Maximum = 1;
+          this.tunitProject.Run(treeNode.Tag as Test);
+        }
+      }
+    }
+
     private void OnStopTestsClick(object sender, EventArgs e) {
       this.tunitProject.Stop();
+    }
+
+    private void OnSucceedTestsClick(object sender, EventArgs e) {
+      if (this.succeedTestsToolStripMenuItem.Checked) {
+        AddTabPageToTabControlResult(this.succeedTestsTabPage);
+        this.tabControlResults.SelectedTab = this.succeedTestsTabPage;
+      } else
+        this.tabControlResults.TabPages.Remove(succeedTestsTabPage);
+    }
+
+    private void OnTimerUpdateGuidTick(object sender, EventArgs e) {
+      this.UpdateGui();
+    }
+
+    private void OnTreeViewTestsNodeMouseClick(object sender, TreeNodeMouseClickEventArgs e) {
+      this.selectedTreeNode = e.Node;
+    }
+
+    private void OnTreeViewTestsNodeMouseDoubleClick(object sender, TreeNodeMouseClickEventArgs e) {
+      this.selectedTreeNode = e.Node;
+      this.OnRunSelectedTestsClick(sender, EventArgs.Empty);
     }
 
     private void OnTreeViewTestsAfterSelect(object sender, TreeViewEventArgs e) {
       this.labelSelectedTest.Text = this.treeViewTests.SelectedNode.Text;
     }
 
-    private void OnProjectFullGUIClick(object sender, EventArgs e) {
+    private void OnViewConsoleOutputClick(object sender, EventArgs e) {
+      if (this.consoleOutputToolStripMenuItem.Checked) {
+        AddTabPageToTabControlResult(this.consoleOutputTabPage);
+        this.tabControlResults.SelectedTab = this.consoleOutputTabPage;
+      } else
+        this.tabControlResults.TabPages.Remove(consoleOutputTabPage);
+    }
+
+    private void OnViewFailedTestsClick(object sender, EventArgs e) {
+      if (this.failedTestsToolStripMenuItem.Checked) {
+        AddTabPageToTabControlResult(this.failedTestsTabPage);
+        this.tabControlResults.SelectedTab = this.failedTestsTabPage;
+      } else
+        this.tabControlResults.TabPages.Remove(failedTestsTabPage);
+    }
+
+    private void OnViewFullGUIClick(object sender, EventArgs e) {
       this.fullGUIToolStripMenuItem.Checked = true;
       this.miniGUIToolStripMenuItem.Checked = false;
       this.splitContainerMain.Panel2Collapsed = false;
@@ -168,53 +372,6 @@ namespace tunit {
       this.splitContainerMain.Panel2Collapsed = true;
       this.statusStripMain.Visible = false;
       this.ClientSize = new System.Drawing.Size(324, 525);
-    }
-
-    private void AddTabPageToTabControlResult(TabPage tabPage) {
-      int indexToInsert = 0;
-      foreach (TabPage item in this.tabControlResults.TabPages)
-        if ((Int32)item.Tag < (Int32)tabPage.Tag) indexToInsert++;
-      this.tabControlResults.TabPages.Insert(indexToInsert, tabPage);
-    }
-
-    private void OnViewConsoleOutputClick(object sender, EventArgs e) {
-      if (this.consoleOutputToolStripMenuItem.Checked) {
-        AddTabPageToTabControlResult(this.consoleOutputTabPage);
-        this.tabControlResults.SelectedTab = this.consoleOutputTabPage;
-      } else
-        this.tabControlResults.TabPages.Remove(consoleOutputTabPage);
-    }
-
-    private void OnSucceedTestsClick(object sender, EventArgs e) {
-      if (this.succeedTestsToolStripMenuItem.Checked) {
-        AddTabPageToTabControlResult(this.succeedTestsTabPage);
-        this.tabControlResults.SelectedTab = this.succeedTestsTabPage;
-      } else
-        this.tabControlResults.TabPages.Remove(succeedTestsTabPage);
-    }
-
-    private void OnIgnoredTestsClick(object sender, EventArgs e) {
-      if (this.ignoredTestsToolStripMenuItem.Checked) {
-        AddTabPageToTabControlResult(this.ignoredTestsTabPage);
-        this.tabControlResults.SelectedTab = this.ignoredTestsTabPage;
-      } else
-        this.tabControlResults.TabPages.Remove(ignoredTestsTabPage);
-    }
-
-    private void OnAbortedTestsClick(object sender, EventArgs e) {
-      if (this.abortedTestsToolStripMenuItem.Checked) {
-        AddTabPageToTabControlResult(this.abortedTestsTabPage);
-        this.tabControlResults.SelectedTab = this.abortedTestsTabPage;
-      } else
-        this.tabControlResults.TabPages.Remove(abortedTestsTabPage);
-    }
-
-    private void OnViewFailedTestsClick(object sender, EventArgs e) {
-      if (this.failedTestsToolStripMenuItem.Checked) {
-        AddTabPageToTabControlResult(this.failedTestsTabPage);
-        this.tabControlResults.SelectedTab = this.failedTestsTabPage;
-      } else
-        this.tabControlResults.TabPages.Remove(failedTestsTabPage);
     }
 
     private void OnViewStatusBarClick(object sender, EventArgs e) {
@@ -283,21 +440,6 @@ namespace tunit {
       this.treeViewTests.ResumeLayout();
     }
 
-    private void OnProjectAddTUnitFileClick(object sender, EventArgs e) {
-      OpenFileDialog openFileDialog = new OpenFileDialog();
-      openFileDialog.Filter = "TUnit Application Files (*.exe)|*.exe|All Files (*.*)|*.*";
-      DialogResult result = openFileDialog.ShowDialog();
-      if (result == DialogResult.OK) {
-        if (!UnitTest.IsTUnitApplication(openFileDialog.FileName)) {
-          MessageBox.Show($"{openFileDialog.FileName} is not a TUnit application", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-        } else {
-          this.tunitProject.AddUnitTest(openFileDialog.FileName);
-          //this.ReloadTests(openFileDialog.FileName);
-          this.ReloadProject();
-        }
-      }
-    }
-
     private void OnFileExitClick(object sender, EventArgs e) {
       this.Close();
     }
@@ -339,16 +481,6 @@ namespace tunit {
       Application.DoEvents();
     }
 
-    private void OnTUnitProjectStart(object sender, EventArgs e) {
-      this.running = true;
-      this.stopWatch.Reset();
-      this.stopWatch.Start();
-      this.timerUpdateGui.Enabled = true;
-      this.progressBarRun.Style = this.checkBoxForever.Checked ? ProgressBarStyle.Marquee : ProgressBarStyle.Continuous;
-      this.UpdateGui();
-      Application.DoEvents();
-    }
-
     private void OnTUnitProjectEnd(object sender, EventArgs e) {
       this.running = false;
       this.stopWatch.Stop();
@@ -359,114 +491,14 @@ namespace tunit {
       Application.DoEvents();
     }
 
-    private void OnFileOpenClick(object sender, EventArgs e) {
-      OpenFileDialog openFileDialog = new OpenFileDialog();
-      openFileDialog.Filter = "TUnit project or application Files (*.tunit;*.exe)|*.tunit;*.exe|TUnit project Files (*.tunit)|*.tunit|TUnit application Files (*.exe)|*.exe|All Files (*.*)|*.*";
-      DialogResult result = openFileDialog.ShowDialog();
-      if (result == DialogResult.OK) {
-        OnFileCloseClick(sender, e);
-        if (this.tunitProject == null) {
-          if (System.IO.Path.GetExtension(openFileDialog.FileName) == ".exe") {
-            this.tunitProject = new TUnitProject();
-            this.tunitProject.New(System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName));
-            this.tunitProject.TestEnd += this.OnTestEnd;
-            this.tunitProject.TUnitProjectStart += this.OnTUnitProjectStart;
-            this.tunitProject.TUnitProjectEnd += this.OnTUnitProjectEnd;
-            if (!UnitTest.IsTUnitApplication(openFileDialog.FileName)) {
-              MessageBox.Show($"{openFileDialog.FileName} is not a TUnit application", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            } else {
-              this.tunitProject.AddUnitTest(openFileDialog.FileName);
-              //this.ReloadTests(openFileDialog.FileName);
-              this.ReloadProject();
-            }
-          } else {
-            this.Enabled = false;
-            this.SuspendLayout();
-            this.tunitProject = new TUnitProject(openFileDialog.FileName);
-            this.tunitProject.Load();
-            this.tunitProject.TestEnd += this.OnTestEnd;
-            this.tunitProject.TUnitProjectStart += this.OnTUnitProjectStart;
-            this.tunitProject.TUnitProjectEnd += this.OnTUnitProjectEnd;
-            this.ReloadProject();
-            this.Enabled = true;
-            this.ResumeLayout();
-          }
-        }
-      }
-    }
-
-    private void OnFormClosing(object sender, FormClosingEventArgs e) {
-      this.OnFileCloseClick(sender, EventArgs.Empty);
-      e.Cancel = this.tunitProject != null;
-    }
-
-    private void CloseProject() {
-      this.Enabled = false;
-      this.progressBarRun.Value = 0;
-      this.labelColor.BackColor = System.Drawing.SystemColors.Control;
-      this.toolStripStatusLabelTestCases.Text = "Test Cases : 0";
-      this.toolStripStatusLabelRanTests.Text = "Ran Tests : 0";
-      this.toolStripStatusLabelSucceedTests.Text = "Succeed Tests : 0";
-      this.toolStripStatusLabelIgnoredTests.Text = "Ignored Tests : 0";
-      this.toolStripStatusLabelAbortedTests.Text = "Aborted Tests : 0";
-      this.toolStripStatusLabelFailedTests.Text = "Failed Tests : 0";
-      this.toolStripStatusLabelTestsDuration.Text = $"Time : {TimeSpan.Zero}";
-      this.tunitProject.TestEnd -= this.OnTestEnd;
-      this.tunitProject.TUnitProjectStart -= this.OnTUnitProjectStart;
-      this.tunitProject.TUnitProjectEnd -= this.OnTUnitProjectEnd;
-      this.tunitProject = null;
+    private void OnTUnitProjectStart(object sender, EventArgs e) {
+      this.running = true;
+      this.stopWatch.Reset();
+      this.stopWatch.Start();
+      this.timerUpdateGui.Enabled = true;
+      this.progressBarRun.Style = this.checkBoxForever.Checked ? ProgressBarStyle.Marquee : ProgressBarStyle.Continuous;
+      this.UpdateGui();
       Application.DoEvents();
-      this.treeViewTests.Nodes.Clear();
-      this.Enabled = true;
-    }
-
-    private void OnFileCloseClick(object sender, EventArgs e) {
-      if (this.tunitProject != null) {
-        if (this.tunitProject.Saved) {
-          this.CloseProject();
-        } else {
-          DialogResult result = MessageBox.Show("Save current project before closing ?", "Save project", MessageBoxButtons.YesNoCancel);
-          if (result == DialogResult.Yes) {
-            OnFileSaveClick(sender, e);
-            if (this.tunitProject.Saved) {
-              this.CloseProject();
-            }
-          }
-          if (result == DialogResult.No) {
-            this.tunitProject = null;
-            this.treeViewTests.Nodes.Clear();
-          }
-        }
-      }
-    }
-
-    private void OnFileSaveClick(object sender, EventArgs e) {
-      if (string.IsNullOrEmpty(this.tunitProject.FileName))
-        OnFileSaveAsClick(sender, e);
-      else if (!string.IsNullOrEmpty(this.tunitProject.FileName))
-        this.tunitProject.Save();
-    }
-
-    private void OnFileSaveAsClick(object sender, EventArgs e) {
-      SaveFileDialog saveFileDialog = new SaveFileDialog();
-      saveFileDialog.FileName = $"{this.tunitProject.Name}.tunit";
-      DialogResult result = saveFileDialog.ShowDialog();
-      if (result == DialogResult.OK) this.tunitProject.FileName = saveFileDialog.FileName;
-
-      if (!string.IsNullOrEmpty(this.tunitProject.FileName))
-        this.tunitProject.Save();
-    }
-
-    private void OnFileNewClick(object sender, EventArgs e) {
-      OnFileCloseClick(sender, e);
-      if (this.tunitProject == null) {
-        this.tunitProject = new TUnitProject();
-        this.tunitProject.New();
-        this.tunitProject.TestEnd += this.OnTestEnd;
-        this.tunitProject.TUnitProjectStart += this.OnTUnitProjectStart;
-        this.tunitProject.TUnitProjectEnd += this.OnTUnitProjectEnd;
-        this.ReloadProject();
-      }
     }
 
     private void UpdateGui() {
@@ -528,10 +560,6 @@ namespace tunit {
 
       if (this.tunitProject != null && this.Text != string.Format("{0} {1} - TUnit", string.IsNullOrEmpty(this.tunitProject.FileName) ? this.tunitProject.Name : System.IO.Path.GetFileNameWithoutExtension(this.tunitProject.FileName), this.tunitProject.Saved ? "" : "* ")) this.Text = string.Format("{0}{1} - TUnit", string.IsNullOrEmpty(this.tunitProject.FileName) ? this.tunitProject.Name : System.IO.Path.GetFileNameWithoutExtension(this.tunitProject.FileName), this.tunitProject.Saved ? "" : "*");
       if (this.tunitProject == null && this.Text != "TUnit") this.Text = "TUnit";
-    }
-
-    private void OnApplicationIdle(object sender, EventArgs e) {
-      UpdateGui();
     }
 
     private TUnitProject tunitProject = null;
