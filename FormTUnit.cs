@@ -44,6 +44,8 @@ namespace tunit {
       this.failedTestsToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsFailedTestsVisible;
       this.statusStripMain.Visible = tunit.Properties.Settings.Default.IsStatusBarVisible;
 
+      if (tunit.Properties.Settings.Default.RecentFiles == null) tunit.Properties.Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
+
       this.newToolStripMenuItem.Click += this.OnFileNewClick;
       this.openToolStripMenuItem.Click += this.OnFileOpenClick;
       this.closeToolStripMenuItem.Click += this.OnFileCloseClick;
@@ -179,7 +181,6 @@ namespace tunit {
           } else {
             this.Enabled = false;
 
-            if (tunit.Properties.Settings.Default.RecentFiles == null) tunit.Properties.Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
             if (tunit.Properties.Settings.Default.RecentFiles.Count > 5) tunit.Properties.Settings.Default.RecentFiles.RemoveAt(0);
             tunit.Properties.Settings.Default.RecentFiles.Add(openFileDialog.FileName);
 
