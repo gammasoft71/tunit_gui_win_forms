@@ -37,7 +37,7 @@ namespace tunit.Properties {
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("-1, -1")]
+        [global::System.Configuration.DefaultSettingValueAttribute("100, 100")]
         public global::System.Drawing.Point Location {
             get {
                 return ((global::System.Drawing.Point)(this["Location"]));
@@ -139,6 +139,30 @@ namespace tunit.Properties {
             }
             set {
                 this["RecentFiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool IsMaximize {
+            get {
+                return ((bool)(this["IsMaximize"]));
+            }
+            set {
+                this["IsMaximize"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int TabControlResultSelectedIndex {
+            get {
+                return ((int)(this["TabControlResultSelectedIndex"]));
+            }
+            set {
+                this["TabControlResultSelectedIndex"] = value;
             }
         }
     }

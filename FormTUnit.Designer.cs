@@ -32,7 +32,7 @@
       System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
       this.splitContainerMain = new System.Windows.Forms.SplitContainer();
       this.treeViewTests = new System.Windows.Forms.TreeView();
-      this.imageListPicture = new System.Windows.Forms.ImageList(this.components);
+      this.imageListColor = new System.Windows.Forms.ImageList(this.components);
       this.panelRun = new System.Windows.Forms.Panel();
       this.labelRunSeparator = new System.Windows.Forms.Label();
       this.textBoxSeed = new System.Windows.Forms.TextBox();
@@ -56,6 +56,7 @@
       this.treeViewAbortedTests = new System.Windows.Forms.TreeView();
       this.tabPageFailedTests = new System.Windows.Forms.TabPage();
       this.treeViewFailedTests = new System.Windows.Forms.TreeView();
+      this.imageListPicture = new System.Windows.Forms.ImageList(this.components);
       this.toolStripContainer1 = new System.Windows.Forms.ToolStripContainer();
       this.statusStripMain = new System.Windows.Forms.StatusStrip();
       this.toolStripStatusLabelTestCases = new System.Windows.Forms.ToolStripStatusLabel();
@@ -113,7 +114,8 @@
       this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
       this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.imageListColor = new System.Windows.Forms.ImageList(this.components);
+      this.label3 = new System.Windows.Forms.Label();
+      this.checkBoxRunIngoredTests = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
       this.splitContainerMain.Panel1.SuspendLayout();
       this.splitContainerMain.Panel2.SuspendLayout();
@@ -172,20 +174,22 @@
       this.treeViewTests.Size = new System.Drawing.Size(265, 391);
       this.treeViewTests.TabIndex = 1;
       // 
-      // imageListPicture
+      // imageListColor
       // 
-      this.imageListPicture.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListPicture.ImageStream")));
-      this.imageListPicture.TransparentColor = System.Drawing.Color.Transparent;
-      this.imageListPicture.Images.SetKeyName(0, "NotStarted.png");
-      this.imageListPicture.Images.SetKeyName(1, "Success.png");
-      this.imageListPicture.Images.SetKeyName(2, "Ignored.png");
-      this.imageListPicture.Images.SetKeyName(3, "Aborted.png");
-      this.imageListPicture.Images.SetKeyName(4, "Failed.png");
+      this.imageListColor.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListColor.ImageStream")));
+      this.imageListColor.TransparentColor = System.Drawing.Color.Transparent;
+      this.imageListColor.Images.SetKeyName(0, "NotStarted3.png");
+      this.imageListColor.Images.SetKeyName(1, "Success3.png");
+      this.imageListColor.Images.SetKeyName(2, "Ignored3.png");
+      this.imageListColor.Images.SetKeyName(3, "Aborted3.png");
+      this.imageListColor.Images.SetKeyName(4, "Failed3.png");
       // 
       // panelRun
       // 
       this.panelRun.AutoScroll = true;
       this.panelRun.BackColor = System.Drawing.SystemColors.Control;
+      this.panelRun.Controls.Add(this.label3);
+      this.panelRun.Controls.Add(this.checkBoxRunIngoredTests);
       this.panelRun.Controls.Add(this.labelRunSeparator);
       this.panelRun.Controls.Add(this.textBoxSeed);
       this.panelRun.Controls.Add(this.label2);
@@ -444,6 +448,16 @@
       this.treeViewFailedTests.Name = "treeViewFailedTests";
       this.treeViewFailedTests.Size = new System.Drawing.Size(515, 250);
       this.treeViewFailedTests.TabIndex = 0;
+      // 
+      // imageListPicture
+      // 
+      this.imageListPicture.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListPicture.ImageStream")));
+      this.imageListPicture.TransparentColor = System.Drawing.Color.Transparent;
+      this.imageListPicture.Images.SetKeyName(0, "NotStarted.png");
+      this.imageListPicture.Images.SetKeyName(1, "Success.png");
+      this.imageListPicture.Images.SetKeyName(2, "Ignored.png");
+      this.imageListPicture.Images.SetKeyName(3, "Aborted.png");
+      this.imageListPicture.Images.SetKeyName(4, "Failed.png");
       // 
       // toolStripContainer1
       // 
@@ -711,19 +725,19 @@
       this.fullGUIToolStripMenuItem.Checked = true;
       this.fullGUIToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.fullGUIToolStripMenuItem.Name = "fullGUIToolStripMenuItem";
-      this.fullGUIToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+      this.fullGUIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.fullGUIToolStripMenuItem.Text = "&Full GUI";
       // 
       // miniGUIToolStripMenuItem
       // 
       this.miniGUIToolStripMenuItem.Name = "miniGUIToolStripMenuItem";
-      this.miniGUIToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+      this.miniGUIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.miniGUIToolStripMenuItem.Text = "&Mini GUI";
       // 
       // toolStripMenuItem7
       // 
       this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-      this.toolStripMenuItem7.Size = new System.Drawing.Size(128, 6);
+      this.toolStripMenuItem7.Size = new System.Drawing.Size(177, 6);
       // 
       // resultTabsToolStripMenuItem
       // 
@@ -734,7 +748,7 @@
             this.abortedTestsToolStripMenuItem,
             this.failedTestsToolStripMenuItem});
       this.resultTabsToolStripMenuItem.Name = "resultTabsToolStripMenuItem";
-      this.resultTabsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+      this.resultTabsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.resultTabsToolStripMenuItem.Text = "&Result tabs";
       // 
       // consoleOutputToolStripMenuItem
@@ -777,14 +791,14 @@
       // toolStripMenuItem9
       // 
       this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-      this.toolStripMenuItem9.Size = new System.Drawing.Size(128, 6);
+      this.toolStripMenuItem9.Size = new System.Drawing.Size(177, 6);
       // 
       // statusBarToolStripMenuItem
       // 
       this.statusBarToolStripMenuItem.Checked = true;
       this.statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
-      this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
+      this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.statusBarToolStripMenuItem.Text = "&Status &Bar";
       // 
       // projectToolStripMenuItem
@@ -799,14 +813,14 @@
       // addTUnitFileToolStripMenuItem
       // 
       this.addTUnitFileToolStripMenuItem.Name = "addTUnitFileToolStripMenuItem";
-      this.addTUnitFileToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+      this.addTUnitFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.addTUnitFileToolStripMenuItem.Text = "Add TUnit file...";
       // 
       // tUnitPrpertyToolStripMenuItem
       // 
       this.tUnitPrpertyToolStripMenuItem.Enabled = false;
       this.tUnitPrpertyToolStripMenuItem.Name = "tUnitPrpertyToolStripMenuItem";
-      this.tUnitPrpertyToolStripMenuItem.Size = new System.Drawing.Size(160, 22);
+      this.tUnitPrpertyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
       this.tUnitPrpertyToolStripMenuItem.Text = "TUnit property...";
       // 
       // testsToolStripMenuItem
@@ -925,15 +939,23 @@
       this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
       this.propertiesToolStripMenuItem.Text = "&Properties...";
       // 
-      // imageListColor
+      // label3
       // 
-      this.imageListColor.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageListColor.ImageStream")));
-      this.imageListColor.TransparentColor = System.Drawing.Color.Transparent;
-      this.imageListColor.Images.SetKeyName(0, "NotStarted3.png");
-      this.imageListColor.Images.SetKeyName(1, "Success3.png");
-      this.imageListColor.Images.SetKeyName(2, "Ignored3.png");
-      this.imageListColor.Images.SetKeyName(3, "Aborted3.png");
-      this.imageListColor.Images.SetKeyName(4, "Failed3.png");
+      this.label3.BackColor = System.Drawing.Color.Silver;
+      this.label3.Location = new System.Drawing.Point(393, 69);
+      this.label3.Name = "label3";
+      this.label3.Size = new System.Drawing.Size(1, 23);
+      this.label3.TabIndex = 13;
+      // 
+      // checkBoxRunIngoredTests
+      // 
+      this.checkBoxRunIngoredTests.AutoSize = true;
+      this.checkBoxRunIngoredTests.Location = new System.Drawing.Point(403, 72);
+      this.checkBoxRunIngoredTests.Name = "checkBoxRunIngoredTests";
+      this.checkBoxRunIngoredTests.Size = new System.Drawing.Size(109, 17);
+      this.checkBoxRunIngoredTests.TabIndex = 12;
+      this.checkBoxRunIngoredTests.Text = "Run ignored tests";
+      this.checkBoxRunIngoredTests.UseVisualStyleBackColor = true;
       // 
       // FormMain
       // 
@@ -1059,6 +1081,8 @@
     private System.Windows.Forms.ToolStripMenuItem propertiesToolStripMenuItem;
     private System.Windows.Forms.Label labelRunSeparator;
     private System.Windows.Forms.ImageList imageListColor;
+    private System.Windows.Forms.Label label3;
+    private System.Windows.Forms.CheckBox checkBoxRunIngoredTests;
   }
 }
 

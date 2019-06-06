@@ -7,14 +7,6 @@ namespace tunit {
     public FormMain() {
       InitializeComponent();
 
-      if (tunit.Properties.Settings.Default.IsMiniGui)
-        this.OnViewMiniGUIClick(this, EventArgs.Empty);
-      this.ClientSize = tunit.Properties.Settings.Default.ClentSize;
-      if (tunit.Properties.Settings.Default.Location != new System.Drawing.Point(-1, -1)) {
-        this.StartPosition = FormStartPosition.Manual;
-        this.Location = tunit.Properties.Settings.Default.Location;
-      }
-
       Application.Idle += this.OnApplicationIdle;
       this.FormClosed += this.OnFormCloed; ;
       this.FormClosing += this.OnFormClosing;
@@ -31,20 +23,7 @@ namespace tunit {
       this.abortedTestsTabPage.Tag = 3;
       this.failedTestsTabPage.Tag = 4;
 
-      if (!tunit.Properties.Settings.Default.IsConsoleOutputVisible) this.tabControlResults.TabPages.Remove(consoleOutputTabPage);
-      if (!tunit.Properties.Settings.Default.IsSucceedTestsVisible) this.tabControlResults.TabPages.Remove(succeedTestsTabPage);
-      if (!tunit.Properties.Settings.Default.IsIgnoredTestsVisible) this.tabControlResults.TabPages.Remove(ignoredTestsTabPage);
-      if (!tunit.Properties.Settings.Default.IsAbortedTestsVisible) this.tabControlResults.TabPages.Remove(abortedTestsTabPage);
-      if (!tunit.Properties.Settings.Default.IsFailedTestsVisible) this.tabControlResults.TabPages.Remove(failedTestsTabPage);
-
-      this.consoleOutputToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsConsoleOutputVisible;
-      this.succeedTestsToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsSucceedTestsVisible;
-      this.ignoredTestsToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsIgnoredTestsVisible;
-      this.abortedTestsToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsAbortedTestsVisible;
-      this.failedTestsToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsFailedTestsVisible;
-      this.statusStripMain.Visible = tunit.Properties.Settings.Default.IsStatusBarVisible;
-
-      if (tunit.Properties.Settings.Default.RecentFiles == null) tunit.Properties.Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
+      LoadSettings();
 
       this.newToolStripMenuItem.Click += this.OnFileNewClick;
       this.openToolStripMenuItem.Click += this.OnFileOpenClick;
@@ -105,6 +84,34 @@ namespace tunit {
       this.Enabled = true;
     }
 
+    private void LoadSettings() {
+      if (tunit.Properties.Settings.Default.IsMiniGui)
+        this.OnViewMiniGUIClick(this, EventArgs.Empty);
+      this.ClientSize = tunit.Properties.Settings.Default.ClentSize;
+      if (tunit.Properties.Settings.Default.Location != new System.Drawing.Point(-1, -1)) {
+        this.StartPosition = FormStartPosition.Manual;
+        this.Location = tunit.Properties.Settings.Default.Location;
+      }
+      if (tunit.Properties.Settings.Default.IsMaximize)
+        this.WindowState = FormWindowState.Maximized;
+
+      if (!tunit.Properties.Settings.Default.IsConsoleOutputVisible) this.tabControlResults.TabPages.Remove(consoleOutputTabPage);
+      if (!tunit.Properties.Settings.Default.IsSucceedTestsVisible) this.tabControlResults.TabPages.Remove(succeedTestsTabPage);
+      if (!tunit.Properties.Settings.Default.IsIgnoredTestsVisible) this.tabControlResults.TabPages.Remove(ignoredTestsTabPage);
+      if (!tunit.Properties.Settings.Default.IsAbortedTestsVisible) this.tabControlResults.TabPages.Remove(abortedTestsTabPage);
+      if (!tunit.Properties.Settings.Default.IsFailedTestsVisible) this.tabControlResults.TabPages.Remove(failedTestsTabPage);
+
+      this.consoleOutputToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsConsoleOutputVisible;
+      this.succeedTestsToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsSucceedTestsVisible;
+      this.ignoredTestsToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsIgnoredTestsVisible;
+      this.abortedTestsToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsAbortedTestsVisible;
+      this.failedTestsToolStripMenuItem.Checked = tunit.Properties.Settings.Default.IsFailedTestsVisible;
+      this.statusStripMain.Visible = tunit.Properties.Settings.Default.IsStatusBarVisible;
+
+      if (tunit.Properties.Settings.Default.RecentFiles == null) tunit.Properties.Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
+      this.tabControlResults.SelectedIndex = tunit.Properties.Settings.Default.TabControlResultSelectedIndex;
+    }
+
     private void OnAbortedTestsClick(object sender, EventArgs e) {
       if (this.abortedTestsToolStripMenuItem.Checked) {
         AddTabPageToTabControlResult(this.abortedTestsTabPage);
@@ -144,6 +151,10 @@ namespace tunit {
           }
         }
       }
+    }
+
+    private void OnFileExitClick(object sender, EventArgs e) {
+      this.Close();
     }
 
     private void OnFileNewClick(object sender, EventArgs e) {
@@ -216,16 +227,7 @@ namespace tunit {
     }
 
     private void OnFormCloed(object sender, FormClosedEventArgs e) {
-      tunit.Properties.Settings.Default.ClentSize = this.ClientSize;
-      tunit.Properties.Settings.Default.Location = this.Location;
-      tunit.Properties.Settings.Default.IsMiniGui = this.miniGUIToolStripMenuItem.Checked;
-      tunit.Properties.Settings.Default.IsConsoleOutputVisible = this.tabControlResults.TabPages.Contains(this.consoleOutputTabPage);
-      tunit.Properties.Settings.Default.IsSucceedTestsVisible = this.tabControlResults.TabPages.Contains(this.succeedTestsTabPage);
-      tunit.Properties.Settings.Default.IsIgnoredTestsVisible = this.tabControlResults.TabPages.Contains(this.ignoredTestsTabPage);
-      tunit.Properties.Settings.Default.IsAbortedTestsVisible = this.tabControlResults.TabPages.Contains(this.abortedTestsTabPage);
-      tunit.Properties.Settings.Default.IsFailedTestsVisible = this.tabControlResults.TabPages.Contains(this.failedTestsTabPage);
-      tunit.Properties.Settings.Default.IsStatusBarVisible = this.statusStripMain.Visible;
-      tunit.Properties.Settings.Default.Save();
+      SaveSettings();
     }
 
     private void OnFormClosing(object sender, FormClosingEventArgs e) {
@@ -330,6 +332,43 @@ namespace tunit {
         this.tabControlResults.TabPages.Remove(succeedTestsTabPage);
     }
 
+    private void OnTestEnd(object sender, TestEventArgs e) {
+      if (this.treeViewTests.Nodes[0].ImageIndex != (int)this.tunitProject.Status) this.treeViewTests.Nodes[0].SelectedImageIndex = this.treeViewTests.Nodes[0].ImageIndex = (int)this.tunitProject.Status;
+      TreeNode nodeFound = this.treeViewTests.Nodes[0].Nodes.Find(e.Test.TestFixture.UnitTest.FileName, false)[0];
+      if (nodeFound != null) {
+        if (nodeFound.ImageIndex != (int)e.Test.TestFixture.UnitTest.Status) nodeFound.SelectedImageIndex = nodeFound.ImageIndex = (int)e.Test.TestFixture.UnitTest.Status;
+        nodeFound = nodeFound.Nodes.Find(e.Test.TestFixture.Name, false)[0];
+        if (nodeFound != null) {
+          if (nodeFound.ImageIndex != (int)e.Test.TestFixture.Status) nodeFound.SelectedImageIndex = nodeFound.ImageIndex = (int)e.Test.TestFixture.Status;
+          nodeFound = nodeFound.Nodes.Find(e.Test.Name, false)[0];
+          if (nodeFound != null) {
+            if (nodeFound.ImageIndex != (int)e.Test.Status) nodeFound.SelectedImageIndex = nodeFound.ImageIndex = (int)e.Test.Status;
+          }
+        }
+      }
+
+      TreeNode treeNode = null;
+      switch (e.Test.Status) {
+        case TestStatus.Succeed: treeNode = this.treeViewSucceedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name} ({e.Test.Duration})"); break;
+        case TestStatus.Ignored: treeNode = this.treeViewIgnoredTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name} ({e.Test.Duration})"); break;
+        case TestStatus.Aborted: treeNode = this.treeViewAbortedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name} ({e.Test.Duration})"); break;
+        case TestStatus.Failed: treeNode = this.treeViewFailedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name} ({e.Test.Duration})"); break;
+      }
+
+      if (treeNode != null) {
+        treeNode.Nodes.Add($"File: {e.Test.TestFixture.UnitTest.FileName}");
+        foreach (string message in e.Test.Messages)
+          treeNode.Nodes.Add(message);
+        if (!string.IsNullOrEmpty(e.Test.StackTrace))
+          treeNode.Nodes.Add($"StackTrace: {e.Test.StackTrace}");
+      }
+
+      if (this.checkBoxForever.Checked == false)
+        this.progressBarRun.Increment(1);
+      //this.UpdateGui();
+      Application.DoEvents();
+    }
+
     private void OnTimerUpdateGuidTick(object sender, EventArgs e) {
       this.UpdateGui();
     }
@@ -345,6 +384,26 @@ namespace tunit {
 
     private void OnTreeViewTestsAfterSelect(object sender, TreeViewEventArgs e) {
       this.labelSelectedTest.Text = this.treeViewTests.SelectedNode.Text;
+    }
+
+    private void OnTUnitProjectEnd(object sender, EventArgs e) {
+      this.running = false;
+      this.stopWatch.Stop();
+      this.timerUpdateGui.Enabled = false;
+      this.richTextBoxTextOutput.Text = string.Join(Environment.NewLine, this.tunitProject.TextOutput);
+      this.progressBarRun.Style = ProgressBarStyle.Continuous;
+      this.UpdateGui();
+      Application.DoEvents();
+    }
+
+    private void OnTUnitProjectStart(object sender, EventArgs e) {
+      this.running = true;
+      this.stopWatch.Reset();
+      this.stopWatch.Start();
+      this.timerUpdateGui.Enabled = true;
+      this.progressBarRun.Style = this.checkBoxForever.Checked ? ProgressBarStyle.Marquee : ProgressBarStyle.Continuous;
+      this.UpdateGui();
+      Application.DoEvents();
     }
 
     private void OnViewConsoleOutputClick(object sender, EventArgs e) {
@@ -445,65 +504,21 @@ namespace tunit {
       this.treeViewTests.ResumeLayout();
     }
 
-    private void OnFileExitClick(object sender, EventArgs e) {
-      this.Close();
-    }
-
-    private void OnTestEnd(object sender, TestEventArgs e) {
-      if (this.treeViewTests.Nodes[0].ImageIndex != (int)this.tunitProject.Status) this.treeViewTests.Nodes[0].SelectedImageIndex = this.treeViewTests.Nodes[0].ImageIndex = (int)this.tunitProject.Status;
-      TreeNode nodeFound = this.treeViewTests.Nodes[0].Nodes.Find(e.Test.TestFixture.UnitTest.FileName, false)[0];
-      if (nodeFound != null) {
-        if (nodeFound.ImageIndex != (int)e.Test.TestFixture.UnitTest.Status) nodeFound.SelectedImageIndex = nodeFound.ImageIndex = (int)e.Test.TestFixture.UnitTest.Status;
-        nodeFound = nodeFound.Nodes.Find(e.Test.TestFixture.Name, false)[0];
-        if (nodeFound != null) {
-          if (nodeFound.ImageIndex != (int)e.Test.TestFixture.Status) nodeFound.SelectedImageIndex = nodeFound.ImageIndex = (int)e.Test.TestFixture.Status;
-          nodeFound = nodeFound.Nodes.Find(e.Test.Name, false)[0];
-          if (nodeFound != null) {
-            if (nodeFound.ImageIndex != (int)e.Test.Status) nodeFound.SelectedImageIndex = nodeFound.ImageIndex = (int)e.Test.Status;
-          }
-        }
+    private void SaveSettings() {
+      tunit.Properties.Settings.Default.IsMaximize = this.WindowState == FormWindowState.Maximized;
+      if (this.WindowState != FormWindowState.Maximized) {
+        tunit.Properties.Settings.Default.ClentSize = this.ClientSize;
+        tunit.Properties.Settings.Default.Location = this.Location;
       }
-
-      TreeNode treeNode = null;
-      switch (e.Test.Status) {
-        case TestStatus.Succeed: treeNode = this.treeViewSucceedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name} ({e.Test.Duration})"); break;
-        case TestStatus.Ignored: treeNode = this.treeViewIgnoredTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name} ({e.Test.Duration})"); break;
-        case TestStatus.Aborted: treeNode = this.treeViewAbortedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name} ({e.Test.Duration})"); break;
-        case TestStatus.Failed: treeNode = this.treeViewFailedTests.Nodes.Add($"{e.Test.TestFixture.Name}.{e.Test.Name} ({e.Test.Duration})"); break;
-      }
-
-      if (treeNode != null) {
-        treeNode.Nodes.Add($"File: {e.Test.TestFixture.UnitTest.FileName}");
-        foreach (string message in e.Test.Messages)
-          treeNode.Nodes.Add(message);
-        if (!string.IsNullOrEmpty(e.Test.StackTrace))
-          treeNode.Nodes.Add($"StackTrace: {e.Test.StackTrace}");
-      }
-
-      if (this.checkBoxForever.Checked == false)
-        this.progressBarRun.Increment(1);
-      //this.UpdateGui();
-      Application.DoEvents();
-    }
-
-    private void OnTUnitProjectEnd(object sender, EventArgs e) {
-      this.running = false;
-      this.stopWatch.Stop();
-      this.timerUpdateGui.Enabled = false;
-      this.richTextBoxTextOutput.Text = string.Join(Environment.NewLine, this.tunitProject.TextOutput);
-      this.progressBarRun.Style = ProgressBarStyle.Continuous;
-      this.UpdateGui();
-      Application.DoEvents();
-    }
-
-    private void OnTUnitProjectStart(object sender, EventArgs e) {
-      this.running = true;
-      this.stopWatch.Reset();
-      this.stopWatch.Start();
-      this.timerUpdateGui.Enabled = true;
-      this.progressBarRun.Style = this.checkBoxForever.Checked ? ProgressBarStyle.Marquee : ProgressBarStyle.Continuous;
-      this.UpdateGui();
-      Application.DoEvents();
+      tunit.Properties.Settings.Default.IsMiniGui = this.miniGUIToolStripMenuItem.Checked;
+      tunit.Properties.Settings.Default.IsConsoleOutputVisible = this.tabControlResults.TabPages.Contains(this.consoleOutputTabPage);
+      tunit.Properties.Settings.Default.IsSucceedTestsVisible = this.tabControlResults.TabPages.Contains(this.succeedTestsTabPage);
+      tunit.Properties.Settings.Default.IsIgnoredTestsVisible = this.tabControlResults.TabPages.Contains(this.ignoredTestsTabPage);
+      tunit.Properties.Settings.Default.IsAbortedTestsVisible = this.tabControlResults.TabPages.Contains(this.abortedTestsTabPage);
+      tunit.Properties.Settings.Default.IsFailedTestsVisible = this.tabControlResults.TabPages.Contains(this.failedTestsTabPage);
+      tunit.Properties.Settings.Default.IsStatusBarVisible = this.statusStripMain.Visible;
+      tunit.Properties.Settings.Default.TabControlResultSelectedIndex = this.tabControlResults.SelectedIndex;
+      tunit.Properties.Settings.Default.Save();
     }
 
     private void UpdateGui() {
