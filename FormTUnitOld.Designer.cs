@@ -1,6 +1,6 @@
 ﻿namespace tunit
 {
-  partial class FormMain
+  partial class FormMainOld
   {
     /// <summary>
     /// Required designer variable.
@@ -29,11 +29,13 @@
     private void InitializeComponent()
     {
       this.components = new System.ComponentModel.Container();
-      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMain));
+      System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormMainOld));
       this.splitContainerMain = new System.Windows.Forms.SplitContainer();
       this.treeViewTests = new System.Windows.Forms.TreeView();
       this.imageListColor = new System.Windows.Forms.ImageList(this.components);
       this.panelRun = new System.Windows.Forms.Panel();
+      this.label3 = new System.Windows.Forms.Label();
+      this.checkBoxRunIngoredTests = new System.Windows.Forms.CheckBox();
       this.labelRunSeparator = new System.Windows.Forms.Label();
       this.textBoxSeed = new System.Windows.Forms.TextBox();
       this.label2 = new System.Windows.Forms.Label();
@@ -114,8 +116,6 @@
       this.runToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
       this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripSeparator();
       this.propertiesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-      this.label3 = new System.Windows.Forms.Label();
-      this.checkBoxRunIngoredTests = new System.Windows.Forms.CheckBox();
       ((System.ComponentModel.ISupportInitialize)(this.splitContainerMain)).BeginInit();
       this.splitContainerMain.Panel1.SuspendLayout();
       this.splitContainerMain.Panel2.SuspendLayout();
@@ -206,6 +206,24 @@
       this.panelRun.Name = "panelRun";
       this.panelRun.Size = new System.Drawing.Size(528, 103);
       this.panelRun.TabIndex = 1;
+      // 
+      // label3
+      // 
+      this.label3.BackColor = System.Drawing.Color.Silver;
+      this.label3.Location = new System.Drawing.Point(393, 69);
+      this.label3.Name = "label3";
+      this.label3.Size = new System.Drawing.Size(1, 23);
+      this.label3.TabIndex = 13;
+      // 
+      // checkBoxRunIngoredTests
+      // 
+      this.checkBoxRunIngoredTests.AutoSize = true;
+      this.checkBoxRunIngoredTests.Location = new System.Drawing.Point(403, 72);
+      this.checkBoxRunIngoredTests.Name = "checkBoxRunIngoredTests";
+      this.checkBoxRunIngoredTests.Size = new System.Drawing.Size(109, 17);
+      this.checkBoxRunIngoredTests.TabIndex = 12;
+      this.checkBoxRunIngoredTests.Text = "Run ignored tests";
+      this.checkBoxRunIngoredTests.UseVisualStyleBackColor = true;
       // 
       // labelRunSeparator
       // 
@@ -506,7 +524,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelTestCases.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
       this.toolStripStatusLabelTestCases.Name = "toolStripStatusLabelTestCases";
-      this.toolStripStatusLabelTestCases.Size = new System.Drawing.Size(80, 20);
+      this.toolStripStatusLabelTestCases.Size = new System.Drawing.Size(79, 20);
       this.toolStripStatusLabelTestCases.Text = "Test Cases : 0";
       // 
       // toolStripStatusLabelRanTests
@@ -516,7 +534,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelRanTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
       this.toolStripStatusLabelRanTests.Name = "toolStripStatusLabelRanTests";
-      this.toolStripStatusLabelRanTests.Size = new System.Drawing.Size(75, 20);
+      this.toolStripStatusLabelRanTests.Size = new System.Drawing.Size(74, 20);
       this.toolStripStatusLabelRanTests.Text = "Ran Tests : 0";
       // 
       // toolStripStatusLabelSucceedTests
@@ -528,7 +546,7 @@
       this.toolStripStatusLabelSucceedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
       this.toolStripStatusLabelSucceedTests.Image = global::tunit.Properties.Resources.SucceedColor;
       this.toolStripStatusLabelSucceedTests.Name = "toolStripStatusLabelSucceedTests";
-      this.toolStripStatusLabelSucceedTests.Size = new System.Drawing.Size(115, 20);
+      this.toolStripStatusLabelSucceedTests.Size = new System.Drawing.Size(114, 20);
       this.toolStripStatusLabelSucceedTests.Text = "Succeed Tests : 0";
       // 
       // toolStripStatusLabelIgnoredTests
@@ -540,7 +558,7 @@
       this.toolStripStatusLabelIgnoredTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
       this.toolStripStatusLabelIgnoredTests.Image = global::tunit.Properties.Resources.IgnoredColor;
       this.toolStripStatusLabelIgnoredTests.Name = "toolStripStatusLabelIgnoredTests";
-      this.toolStripStatusLabelIgnoredTests.Size = new System.Drawing.Size(112, 20);
+      this.toolStripStatusLabelIgnoredTests.Size = new System.Drawing.Size(111, 20);
       this.toolStripStatusLabelIgnoredTests.Text = "Ignored Tests : 0";
       // 
       // toolStripStatusLabelAbortedTests
@@ -552,7 +570,7 @@
       this.toolStripStatusLabelAbortedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
       this.toolStripStatusLabelAbortedTests.Image = global::tunit.Properties.Resources.AbortedColor;
       this.toolStripStatusLabelAbortedTests.Name = "toolStripStatusLabelAbortedTests";
-      this.toolStripStatusLabelAbortedTests.Size = new System.Drawing.Size(114, 20);
+      this.toolStripStatusLabelAbortedTests.Size = new System.Drawing.Size(113, 20);
       this.toolStripStatusLabelAbortedTests.Text = "Aborted Tests : 0";
       // 
       // toolStripStatusLabelFailedTests
@@ -564,7 +582,7 @@
       this.toolStripStatusLabelFailedTests.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
       this.toolStripStatusLabelFailedTests.Image = global::tunit.Properties.Resources.FailedColor;
       this.toolStripStatusLabelFailedTests.Name = "toolStripStatusLabelFailedTests";
-      this.toolStripStatusLabelFailedTests.Size = new System.Drawing.Size(102, 20);
+      this.toolStripStatusLabelFailedTests.Size = new System.Drawing.Size(101, 20);
       this.toolStripStatusLabelFailedTests.Text = "Failed Tests : 0";
       // 
       // toolStripStatusLabelTestsDuration
@@ -574,7 +592,7 @@
             | System.Windows.Forms.ToolStripStatusLabelBorderSides.Bottom)));
       this.toolStripStatusLabelTestsDuration.BorderStyle = System.Windows.Forms.Border3DStyle.SunkenInner;
       this.toolStripStatusLabelTestsDuration.Name = "toolStripStatusLabelTestsDuration";
-      this.toolStripStatusLabelTestsDuration.Size = new System.Drawing.Size(53, 20);
+      this.toolStripStatusLabelTestsDuration.Size = new System.Drawing.Size(52, 20);
       this.toolStripStatusLabelTestsDuration.Text = "Time : 0";
       // 
       // labelColor
@@ -725,19 +743,19 @@
       this.fullGUIToolStripMenuItem.Checked = true;
       this.fullGUIToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.fullGUIToolStripMenuItem.Name = "fullGUIToolStripMenuItem";
-      this.fullGUIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.fullGUIToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.fullGUIToolStripMenuItem.Text = "&Full GUI";
       // 
       // miniGUIToolStripMenuItem
       // 
       this.miniGUIToolStripMenuItem.Name = "miniGUIToolStripMenuItem";
-      this.miniGUIToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.miniGUIToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.miniGUIToolStripMenuItem.Text = "&Mini GUI";
       // 
       // toolStripMenuItem7
       // 
       this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-      this.toolStripMenuItem7.Size = new System.Drawing.Size(177, 6);
+      this.toolStripMenuItem7.Size = new System.Drawing.Size(128, 6);
       // 
       // resultTabsToolStripMenuItem
       // 
@@ -748,7 +766,7 @@
             this.abortedTestsToolStripMenuItem,
             this.failedTestsToolStripMenuItem});
       this.resultTabsToolStripMenuItem.Name = "resultTabsToolStripMenuItem";
-      this.resultTabsToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.resultTabsToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.resultTabsToolStripMenuItem.Text = "&Result tabs";
       // 
       // consoleOutputToolStripMenuItem
@@ -791,14 +809,14 @@
       // toolStripMenuItem9
       // 
       this.toolStripMenuItem9.Name = "toolStripMenuItem9";
-      this.toolStripMenuItem9.Size = new System.Drawing.Size(177, 6);
+      this.toolStripMenuItem9.Size = new System.Drawing.Size(128, 6);
       // 
       // statusBarToolStripMenuItem
       // 
       this.statusBarToolStripMenuItem.Checked = true;
       this.statusBarToolStripMenuItem.CheckState = System.Windows.Forms.CheckState.Checked;
       this.statusBarToolStripMenuItem.Name = "statusBarToolStripMenuItem";
-      this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.statusBarToolStripMenuItem.Size = new System.Drawing.Size(131, 22);
       this.statusBarToolStripMenuItem.Text = "&Status &Bar";
       // 
       // projectToolStripMenuItem
@@ -813,14 +831,14 @@
       // addTUnitFileToolStripMenuItem
       // 
       this.addTUnitFileToolStripMenuItem.Name = "addTUnitFileToolStripMenuItem";
-      this.addTUnitFileToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.addTUnitFileToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
       this.addTUnitFileToolStripMenuItem.Text = "Add TUnit file...";
       // 
       // tUnitPrpertyToolStripMenuItem
       // 
       this.tUnitPrpertyToolStripMenuItem.Enabled = false;
       this.tUnitPrpertyToolStripMenuItem.Name = "tUnitPrpertyToolStripMenuItem";
-      this.tUnitPrpertyToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+      this.tUnitPrpertyToolStripMenuItem.Size = new System.Drawing.Size(159, 22);
       this.tUnitPrpertyToolStripMenuItem.Text = "TUnit property...";
       // 
       // testsToolStripMenuItem
@@ -833,7 +851,7 @@
             this.stopRunToolStripMenuItem});
       this.testsToolStripMenuItem.Name = "testsToolStripMenuItem";
       this.testsToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F6;
-      this.testsToolStripMenuItem.Size = new System.Drawing.Size(45, 20);
+      this.testsToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
       this.testsToolStripMenuItem.Text = "T&ests";
       // 
       // runAllToolStripMenuItem
@@ -877,7 +895,7 @@
       this.toolsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.settingsToolStripMenuItem});
       this.toolsToolStripMenuItem.Name = "toolsToolStripMenuItem";
-      this.toolsToolStripMenuItem.Size = new System.Drawing.Size(47, 20);
+      this.toolsToolStripMenuItem.Size = new System.Drawing.Size(46, 20);
       this.toolsToolStripMenuItem.Text = "&Tools";
       // 
       // settingsToolStripMenuItem
@@ -899,18 +917,18 @@
       // tUnitHelpToolStripMenuItem
       // 
       this.tUnitHelpToolStripMenuItem.Name = "tUnitHelpToolStripMenuItem";
-      this.tUnitHelpToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+      this.tUnitHelpToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
       this.tUnitHelpToolStripMenuItem.Text = "TUnit &Help...";
       // 
       // toolStripMenuItem5
       // 
       this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-      this.toolStripMenuItem5.Size = new System.Drawing.Size(137, 6);
+      this.toolStripMenuItem5.Size = new System.Drawing.Size(136, 6);
       // 
       // aboutToolStripMenuItem
       // 
       this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-      this.aboutToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+      this.aboutToolStripMenuItem.Size = new System.Drawing.Size(139, 22);
       this.aboutToolStripMenuItem.Text = "&About...";
       // 
       // contextMenuStripTests
@@ -939,32 +957,14 @@
       this.propertiesToolStripMenuItem.Size = new System.Drawing.Size(136, 22);
       this.propertiesToolStripMenuItem.Text = "&Properties...";
       // 
-      // label3
-      // 
-      this.label3.BackColor = System.Drawing.Color.Silver;
-      this.label3.Location = new System.Drawing.Point(393, 69);
-      this.label3.Name = "label3";
-      this.label3.Size = new System.Drawing.Size(1, 23);
-      this.label3.TabIndex = 13;
-      // 
-      // checkBoxRunIngoredTests
-      // 
-      this.checkBoxRunIngoredTests.AutoSize = true;
-      this.checkBoxRunIngoredTests.Location = new System.Drawing.Point(403, 72);
-      this.checkBoxRunIngoredTests.Name = "checkBoxRunIngoredTests";
-      this.checkBoxRunIngoredTests.Size = new System.Drawing.Size(109, 17);
-      this.checkBoxRunIngoredTests.TabIndex = 12;
-      this.checkBoxRunIngoredTests.Text = "Run ignored tests";
-      this.checkBoxRunIngoredTests.UseVisualStyleBackColor = true;
-      // 
-      // FormMain
+      // FormMainOld
       // 
       this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
       this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
       this.ClientSize = new System.Drawing.Size(800, 450);
       this.Controls.Add(this.toolStripContainer1);
       this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-      this.Name = "FormMain";
+      this.Name = "FormMainOld";
       this.Text = "TUnit";
       this.splitContainerMain.Panel1.ResumeLayout(false);
       this.splitContainerMain.Panel2.ResumeLayout(false);

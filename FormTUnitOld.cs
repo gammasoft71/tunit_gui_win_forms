@@ -3,8 +3,8 @@ using System.Linq;
 using System.Windows.Forms;
 
 namespace tunit {
-  public partial class FormMain : Form {
-    public FormMain() {
+  public partial class FormMainOld : Form {
+    public FormMainOld() {
       InitializeComponent();
 
       Application.Idle += this.OnApplicationIdle;
