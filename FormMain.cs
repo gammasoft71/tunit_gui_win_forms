@@ -177,8 +177,10 @@ namespace tunit {
         StartPosition = FormStartPosition.Manual;
         Location = tunit.Properties.Settings.Default.Location;
       }
+      /*
       if (tunit.Properties.Settings.Default.IsMaximize)
         WindowState = FormWindowState.Maximized;
+      */
 
       if (!tunit.Properties.Settings.Default.IsConsoleOutputVisible) tabControlResults.TabPages.Remove(tabPageConsoleOutput);
       if (!tunit.Properties.Settings.Default.IsSucceedTestsVisible) tabControlResults.TabPages.Remove(tabPageSucceedTests);
