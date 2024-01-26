@@ -10,9 +10,9 @@
 
 ## If you want more information about xtd.tunit and xtd in general, here are some links to follow
 
-* [website](https://gammasoft71.wixsite.com/xtdpro)
-* [wiki](https://github.com/gammasoft71/xtd/blob/master/docs/home.md)
+* [website](https://gammasoft71.github.io/xtd/)
+* [wiki](https://github.com/gammasoft71/xtd/wiki)
 * [github](https://github.com/gammasoft71/xtd) 
 * [project](https://sourceforge.net/projects/xtdpro/) 
-* [Reference Guide](https://codedocs.xyz/gammasoft71/xtd/index.html)
+* [Reference Guide](https://gammasoft71.github.io/xtd/reference_guides/latest/index.html)
 * [xtd.tunit overview](https://github.com/gammasoft71/xtd/blob/master/docs/guide_tunit_overview.md)
