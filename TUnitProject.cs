@@ -66,7 +66,7 @@ namespace tunit {
     }
 
     public bool Saved {
-      get { return this.File.Saved; }
+      get { return this.File != null ? this.File.Saved : true; }
     }
 
     public UnitTest this[string fileName] {
