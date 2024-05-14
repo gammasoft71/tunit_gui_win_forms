@@ -251,7 +251,7 @@ namespace tunit {
       if (result == DialogResult.OK) {
         OnFileCloseClick(sender, e);
         if (tunitProject == null) {
-          if (System.IO.Path.GetExtension(openFileDialog.FileName) == ".exe") {
+          if (System.IO.Path.GetExtension(openFileDialog.FileName) != ".tunit") {
             tunitProject = new TUnitProject();
             tunitProject.New(System.IO.Path.GetFileNameWithoutExtension(openFileDialog.FileName));
             tunitProject.TestEnd += OnTestEnd;
