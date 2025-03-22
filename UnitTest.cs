@@ -119,8 +119,9 @@ namespace tunit {
       while ((line = streamReader.ReadLine()) != null) {
         lines.Add(line);
         line = line.Trim();
+        if (line.StartsWith("FAILED ")) line = " " + line;
         if (countLine++ < 2 || line == "") continue;
-        if (line.StartsWith("SUCCEED") || line.StartsWith("IGNORED") || line.StartsWith("ABORTED") || line.StartsWith("FAILED ")) {
+        if (line.StartsWith("SUCCEED") || line.StartsWith("IGNORED") || line.StartsWith("ABORTED") || line.StartsWith(" FAILED")) {
           if (status != TestStatus.NotStarted) {
             if (this[fixtureAndTestName[0]][fixtureAndTestName[1]].Status != status) {
               switch (this[fixtureAndTestName[0]][fixtureAndTestName[1]].Status) {
@@ -145,10 +146,12 @@ namespace tunit {
             case "SUCCEED": status = TestStatus.Succeed; break;
             case "IGNORED": status = TestStatus.Ignored; break;
             case "ABORTED": status = TestStatus.Aborted; break;
-            case "FAILED ": status = TestStatus.Failed; break;
+            case " FAILED": status = TestStatus.Failed; break;
           }
-          duration = TimeSpan.FromMilliseconds(double.Parse(line.Substring(line.IndexOf("(") + 1, line.IndexOf(" ms") - line.IndexOf("("))));
-          line = line.Substring(8, line.IndexOf(" (") - 8);
+          var milliseconds = 0.0;
+          double.TryParse(line.Substring(line.IndexOf("[") + 1, line.IndexOf(" ms") - line.IndexOf("[")), out milliseconds);
+          duration = TimeSpan.FromMilliseconds(milliseconds);
+          line = line.Substring(8, line.IndexOf(" [") - 8);
           fixtureAndTestName = line.Split('.');
         } else if (line.StartsWith("Stack Trace: in ")) {
           stackTrace = line.Substring(16);
