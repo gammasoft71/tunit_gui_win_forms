@@ -93,7 +93,7 @@ namespace tunit {
         (tabPageFailedTests = new TabPage { Tag = 4, Text = "Failed Tests" }),
       });
 
-      richTextBoxOutput = new RichTextBox { BackColor = Color.Black, Dock = DockStyle.Fill, ForeColor = Color.LightGray, Parent = tabPageConsoleOutput };
+      richTextBoxOutput = new RichTextBox { BackColor = Color.Black, Dock = DockStyle.Fill, ForeColor = Color.White, Parent = tabPageConsoleOutput, Font = new Font(FontFamily.GenericMonospace, SystemFonts.DefaultFont.Size) };
       treeViewSucceedTests = new TreeView { Dock = DockStyle.Fill, Parent = tabPageSucceedTests };
       treeViewIgnoredTests = new TreeView { Dock = DockStyle.Fill, Parent = tabPageIgnoredTests };
       treeViewAbortedTests = new TreeView { Dock = DockStyle.Fill, Parent = tabPageAbortedTests };
@@ -177,10 +177,6 @@ namespace tunit {
         StartPosition = FormStartPosition.Manual;
         Location = tunit.Properties.Settings.Default.Location;
       }
-      /*
-      if (tunit.Properties.Settings.Default.IsMaximize)
-        WindowState = FormWindowState.Maximized;
-      */
 
       if (!tunit.Properties.Settings.Default.IsConsoleOutputVisible) tabControlResults.TabPages.Remove(tabPageConsoleOutput);
       if (!tunit.Properties.Settings.Default.IsSucceedTestsVisible) tabControlResults.TabPages.Remove(tabPageSucceedTests);
@@ -197,6 +193,9 @@ namespace tunit {
 
       if (tunit.Properties.Settings.Default.RecentFiles == null) tunit.Properties.Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
       tabControlResults.SelectedIndex = tunit.Properties.Settings.Default.TabControlResultSelectedIndex;
+
+      if (tunit.Properties.Settings.Default.IsMaximize)
+        WindowState = FormWindowState.Maximized;
     }
 
     private void OnApplicationIdle(object sender, EventArgs e) {
