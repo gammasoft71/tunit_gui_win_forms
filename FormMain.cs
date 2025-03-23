@@ -633,7 +633,9 @@ namespace tunit {
     private void SaveSettings() {
       tunit.Properties.Settings.Default.IsMaximize = WindowState == FormWindowState.Maximized;
       if (WindowState != FormWindowState.Maximized) {
-        tunit.Properties.Settings.Default.ClentSize = ClientSize;
+        var clientSize = ClientSize;
+        clientSize.Height = ClientSize.Height - SystemInformation.MenuHeight;
+        tunit.Properties.Settings.Default.ClentSize = clientSize;
         tunit.Properties.Settings.Default.Location = Location;
       }
       tunit.Properties.Settings.Default.IsMiniGui = menuItemViewMiniGui.Checked;
