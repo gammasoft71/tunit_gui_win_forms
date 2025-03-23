@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace tunit {
   public class UnitTest {
@@ -94,9 +95,20 @@ namespace tunit {
       this.Run("");
     }
 
+    private string MakeArguments() {
+      var result = "--output_color=false ";
+      if (Settings.Default.AlsoRunIgnoredTests) result += "--also_run_ignored_tests ";
+      if (Settings.Default.RepeatForEver) result += "--break_on_failure --repeat_tests=-1 ";
+      else if (Settings.Default.RepeatTests != 1) result += $"--break_on_failure --repeat_tests={Settings.Default.RepeatTests} ";
+      if (Settings.Default.ShuffleTests) result += "--shuffle_tests ";
+      if (Settings.Default.ShuffleTests && Settings.Default.RandomSeed != 0) result += $"--random_seed={Settings.Default.RandomSeed} ";
+
+      return result;
+    }
+
     public void Run(string arguments) {
       this.process = new System.Diagnostics.Process();
-      this.process.StartInfo = new System.Diagnostics.ProcessStartInfo(this.FileName, $"--output_color=false {arguments}");
+      this.process.StartInfo = new System.Diagnostics.ProcessStartInfo(this.FileName, $"{MakeArguments()}{arguments}");
       this.process.StartInfo.CreateNoWindow = true;
       this.process.StartInfo.UseShellExecute = false;
       this.process.StartInfo.RedirectStandardOutput = true;

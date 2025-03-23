@@ -112,13 +112,28 @@ namespace tunit {
       progressBarRun = new ProgressBar { Location = new Point (10, buttonRun.Top + buttonRun.Height + 10), Parent = panelRun, Width = panelRun.Width - 20, Anchor = AnchorStyles.Left|AnchorStyles.Top|AnchorStyles.Right };
       labelRepeat = new Label { AutoSize = true, Location = new Point (10, progressBarRun.Top + progressBarRun.Height + 13), Parent = panelRun, Text = "Repeat" };
       numericUpDownRepeat = new NumericUpDown { Location = new Point(labelRepeat.Left + labelRepeat.Width + 10, progressBarRun.Top + progressBarRun.Height + 10), Maximum = 1000000, Minimum = 1 , Parent = panelRun, Width = 70};
+      numericUpDownRepeat.ValueChanged += delegate {
+        Settings.Default.RepeatTests = (int)numericUpDownRepeat.Value;
+      };
       checkBoxForever = new CheckBox {AutoSize = true, Location = new Point(numericUpDownRepeat.Left + numericUpDownRepeat.Width + 10, progressBarRun.Top + progressBarRun.Height + 13), Parent = panelRun, Text = "Forever" };
+      checkBoxForever.Click += delegate {
+        Settings.Default.RepeatForEver = checkBoxForever.Checked;
+      };
       labelRunSeparator1 = new LineSeparator {Location = new Point(checkBoxForever.Left + checkBoxForever.Width + 10, progressBarRun.Top + progressBarRun.Height + 10), Parent = panelRun, Size = new Size(1, numericUpDownRepeat.Height) };
       checkBoxShuffle = new CheckBox { AutoSize = true, Location = new Point(labelRunSeparator1.Left + labelRunSeparator1.Width + 10, progressBarRun.Top + progressBarRun.Height + 13), Parent = panelRun, Text = "Shuffle" };
+      checkBoxShuffle.Click += delegate {
+        Settings.Default.ShuffleTests = checkBoxShuffle.Checked;
+      };
       labelSeed = new Label { AutoSize = true, Location = new Point(checkBoxShuffle.Left + checkBoxShuffle.Width + 10, progressBarRun.Top + progressBarRun.Height + 13), Parent = panelRun, Text = "Seed" };
       numericUpDownSeed = new NumericUpDown { Location = new Point(labelSeed.Left + labelSeed.Width + 10, progressBarRun.Top + progressBarRun.Height + 10), Maximum = Int32.MaxValue, Minimum = 0, Parent = panelRun, Width = 70 };
+      numericUpDownSeed.ValueChanged += delegate {
+        Settings.Default.RandomSeed = (int)numericUpDownSeed.Value;
+      };
       labelRunSeparator2 = new LineSeparator { Location = new Point(numericUpDownSeed.Left + numericUpDownSeed.Width + 10, progressBarRun.Top + progressBarRun.Height + 10), Parent = panelRun, Size = new Size(1, numericUpDownRepeat.Height) };
       checkBoxRunIgneredTests = new CheckBox { AutoSize = true, Location = new Point(labelRunSeparator2.Left + labelRunSeparator2.Width + 10, progressBarRun.Top + progressBarRun.Height + 13), Parent = panelRun, Text = "Run ignored tests" };
+      checkBoxRunIgneredTests.Click += delegate {
+        Settings.Default.AlsoRunIgnoredTests = checkBoxRunIgneredTests.Checked;
+      };
 
       labelColor = new Label { Parent = this, Dock = DockStyle.Top, Height = 4};
 
@@ -446,6 +461,7 @@ namespace tunit {
       timerUpdateGui.Enabled = false;
       richTextBoxOutput.Text = string.Join(Environment.NewLine, tunitProject.TextOutput);
       progressBarRun.Style = ProgressBarStyle.Continuous;
+      progressBarRun.Value = progressBarRun.Maximum;
       UpdateGui();
       Application.DoEvents();
     }
