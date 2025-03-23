@@ -44,6 +44,7 @@ namespace tunit {
               (menuItemViewResultTabsAbortedTests = new MenuItem("&Aborted tests", OnViewResultTabsAbortedTestsClick)),
               (menuItemViewResultTabsFailedTests = new MenuItem("&Failed tests", OnViewResultTabsFailedTestsClick) { Checked = true}),
             }),
+            (menuItemViewStatusWithLogo = new MenuItem("&Status with logo", OnViewStatusWithLogoClick)),
             new MenuItem("Status &bar", OnViewStatusBarClick) { Checked = true},
           }),
           new MenuItem("&Project", new MenuItem[] {
@@ -141,10 +142,10 @@ namespace tunit {
       statusBar.Panels.AddRange(new StatusBarPanel[] {
         (statusBarPanelTestCases = new StatusBarPanel { BorderStyle = StatusBarPanelBorderStyle.Sunken, Text = "Test Cases : 0", AutoSize = StatusBarPanelAutoSize.Contents}),
         (statusBarPanelRanTests = new StatusBarPanel { BorderStyle = StatusBarPanelBorderStyle.Sunken, Text = "Ran Tests : 0", AutoSize = StatusBarPanelAutoSize.Contents}),
-        (statusBarPanelSucceedTests =  new StatusBarPanel { BorderStyle = StatusBarPanelBorderStyle.Sunken, Icon = Icon.FromHandle(new Bitmap(Resources.SucceedColor, new Size(16, 16)).GetHicon()), Text = "Succeed Tests : 0", AutoSize = StatusBarPanelAutoSize.Contents}),
-        (statusBarPanelIgnoredTests = new StatusBarPanel { BorderStyle = StatusBarPanelBorderStyle.Sunken, Icon = Icon.FromHandle(new Bitmap(Resources.IgnoredColor, new Size(16, 16)).GetHicon()), Text = "Ignored Tests : 0", AutoSize = StatusBarPanelAutoSize.Contents}),
-        (statusBarPanelAbortedTests = new StatusBarPanel { BorderStyle = StatusBarPanelBorderStyle.Sunken, Icon = Icon.FromHandle(new Bitmap(Resources.AbortedColor, new Size(16, 16)).GetHicon()), Text = "Aborted Tests : 0", AutoSize = StatusBarPanelAutoSize.Contents}),
-        (statusBarPanelFailedTests = new StatusBarPanel { BorderStyle = StatusBarPanelBorderStyle.Sunken, Icon = Icon.FromHandle(new Bitmap(Resources.FailedColor, new Size(16, 16)).GetHicon()), Text = "Failed Tests : 0", AutoSize = StatusBarPanelAutoSize.Contents}),
+        (statusBarPanelSucceedTests =  new StatusBarPanel { BorderStyle = StatusBarPanelBorderStyle.Sunken, Icon = Icon.FromHandle(new Bitmap(imageList.Images[1], new Size(16, 16)).GetHicon()), Text = "Succeed Tests : 0", AutoSize = StatusBarPanelAutoSize.Contents}),
+        (statusBarPanelIgnoredTests = new StatusBarPanel { BorderStyle = StatusBarPanelBorderStyle.Sunken, Icon = Icon.FromHandle(new Bitmap(imageList.Images[2], new Size(16, 16)).GetHicon()), Text = "Ignored Tests : 0", AutoSize = StatusBarPanelAutoSize.Contents}),
+        (statusBarPanelAbortedTests = new StatusBarPanel { BorderStyle = StatusBarPanelBorderStyle.Sunken, Icon = Icon.FromHandle(new Bitmap(imageList.Images[3], new Size(16, 16)).GetHicon()), Text = "Aborted Tests : 0", AutoSize = StatusBarPanelAutoSize.Contents}),
+        (statusBarPanelFailedTests = new StatusBarPanel { BorderStyle = StatusBarPanelBorderStyle.Sunken, Icon = Icon.FromHandle(new Bitmap(imageList.Images[4], new Size(16, 16)).GetHicon()), Text = "Failed Tests : 0", AutoSize = StatusBarPanelAutoSize.Contents}),
         (statusBarPanelDuration = new StatusBarPanel { BorderStyle = StatusBarPanelBorderStyle.Sunken, Text = "Time : 0", AutoSize = StatusBarPanelAutoSize.Contents}),
       });
 
@@ -211,6 +212,9 @@ namespace tunit {
 
       if (tunit.Properties.Settings.Default.IsMaximize)
         WindowState = FormWindowState.Maximized;
+
+      menuItemViewStatusWithLogo.Checked = !tunit.Properties.Settings.Default.StatusWithLogo;
+      OnViewStatusWithLogoClick(menuItemViewStatusWithLogo, new EventArgs());
     }
 
     private void OnApplicationIdle(object sender, EventArgs e) {
@@ -491,17 +495,28 @@ namespace tunit {
     }
 
     private void OnViewFullGuiClick(object sender, EventArgs e) {
-      menuItemViewMiniGui.Checked = !(menuItemViewFullGui.Checked = true);
+      menuItemViewMiniGui.Checked = !menuItemViewFullGui.Checked;
       splitContainer.Panel2Collapsed = false;
       statusBar.Visible = true;
       ClientSize = new System.Drawing.Size(850, 525);
     }
 
     private void OnViewMiniGuiClick(object sender, EventArgs e) {
-      menuItemViewFullGui.Checked = !(menuItemViewMiniGui.Checked = true);
+      menuItemViewFullGui.Checked = !menuItemViewMiniGui.Checked;
       splitContainer.Panel2Collapsed = true;
       statusBar.Visible = false;
       ClientSize = new System.Drawing.Size(324, 525);
+    }
+
+    private void OnViewStatusWithLogoClick(object sender, EventArgs e) {
+      menuItemViewStatusWithLogo.Checked = !menuItemViewStatusWithLogo.Checked;
+      imageList.Images.Clear();
+      if (menuItemViewStatusWithLogo.Checked) imageList.Images.AddRange(new Image[] { Resources.NotStartedPicture, Resources.SucceedPicture, Resources.IgnoredPicture, Resources.AbortedPicture, Resources.FailedPicture });
+      else imageList.Images.AddRange(new Image[] { Resources.NotStartedColor, Resources.SucceedColor, Resources.IgnoredColor, Resources.AbortedColor, Resources.FailedColor });
+      statusBarPanelSucceedTests.Icon = Icon.FromHandle(new Bitmap(imageList.Images[1], new Size(16, 16)).GetHicon());
+      statusBarPanelIgnoredTests.Icon = Icon.FromHandle(new Bitmap(imageList.Images[2], new Size(16, 16)).GetHicon());
+      statusBarPanelAbortedTests.Icon = Icon.FromHandle(new Bitmap(imageList.Images[3], new Size(16, 16)).GetHicon());
+      statusBarPanelFailedTests.Icon = Icon.FromHandle(new Bitmap(imageList.Images[4], new Size(16, 16)).GetHicon());
     }
 
     private void OnViewResultTabsConsoleOutputClick(object sender, EventArgs e) {
@@ -629,6 +644,7 @@ namespace tunit {
       tunit.Properties.Settings.Default.IsFailedTestsVisible = tabControlResults.TabPages.Contains(tabPageFailedTests);
       tunit.Properties.Settings.Default.IsStatusBarVisible = statusBar.Visible;
       tunit.Properties.Settings.Default.TabControlResultSelectedIndex = tabControlResults.SelectedIndex;
+      tunit.Properties.Settings.Default.StatusWithLogo = menuItemViewStatusWithLogo.Checked;
       tunit.Properties.Settings.Default.Save();
     }
 
@@ -723,6 +739,7 @@ namespace tunit {
     MenuItem menuItemViewResultTabsFailedTests;
     MenuItem menuItemViewResultTabsIgnoredTests;
     MenuItem menuItemViewResultTabsSucceedTests;
+    MenuItem menuItemViewStatusWithLogo;
     MenuItem menuItemViewStatusBar;
     NumericUpDown numericUpDownRepeat;
     NumericUpDown numericUpDownSeed;
