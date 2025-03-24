@@ -186,35 +186,41 @@ namespace tunit {
     }
 
     private void LoadSettings() {
-      if (tunit.Properties.Settings.Default.IsMiniGui)
+      if (Settings.Default.IsMiniGui)
         OnViewMiniGuiClick(this, EventArgs.Empty);
-      ClientSize = tunit.Properties.Settings.Default.ClentSize;
-      if (tunit.Properties.Settings.Default.Location != new System.Drawing.Point(-1, -1)) {
+      ClientSize = Settings.Default.ClentSize;
+      if (Settings.Default.Location != new System.Drawing.Point(-1, -1)) {
         StartPosition = FormStartPosition.Manual;
-        Location = tunit.Properties.Settings.Default.Location;
+        Location = Settings.Default.Location;
       }
 
-      if (!tunit.Properties.Settings.Default.IsConsoleOutputVisible) tabControlResults.TabPages.Remove(tabPageConsoleOutput);
-      if (!tunit.Properties.Settings.Default.IsSucceedTestsVisible) tabControlResults.TabPages.Remove(tabPageSucceedTests);
-      if (!tunit.Properties.Settings.Default.IsIgnoredTestsVisible) tabControlResults.TabPages.Remove(tabPageIgnoredTests);
-      if (!tunit.Properties.Settings.Default.IsAbortedTestsVisible) tabControlResults.TabPages.Remove(tabPageAbortedTests);
-      if (!tunit.Properties.Settings.Default.IsFailedTestsVisible) tabControlResults.TabPages.Remove(tabPageFailedTests);
+      if (!Settings.Default.IsConsoleOutputVisible) tabControlResults.TabPages.Remove(tabPageConsoleOutput);
+      if (!Settings.Default.IsSucceedTestsVisible) tabControlResults.TabPages.Remove(tabPageSucceedTests);
+      if (!Settings.Default.IsIgnoredTestsVisible) tabControlResults.TabPages.Remove(tabPageIgnoredTests);
+      if (!Settings.Default.IsAbortedTestsVisible) tabControlResults.TabPages.Remove(tabPageAbortedTests);
+      if (!Settings.Default.IsFailedTestsVisible) tabControlResults.TabPages.Remove(tabPageFailedTests);
 
-      menuItemViewResultTabsConsoleOutput.Checked = tunit.Properties.Settings.Default.IsConsoleOutputVisible;
-      menuItemViewResultTabsSucceedTests.Checked = tunit.Properties.Settings.Default.IsSucceedTestsVisible;
-      menuItemViewResultTabsIgnoredTests.Checked = tunit.Properties.Settings.Default.IsIgnoredTestsVisible;
-      menuItemViewResultTabsAbortedTests.Checked = tunit.Properties.Settings.Default.IsAbortedTestsVisible;
-      menuItemViewResultTabsFailedTests.Checked = tunit.Properties.Settings.Default.IsFailedTestsVisible;
-      statusBar.Visible = tunit.Properties.Settings.Default.IsStatusBarVisible;
+      menuItemViewResultTabsConsoleOutput.Checked = Settings.Default.IsConsoleOutputVisible;
+      menuItemViewResultTabsSucceedTests.Checked = Settings.Default.IsSucceedTestsVisible;
+      menuItemViewResultTabsIgnoredTests.Checked = Settings.Default.IsIgnoredTestsVisible;
+      menuItemViewResultTabsAbortedTests.Checked = Settings.Default.IsAbortedTestsVisible;
+      menuItemViewResultTabsFailedTests.Checked = Settings.Default.IsFailedTestsVisible;
+      statusBar.Visible = Settings.Default.IsStatusBarVisible;
 
-      if (tunit.Properties.Settings.Default.RecentFiles == null) tunit.Properties.Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
-      tabControlResults.SelectedIndex = tunit.Properties.Settings.Default.TabControlResultSelectedIndex;
+      if (Settings.Default.RecentFiles == null) Settings.Default.RecentFiles = new System.Collections.Specialized.StringCollection();
+      tabControlResults.SelectedIndex = Settings.Default.TabControlResultSelectedIndex;
 
-      if (tunit.Properties.Settings.Default.IsMaximize)
+      if (Settings.Default.IsMaximize)
         WindowState = FormWindowState.Maximized;
 
-      menuItemViewStatusWithLogo.Checked = !tunit.Properties.Settings.Default.StatusWithLogo;
+      menuItemViewStatusWithLogo.Checked = !Settings.Default.StatusWithLogo;
       OnViewStatusWithLogoClick(menuItemViewStatusWithLogo, new EventArgs());
+
+      numericUpDownRepeat.Value = Settings.Default.RepeatTests;
+      checkBoxForever.Checked = Settings.Default.RepeatForEver;
+      checkBoxShuffle.Checked = Settings.Default.ShuffleTests;
+      numericUpDownSeed.Value = Settings.Default.RandomSeed;
+      checkBoxRunIgneredTests.Checked = Settings.Default.AlsoRunIgnoredTests;
     }
 
     private void OnApplicationIdle(object sender, EventArgs e) {
@@ -285,8 +291,8 @@ namespace tunit {
           } else {
             Enabled = false;
 
-            if (tunit.Properties.Settings.Default.RecentFiles.Count > 5) tunit.Properties.Settings.Default.RecentFiles.RemoveAt(0);
-            tunit.Properties.Settings.Default.RecentFiles.Add(openFileDialog.FileName);
+            if (Settings.Default.RecentFiles.Count > 5) Settings.Default.RecentFiles.RemoveAt(0);
+            Settings.Default.RecentFiles.Add(openFileDialog.FileName);
 
             SuspendLayout();
             tunitProject = new TUnitProject(openFileDialog.FileName);
@@ -631,23 +637,30 @@ namespace tunit {
     }
 
     private void SaveSettings() {
-      tunit.Properties.Settings.Default.IsMaximize = WindowState == FormWindowState.Maximized;
+      Settings.Default.IsMaximize = WindowState == FormWindowState.Maximized;
       if (WindowState != FormWindowState.Maximized) {
         var clientSize = ClientSize;
         clientSize.Height = ClientSize.Height - SystemInformation.MenuHeight;
-        tunit.Properties.Settings.Default.ClentSize = clientSize;
-        tunit.Properties.Settings.Default.Location = Location;
+        Settings.Default.ClentSize = clientSize;
+        Settings.Default.Location = Location;
       }
-      tunit.Properties.Settings.Default.IsMiniGui = menuItemViewMiniGui.Checked;
-      tunit.Properties.Settings.Default.IsConsoleOutputVisible = tabControlResults.TabPages.Contains(tabPageConsoleOutput);
-      tunit.Properties.Settings.Default.IsSucceedTestsVisible = tabControlResults.TabPages.Contains(tabPageSucceedTests);
-      tunit.Properties.Settings.Default.IsIgnoredTestsVisible = tabControlResults.TabPages.Contains(tabPageIgnoredTests);
-      tunit.Properties.Settings.Default.IsAbortedTestsVisible = tabControlResults.TabPages.Contains(tabPageAbortedTests);
-      tunit.Properties.Settings.Default.IsFailedTestsVisible = tabControlResults.TabPages.Contains(tabPageFailedTests);
-      tunit.Properties.Settings.Default.IsStatusBarVisible = statusBar.Visible;
-      tunit.Properties.Settings.Default.TabControlResultSelectedIndex = tabControlResults.SelectedIndex;
-      tunit.Properties.Settings.Default.StatusWithLogo = menuItemViewStatusWithLogo.Checked;
-      tunit.Properties.Settings.Default.Save();
+      Settings.Default.IsMiniGui = menuItemViewMiniGui.Checked;
+      Settings.Default.IsConsoleOutputVisible = tabControlResults.TabPages.Contains(tabPageConsoleOutput);
+      Settings.Default.IsSucceedTestsVisible = tabControlResults.TabPages.Contains(tabPageSucceedTests);
+      Settings.Default.IsIgnoredTestsVisible = tabControlResults.TabPages.Contains(tabPageIgnoredTests);
+      Settings.Default.IsAbortedTestsVisible = tabControlResults.TabPages.Contains(tabPageAbortedTests);
+      Settings.Default.IsFailedTestsVisible = tabControlResults.TabPages.Contains(tabPageFailedTests);
+      Settings.Default.IsStatusBarVisible = statusBar.Visible;
+      Settings.Default.TabControlResultSelectedIndex = tabControlResults.SelectedIndex;
+      Settings.Default.StatusWithLogo = menuItemViewStatusWithLogo.Checked;
+
+      Settings.Default.RepeatTests = (int)numericUpDownRepeat.Value;
+      Settings.Default.RepeatForEver = checkBoxForever.Checked;
+      Settings.Default.ShuffleTests = checkBoxShuffle.Checked;
+      Settings.Default.RandomSeed = (int)numericUpDownSeed.Value;
+      Settings.Default.AlsoRunIgnoredTests = checkBoxRunIgneredTests.Checked;
+
+      Settings.Default.Save();
     }
 
     private void UpdateGui() {

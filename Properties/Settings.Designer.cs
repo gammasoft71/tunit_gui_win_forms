@@ -177,5 +177,65 @@ namespace tunit.Properties {
                 this["StatusWithLogo"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool AlsoRunIgnoredTests {
+            get {
+                return ((bool)(this["AlsoRunIgnoredTests"]));
+            }
+            set {
+                this["AlsoRunIgnoredTests"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool ShuffleTests {
+            get {
+                return ((bool)(this["ShuffleTests"]));
+            }
+            set {
+                this["ShuffleTests"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int RandomSeed {
+            get {
+                return ((int)(this["RandomSeed"]));
+            }
+            set {
+                this["RandomSeed"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("False")]
+        public bool RepeatForEver {
+            get {
+                return ((bool)(this["RepeatForEver"]));
+            }
+            set {
+                this["RepeatForEver"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("1")]
+        public int RepeatTests {
+            get {
+                return ((int)(this["RepeatTests"]));
+            }
+            set {
+                this["RepeatTests"] = value;
+            }
+        }
     }
 }
